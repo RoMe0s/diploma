@@ -1,10 +1,10 @@
 FROM php:7.3-cli
 
 #Install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libzip-dev \
-    unzip \
-    zip
+RUN apt-get update && apt-get install -y \
+  libzip-dev \
+  unzip \
+  zip
 
 #Install extensions
 RUN docker-php-ext-configure zip --with-libzip

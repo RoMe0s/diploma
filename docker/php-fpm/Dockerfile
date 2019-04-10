@@ -2,10 +2,10 @@ FROM php:7.3-fpm
 
 #Install dependencies
 RUN apt-get update && apt-get install -y \
-    git \
     libzip-dev \
+    unzip \
     zip \
-    unzip
+    git
 
 #Install extensions
 RUN docker-php-ext-configure zip --with-libzip
