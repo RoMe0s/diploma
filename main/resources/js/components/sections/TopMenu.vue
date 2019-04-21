@@ -23,7 +23,7 @@
     methods: {
       signOut() {
         this.sendRequest('auth.logout')
-          .then(response => window.location.href = response.redirectTo);
+          .then(response => window.location.href = response.data.redirectTo);
       }
     }
   }
