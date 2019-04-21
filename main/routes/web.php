@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Routing\Router;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,10 +13,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/**
+ * @var Router $router
+ */
 
-Auth::routes();
+$router->view('login', 'auth.login')->middleware('guest')->name('login');
+$router->view('register', 'auth.register')->middleware('guest')->name('register');
 
-Route::get('/home', 'HomeController@index')->name('home');
+$router->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+$router->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+$router->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+$router->post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+$router->get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+$router->get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
+$router->get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+
+
+$router->view('', 'home');
+
+$router->get('js/lang.js', 'StaticController@langJs');

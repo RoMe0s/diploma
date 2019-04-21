@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -7,7 +6,38 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue';
+import Toasted from 'vue-toasted';
+import VeeValidate from 'vee-validate';
+import BootstrapVue from 'bootstrap-vue';
+
+import RequestMixin from './mixins/request';
+import TranslateMixin from './mixins/translation';
+import ValidationMixin from './mixins/validation';
+
+import AuthRegister from './components/auth/Register';
+import AuthLogin from './components/auth/Login';
+import TopMenu from './components/sections/TopMenu';
+
+Vue.use(VeeValidate);
+Vue.use(BootstrapVue);
+Vue.use(Toasted, {
+  duration: 10000
+});
+
+Vue.mixin({
+  components: {
+    AuthRegister,
+    AuthLogin,
+    TopMenu
+  },
+  mixins: [RequestMixin, TranslateMixin, ValidationMixin],
+  methods: {
+    notify(message, type = 'error') {
+      this.$toasted[type](message);
+    }
+  }
+});
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,8 +50,6 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -29,5 +57,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app'
+  el: '#app'
 });
