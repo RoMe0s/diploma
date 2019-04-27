@@ -1,22 +1,48 @@
-<template lang="pug">
-  b-card(no-body='')
-    b-card-header {{ __('auth.register') }}
-    b-card-body
-      b-form(@submit.prevent='onSubmit')
-        b-form-group(:label='__("fields.name")')
-          b-form-input(name='name', v-validate="'required|max:255'", v-model='name', :state='noErrors("name")', :placeholder='__("fields.name")')
-          b-form-invalid-feedback {{ errors.first('name') }}
-        b-form-group(:label='__("fields.email")')
-          b-form-input(name='email', v-validate="'required|email|max:255'", v-model='email', :state='noErrors("email")', type='email', :placeholder='__("fields.email")')
-          b-form-invalid-feedback {{ errors.first('email') }}
-        b-form-group(:label='__("fields.password")')
-          b-form-input(name='password', v-validate="'required|min:8'", v-model='password', :state='noErrors("password")', type='password', :placeholder='__("fields.password")', ref="password")
-          b-form-invalid-feedback {{ errors.first('password') }}
-        b-form-group(:label='__("fields.password confirmation")')
-          b-form-input(name='password_confirmation', v-validate="'required|confirmed:password'", v-model='password_confirmation', :state='noErrors("password_confirmation")', type='password', :placeholder='__("fields.password confirmation")')
-          b-form-invalid-feedback {{ errors.first('password_confirmation') }}
-        .text-center
-          b-button(type='submit', variant="success") {{ __('auth.register') }}
+<template>
+    <b-card no-body>
+        <b-card-header>
+            {{ __('auth.register') }}
+        </b-card-header>
+        <b-card-body>
+            <b-form @submit.prevent="signUp()">
+                <b-form-gorup :label="__('fields.name')">
+                    <b-form-input name="name" v-validate="'required|max:255'" v-model="name" :state="noErrors('name')"
+                                  :placeholder="__('fields.name')"/>
+                    <b-form-invalid-feedback>
+                        {{ errors.first('name') }}
+                    </b-form-invalid-feedback>
+                </b-form-gorup>
+                <b-form-group :label="__('fields.email')">
+                    <b-form-input type="email" name="email" v-validate="'required|email|max:255'" v-model="email"
+                                  :state="noErrors('email')" :placeholder="__('fields.email')"/>
+                    <b-form-invalid-feedback>
+                        {{ errors.first('email') }}
+                    </b-form-invalid-feedback>
+                </b-form-group>
+                <b-form-group :label="__('fields.password')">
+                    <b-form-input type="password" name="password" v-validate="'required|min:8'" v-model="password"
+                                  :state="noErrors('password')" :placeholder="__('fields.password')" ref="password"/>
+                    <b-form-invalid-feedback>
+                        {{ errors.first('password') }}
+                    </b-form-invalid-feedback>
+                </b-form-group>
+                <b-form-group :label="__('fields.password confirmation')">
+                    <b-form-input type="password" name="password_confirmation"
+                                  v-validate="'required|confirmed:password'" v-model="password_confirmation"
+                                  :state="noErrors('password_confirmation')"
+                                  :placeholder="__('fields.password confirmation')"/>
+                    <b-form-invalid-feedback>
+                        {{ errors.first('password_confirmation') }}
+                    </b-form-invalid-feedback>
+                </b-form-group>
+                <div class="text-center">
+                    <b-submit variant="success">
+                        {{ __('auth.register') }}
+                    </b-submit>
+                </div>
+            </b-form>
+        </b-card-body>
+    </b-card>
 </template>
 <script>
   export default {
@@ -29,7 +55,7 @@
       }
     },
     methods: {
-      onSubmit() {
+      signUp() {
         this.validateAll().then(() => this.sendRequest('auth.register', {
           name: this.name,
           email: this.email,
