@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Scopes;
+
+use App\Constants\Role;
+use Illuminate\Database\Eloquent\Scope;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+
+class Customer implements Scope
+{
+    /**
+     * @param Builder $builder
+     * @param Model $model
+     */
+    public function apply(Builder $builder, Model $model)
+    {
+        $builder->where($model->qualifyColumn('role'), Role::CUSTOMER);
+    }
+}

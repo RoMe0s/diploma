@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <auth-register></auth-register>
+    @inject('role', 'App\Constants\Role')
+    <auth-register :roles="{{ json_encode($role::REGISTER) }}"></auth-register>
 @endsection

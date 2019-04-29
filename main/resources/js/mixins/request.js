@@ -13,7 +13,7 @@ function sendRequest(routeName, parameters) {
   if (typeof route === 'function') {
     return route(parameters);
   }
-  return new Promise((resolve, reject) => reject('Route not found!'));
+  throw 'Route not found';
 }
 
 export default {
@@ -23,7 +23,7 @@ export default {
         .catch(error => {
           switch (typeof errorHandler) {
             case 'function':
-              errorHandler();
+              errorHandler(error);
               break;
             case 'string':
               this.notify(errorHandler);
@@ -32,6 +32,7 @@ export default {
               this.httpErrorHandler(error);
               break;
           }
+          throw error;
         });
     },
     httpErrorHandler(error) {
@@ -49,7 +50,7 @@ export default {
           return;
         }
       }
-      this.notify(this.__('messages.error'))
+      this.notify(this.__('messages.error'));
     }
   }
 };

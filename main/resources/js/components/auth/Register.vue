@@ -5,13 +5,13 @@
         </b-card-header>
         <b-card-body>
             <b-form @submit.prevent="signUp()">
-                <b-form-gorup :label="__('fields.name')">
+                <b-form-group :label="__('fields.name')">
                     <b-form-input name="name" v-validate="'required|max:255'" v-model="name" :state="noErrors('name')"
                                   :placeholder="__('fields.name')"/>
                     <b-form-invalid-feedback>
                         {{ errors.first('name') }}
                     </b-form-invalid-feedback>
-                </b-form-gorup>
+                </b-form-group>
                 <b-form-group :label="__('fields.email')">
                     <b-form-input type="email" name="email" v-validate="'required|email|max:255'" v-model="email"
                                   :state="noErrors('email')" :placeholder="__('fields.email')"/>
@@ -35,10 +35,17 @@
                         {{ errors.first('password_confirmation') }}
                     </b-form-invalid-feedback>
                 </b-form-group>
+                <b-form-group :label="__('fields.role')">
+                    <b-form-select name="role" v-validate="'required'" v-model="role" :state="noErrors('role')"
+                                   :options="transformRoles()"/>
+                    <b-form-invalid-feedback>
+                        {{ errors.first('role') }}
+                    </b-form-invalid-feedback>
+                </b-form-group>
                 <div class="text-center">
-                    <b-submit variant="success">
+                    <b-button type="submit" variant="success">
                         {{ __('auth.register') }}
-                    </b-submit>
+                    </b-button>
                 </div>
             </b-form>
         </b-card-body>
@@ -46,9 +53,16 @@
 </template>
 <script>
   export default {
+    props: {
+      roles: {
+        type: Array,
+        required: true
+      }
+    },
     data() {
       return {
         name: null,
+        role: null,
         email: null,
         password: null,
         password_confirmation: null
@@ -61,7 +75,15 @@
           email: this.email,
           password: this.password,
           password_confirmation: this.password_confirmation
-        }).then(response => window.location.href = response.data.redirectTo));
+        }).then(response => {
+          console.log(response);
+          window.location.href = response.data.redirectTo;
+        }));
+      },
+      transformRoles() {
+        return _.transform(this.roles, (result, value) => {
+          result[value] = this.__(`auth.roles.${value}`);
+        }, {});
       }
     }
   }

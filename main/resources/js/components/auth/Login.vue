@@ -25,9 +25,9 @@
                     </b-form-checkbox>
                 </b-form-group>
                 <div class="text-center">
-                    <b-submit variant="success">
+                    <b-button type="submit" variant="success">
                         {{ __('auth.login') }}
-                    </b-submit>
+                    </b-button>
                     <b-link class="btn btn-link" href="/password/reset">
                         {{ __('auth.forgot your password?') }}
                     </b-link>
