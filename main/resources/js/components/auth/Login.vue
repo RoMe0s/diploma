@@ -1,7 +1,9 @@
 <template>
     <b-card no-body>
         <b-card-header>
-            {{ __('auth.login') }}
+            <b-card-title>
+                {{ __('auth.login') }}
+            </b-card-title>
         </b-card-header>
         <b-card-body>
             <b-form @submit.prevent="signIn()">

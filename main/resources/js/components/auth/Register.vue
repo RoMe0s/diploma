@@ -1,7 +1,9 @@
 <template>
     <b-card no-body>
         <b-card-header>
-            {{ __('auth.register') }}
+            <b-card-title>
+                {{ __('auth.register') }}
+            </b-card-title>
         </b-card-header>
         <b-card-body>
             <b-form @submit.prevent="signUp()">
@@ -72,6 +74,7 @@
       signUp() {
         this.validateAll().then(() => this.sendRequest('auth.register', {
           name: this.name,
+          role: this.role,
           email: this.email,
           password: this.password,
           password_confirmation: this.password_confirmation

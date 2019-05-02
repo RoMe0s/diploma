@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Scopes;
+namespace App\GlobalScopes;
 
 use App\Constants\Role;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class Customer implements Scope
+class Author implements Scope
 {
     /**
      * @param Builder $builder
@@ -15,6 +15,6 @@ class Customer implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where($model->qualifyColumn('role'), Role::CUSTOMER);
+        $builder->where($model->qualifyColumn('role'), Role::AUTHOR);
     }
 }

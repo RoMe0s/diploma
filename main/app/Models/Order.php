@@ -10,7 +10,8 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-        'relation',
+        'relation_type',
+        'relation_id',
         'done_at',
         'hash'
     ];

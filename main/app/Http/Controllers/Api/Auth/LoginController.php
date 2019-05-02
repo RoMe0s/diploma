@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Http\Controllers\ApiController;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class LoginController extends ApiController
+class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
@@ -20,7 +20,7 @@ class LoginController extends ApiController
      */
     function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except(['user', 'logout']);
     }
 
     /**
@@ -38,5 +38,15 @@ class LoginController extends ApiController
     protected function loggedOut(Request $request)
     {
         return response()->json(['redirectTo' => $this->redirectPath()]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function user(Request $request)
+    {
+        $user = $request->user();
+        return response()->json(compact('user'));
     }
 }

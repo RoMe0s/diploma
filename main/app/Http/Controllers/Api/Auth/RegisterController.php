@@ -6,11 +6,11 @@ use App\Models\User;
 use App\Constants\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Api\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
-class RegisterController extends ApiController
+class RegisterController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -67,6 +67,7 @@ class RegisterController extends ApiController
     protected function create(array $data)
     {
         return User::create([
+            'role' => $data['role'],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

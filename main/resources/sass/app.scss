@@ -1,9 +1,20 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 @import '!~bootstrap-vue/src/index';
+
+// Custom styles
+#app {
+  &.authenticated {
+    &:not(.collapsed) {
+      margin-left: 350px;
+    }
+  }
+
+  &.collapsed {
+    margin-left: 50px;
+  }
+}

@@ -1,4 +1,4 @@
-function findKey(chunks = [], translations = {}) {
+const findKey = (chunks = [], translations = {}) => {
   if (chunks.length && typeof translations === 'object') {
     const chunk = chunks.shift();
     if (chunk in translations) {
@@ -10,7 +10,7 @@ function findKey(chunks = [], translations = {}) {
     return translations;
   }
   return null;
-}
+};
 
 export default {
   methods: {

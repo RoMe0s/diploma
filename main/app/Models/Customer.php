@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Scopes\Customer as CustomerScope;
+use App\GlobalScopes\Customer as CustomerScope;
 
 class Customer extends User
 {

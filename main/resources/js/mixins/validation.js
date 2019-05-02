@@ -5,7 +5,7 @@ export default {
     validateAll() {
       forceValidation = true;
       return this.$validator.validateAll()
-          .then(isValid => isValid && new Promise(resolve => resolve()));
+        .then(isValid => new Promise((resolve, reject) => isValid ? resolve() : reject('Invalid!')));
     }
   },
   computed: {

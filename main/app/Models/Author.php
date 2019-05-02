@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Scopes\Author as AuthorScope;
+use App\GlobalScopes\Author as AuthorScope;
 
 class Author extends User
 {

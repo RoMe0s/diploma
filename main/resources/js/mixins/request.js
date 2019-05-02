@@ -1,20 +1,23 @@
 import routes from '../router';
 
-function findRoute(chunks = [], routes = {}) {
+const findRoute = (chunks = [], routes = {}) => {
   const chunk = chunks.shift();
   if (chunk in routes) {
     return chunks.length ? findRoute(chunks, routes[chunk]) : routes[chunk];
   }
   return null;
-}
+};
 
-function sendRequest(routeName, parameters) {
+const sendRequest = (routeName, parameters) => {
   const route = findRoute(routeName.split('.'), routes);
   if (typeof route === 'function') {
+    if (Array.isArray(parameters)) {
+      return route(...parameters);
+    }
     return route(parameters);
   }
   throw 'Route not found';
-}
+};
 
 export default {
   methods: {
@@ -45,7 +48,7 @@ export default {
             }
           }
         }
-        if ('message' in responseData) {
+        if (responseData.message) {
           this.notify(responseData.message);
           return;
         }

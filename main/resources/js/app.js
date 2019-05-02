@@ -18,20 +18,22 @@ import ValidationMixin from './mixins/validation';
 import AuthRegister from './components/auth/Register';
 import AuthLogin from './components/auth/Login';
 import TopMenu from './components/sections/TopMenu';
+import Sidebar from './components/sections/Sidebar';
 
-Vue.use(VeeValidate);
+import CustomerProjectsCreate from './components/customer/projects/Create';
+import CustomerProjectsIndex from './components/customer/projects/Index';
+import CustomerProjectsEdit from './components/customer/projects/Edit';
+
+Vue.use(VeeValidate, {
+  fieldsBagName: 'validationFields'
+});
 Vue.use(BootstrapVue);
 Vue.use(Toasted, {
   duration: 10000
 });
 
 Vue.mixin({
-  components: {
-    AuthRegister,
-    AuthLogin,
-    TopMenu
-  },
-  mixins: [RequestMixin, TranslateMixin, ValidationMixin],
+  mixins: [TranslateMixin, ValidationMixin, RequestMixin],
   methods: {
     notify(message, type = 'error') {
       this.$toasted[type](message);
@@ -57,5 +59,25 @@ Vue.mixin({
  */
 
 const app = new Vue({
-  el: '#app'
+  el: '#app',
+  components: {
+    AuthRegister,
+    AuthLogin,
+    Sidebar,
+    TopMenu,
+
+    CustomerProjectsCreate,
+    CustomerProjectsIndex,
+    CustomerProjectsEdit
+  },
+  created() {
+    this.sendRequest('auth.user')
+      .then(response => this.authenticated = response.data.user);
+  },
+  data() {
+    return {
+      collapsed: null,
+      authenticated: null
+    }
+  }
 });
