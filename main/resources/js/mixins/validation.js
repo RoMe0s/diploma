@@ -1,21 +1,21 @@
-let forceValidation = false;
-
 export default {
   methods: {
     validateAll() {
-      forceValidation = true;
       return this.$validator.validateAll()
         .then(isValid => new Promise((resolve, reject) => isValid ? resolve() : reject('Invalid!')));
-    }
-  },
-  computed: {
-    noErrors() {
-      return field => {
-        if (!forceValidation && this.$data[field] === null) {
-          return null;
-        }
-        return !this.errors.has(field);
-      };
+    },
+    validate(field) {
+      return this.$validator.validate(field)
+        .then(isValid => new Promise((resolve, reject) => isValid ? resolve() : reject('Invalid!')));
+    },
+    noErrors(ref) {
+      if (this.errors.has(ref)) {
+        return false;
+      }
+      if (this.veeFields[ref] && (this.veeFields[ref].dirty || this.veeFields[ref].validated)) {
+        return true;
+      }
+      return null;
     }
   }
 }

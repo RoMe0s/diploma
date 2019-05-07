@@ -26,7 +26,7 @@ class ActionRequest extends FormRequest
         return [
             'action' => 'required|in:delete',
             'projects' => 'required|array',
-            'projects.*' => 'exists:projects,id,customer_id,' . $this->user()->id
+            'projects.*' => 'exists:projects,id,user_id,' . $this->user()->id
         ];
     }
 }

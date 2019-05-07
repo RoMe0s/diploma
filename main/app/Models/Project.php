@@ -2,26 +2,21 @@
 
 namespace App\Models;
 
+use App\Models\Traits\BelongsToCustomer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 class Project extends Model
 {
+    use BelongsToCustomer;
+
     /**
      * @var array
      */
     protected $fillable = [
-        'customer_id',
+        'user_id',
         'name'
     ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany

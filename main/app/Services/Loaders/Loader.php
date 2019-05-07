@@ -2,30 +2,16 @@
 
 namespace App\Services\Loaders;
 
-use App\Models\User;
 use App\Scopes\ScopeInterface;
 use Illuminate\Database\Eloquent\Builder;
 
 abstract class Loader
 {
     /**
-     * @var
-     */
-    protected $user;
-
-    /**
-     * @param User $user
-     */
-    final public function setUser(User $user): void
-    {
-        $this->user = $user;
-    }
-
-    /**
      * @param array $config
      * @return array
      */
-    final public function get(array $config): array
+    public function get(array $config): array
     {
         return $this->query($config)->get()->toArray();
     }
@@ -34,13 +20,13 @@ abstract class Loader
      * @param array $config
      * @return Builder
      */
-    final public function query(array $config): Builder
+    public function query(array $config): Builder
     {
         $query = $this->prepareQuery($config);
         /** @var $scope ScopeInterface */
         foreach ($this->scopes() as $scope) {
-            if ($scope::supports($config, $this->user)) {
-                resolve($scope)->apply($query, $config, $this->user);
+            if ($scope::supports($config)) {
+                resolve($scope)->apply($query, $config);
             }
         }
         return $query;

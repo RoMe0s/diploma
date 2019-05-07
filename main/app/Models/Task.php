@@ -11,8 +11,16 @@ class Task extends Model
      */
     protected $fillable = [
         'expired_at',
-        'author_id',
         'order_id',
-        'status'
+        'text_id',
+        'status',
+        'user_id'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $dates = [
+        'expired_at'
     ];
 }

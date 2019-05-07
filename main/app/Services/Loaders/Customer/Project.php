@@ -2,6 +2,7 @@
 
 namespace App\Services\Loaders\Customer;
 
+use App\Models\User;
 use App\Scopes\Customer\Project\Filter;
 use App\Scopes\Customer\Project\Sort;
 use App\Scopes\Pagination;
@@ -15,6 +16,11 @@ use Illuminate\Database\Eloquent\Builder;
 class Project extends Loader implements PaginatorInterface
 {
     use PaginatorTrait;
+
+    /**
+     * @var
+     */
+    private $user;
 
     /**
      * @var Pagination
@@ -31,6 +37,14 @@ class Project extends Loader implements PaginatorInterface
     }
 
     /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
+    /**
      * @return ScopeInterface
      */
     public function getPagination(): ScopeInterface
@@ -44,7 +58,7 @@ class Project extends Loader implements PaginatorInterface
      */
     public function prepareQuery(array $config): Builder
     {
-        return ProjectModel::query()->selectOrdersCount()->where('customer_id', $this->user->id);
+        return ProjectModel::query()->selectOrdersCount()->where('user_id', $this->user->id);
     }
 
     /**

@@ -7,6 +7,10 @@
                     <b-link class="btn btn-primary" href="/projects" :title="__('messages.to list')">
                         <i class="fa fa-arrow-left"></i>
                     </b-link>
+                    <b-link class="btn btn-success" :href="`/projects/${project.id}/settings`"
+                            :title="__('messages.settings')">
+                        <i class="fa fa-cog"></i>
+                    </b-link>
                     <b-button variant="danger" @click.prevent="deleteConfirm(project.id)"
                               :title="__('messages.delete')">
                         <i class="fa fa-trash"></i>

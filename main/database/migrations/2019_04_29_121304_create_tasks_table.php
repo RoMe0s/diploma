@@ -16,12 +16,14 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('author_id');
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->enum('status', Task::ALL)->default(Task::WRITING)->nullable();
             $table->timestamp('expired_at')->nullable();
+            $table->unsignedBigInteger('text_id')->nullable();
+            $table->foreign('text_id')->references('id')->on('texts')->onDelete('set null');
             $table->unique('order_id');
             $table->timestamps();
         });

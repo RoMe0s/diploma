@@ -12,8 +12,10 @@ class Order extends Model
     protected $fillable = [
         'relation_type',
         'relation_id',
+        'description',
         'done_at',
-        'hash'
+        'text_id',
+        'name'
     ];
 
     /**

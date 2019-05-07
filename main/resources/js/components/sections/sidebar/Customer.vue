@@ -30,18 +30,19 @@
             title: this.__('pages.orders'),
             icon: 'fa fa-tasks',
             badge: {
-              text: 'new',
+              text: '100+',
               class: 'badge-danger'
             }
-          },
-          {
-            header: true,
-            title: 'hehey'
           },
           {
             href: '/projects',
             title: this.__('pages.projects'),
             icon: 'fa fa-boxes'
+          },
+          {
+            href: '/settings',
+            title: this.__('pages.settings'),
+            icon: 'fa fa-cog'
           }
         ]
       }

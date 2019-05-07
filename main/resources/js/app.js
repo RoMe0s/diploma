@@ -23,9 +23,13 @@ import Sidebar from './components/sections/Sidebar';
 import CustomerProjectsCreate from './components/customer/projects/Create';
 import CustomerProjectsIndex from './components/customer/projects/Index';
 import CustomerProjectsEdit from './components/customer/projects/Edit';
+import CustomerProjectsSettingsIndex from './components/customer/projects/settings/Index';
+
+import CustomerSettingsIndex from './components/customer/settings/Index';
 
 Vue.use(VeeValidate, {
-  fieldsBagName: 'validationFields'
+  inject: true,
+  fieldsBagName: 'veeFields'
 });
 Vue.use(BootstrapVue);
 Vue.use(Toasted, {
@@ -66,9 +70,11 @@ const app = new Vue({
     Sidebar,
     TopMenu,
 
+    CustomerProjectsSettingsIndex,
     CustomerProjectsCreate,
     CustomerProjectsIndex,
-    CustomerProjectsEdit
+    CustomerProjectsEdit,
+    CustomerSettingsIndex
   },
   created() {
     this.sendRequest('auth.user')

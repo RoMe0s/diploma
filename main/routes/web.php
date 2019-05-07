@@ -39,6 +39,10 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'namespace' => 'Customer',
         'middleware' => 'roles:' . Role::CUSTOMER
     ], function (Router $router) {
+        $router->get('settings', 'SettingController@index');
+        $router->group(['prefix' => 'projects/{project}/settings'], function (Router $router) {
+            $router->get('', 'ProjectSettingController@index');
+        });
         $router->resource('projects', 'ProjectController', [
             'only' => ['index', 'create', 'edit']
         ]);

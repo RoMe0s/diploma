@@ -36,11 +36,25 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    /**
+     * @return bool
+     */
     public function isAdmin()
     {
         return $this->role === Role::ADMIN;
     }
 
+    /**
+     * @return bool
+     */
     public function isCustomer()
     {
         return $this->role === Role::CUSTOMER;

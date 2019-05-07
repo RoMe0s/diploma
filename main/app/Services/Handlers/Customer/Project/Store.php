@@ -15,7 +15,7 @@ class Store
     public function store(array $data, User $user): Project
     {
         return Project::query()->create([
-            'customer_id' => $user->id,
+            'user_id' => $user->id,
             'name' => $data['name']
         ]);
     }

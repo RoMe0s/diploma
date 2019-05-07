@@ -6,13 +6,11 @@
   import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
   import Customer from './sidebar/Customer';
   import Author from './sidebar/Author';
-  import Admin from './sidebar/Admin';
 
   export default {
     components: {
       customer: Customer,
-      author: Author,
-      admin: Admin
+      author: Author
     },
     methods: {
       hasChild() {

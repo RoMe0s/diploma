@@ -10,9 +10,14 @@ class ProjectPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @param User $user
+     * @param Project $project
+     * @return bool
+     */
     public function view(User $user, Project $project): bool
     {
-        return $user->id === $project->customer_id;
+        return $user->id === $project->user_id;
     }
 
     /**
@@ -22,7 +27,7 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project): bool
     {
-        return $user->id === $project->customer_id;
+        return $user->id === $project->user_id;
     }
 
     /**
@@ -32,6 +37,6 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project): bool
     {
-        return $user->id === $project->customer_id;
+        return $user->id === $project->user_id;
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSettingValuesTable extends Migration
+class CreateTextsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSettingValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('setting_values', function (Blueprint $table) {
+        Schema::create('texts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('setting_id');
-            $table->foreign('setting_id')->references('id')->on('settings')->onDelete('cascade');
-            $table->json('value');
+            $table->mediumText('content');
+            $table->unsignedMediumInteger('length');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +28,6 @@ class CreateSettingValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('setting_values');
+        Schema::dropIfExists('texts');
     }
 }

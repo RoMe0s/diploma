@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use App\Constants\Role;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -14,10 +16,10 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(\App\Models\Customer::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'role' => \App\Constants\Role::CUSTOMER,
+        'role' => Role::CUSTOMER,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => bcrypt('password'), // password

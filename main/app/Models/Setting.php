@@ -7,18 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     /**
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * @var array
      */
     protected $fillable = [
         'relation_type',
-        'relation_id'
+        'relation_id',
+        'value',
+        'key'
     ];
-
-    /**
-     * @return mixed
-     */
-    public function values()
-    {
-        return $thas->hasMany(SettingValue::class);
-    }
 }

@@ -13,7 +13,7 @@
                 <b-col md="11">
                     <b-form-group label-cols-sm="3" label="Filter">
                         <b-input-group>
-                            <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+                            <b-form-input v-model="filter" :placeholder="__('messages.type to search')"/>
                         </b-input-group>
                     </b-form-group>
                 </b-col>
@@ -42,14 +42,20 @@
                 :sort-direction="sortDirection"
                 @row-selected="rowSelected">
                 <template slot="actions" slot-scope="row">
-                    <b-link class="btn btn-sm btn-info" :href="`/projects/${row.item.id}/edit`"
-                            :title="__('messages.edit')">
-                        <i class="fa fa-pencil-alt"></i>
-                    </b-link>
-                    <b-button size="sm" variant="danger" @click.prevent="showDeleteConfirm(row.item.id)"
-                              :title="__('messages.delete')">
-                        <i class="fa fa-trash"></i>
-                    </b-button>
+                    <b-btn-group>
+                        <b-link class="btn btn-sm btn-info" :href="`/projects/${row.item.id}/edit`"
+                                :title="__('messages.edit')">
+                            <i class="fa fa-pencil-alt"></i>
+                        </b-link>
+                        <b-link class="btn btn-sm btn-success" :href="`/projects/${row.item.id}/settings`"
+                                :title="__('messages.settings')">
+                            <i class="fa fa-cog"></i>
+                        </b-link>
+                        <b-button size="sm" variant="danger" @click.prevent="showDeleteConfirm(row.item.id)"
+                                  :title="__('messages.delete')">
+                            <i class="fa fa-trash"></i>
+                        </b-button>
+                    </b-btn-group>
                 </template>
             </b-table>
 
@@ -106,11 +112,11 @@
         perPage: 25,
         filter: null,
         sortBy: null,
+        totalRows: 0,
         currentPage: 1,
         sortDesc: false,
         sortDirection: 'desc',
         pageOptions: [25, 50, 100],
-        deleteRoute: 'customer.projects.delete',
         selected: [],
         deletedCallback: () => {
           this.$refs.table.refresh();
@@ -138,6 +144,10 @@
             action: 'delete'
           }).then(this.deletedCallback)
         })
+      },
+      itemsProviderCallback(response) {
+        this.totalRows = response.data.totalRows;
+        return response.data.rows;
       }
     }
   }

@@ -19,8 +19,8 @@ class CreateCommitsTable extends Migration
             $table->enum('status', Commit::ALL)->default(Commit::WRITING)->nullable();
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->unsignedBigInteger('author_id');
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('notice')->nullable();
             $table->timestamps();
         });

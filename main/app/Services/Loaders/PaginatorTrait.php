@@ -20,9 +20,9 @@ trait PaginatorTrait
     {
         $query = $this->query($config);
         $pagination = $this->getPagination();
-        if ($pagination::supports($config, $this->user)) {
+        if ($pagination::supports($config)) {
             $totalRows = $query->count(DB::raw(1));
-            $pagination->apply($query, $config, $this->user);
+            $pagination->apply($query, $config);
         }
 
         $rows = $query->get();

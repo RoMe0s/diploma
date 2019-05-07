@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use App\Constants\Role;
+use App\Models\Project;
 use Illuminate\Database\Seeder;
 
 class CustomersSeeder extends Seeder
@@ -11,10 +14,10 @@ class CustomersSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Customer::class, 5)->create()
-            ->each(function (\App\Models\Customer $customer) {
-                factory(\App\Models\Project::class, 1000)->create([
-                    'customer_id' => $customer->id
+        factory(User::class, 5)->create(['role' => Role::CUSTOMER])
+            ->each(function (User $customer) {
+                factory(Project::class, 1000)->create([
+                    'user_id' => $customer->id
                 ]);
             });
     }

@@ -30,9 +30,26 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'namespace' => 'Customer',
         'middleware' => 'roles:' . Role::CUSTOMER
     ], function (Router $router) {
-        $router->post('projects/action', 'ProjectController@action'); //TODO: add name
+        $router->group(['prefix' => 'projects'], function (Router $router) {
+            $router->post('action', 'ProjectController@action')->name('projects.action');
+            $router->group(['prefix' => '{project}/settings'], function (Router $router) {
+                $router->get('', 'ProjectSettingController@index');
+                $router->group(['prefix' => '{check}'], function (Router $router) {
+                    $router->post('', 'ProjectSettingController@updateOrCreate');
+                    $router->delete('', 'ProjectSettingController@destroy');
+                });
+            });
+        });
         $router->apiResource('projects', 'ProjectController', [
             'only' => ['index', 'store', 'update', 'destroy']
         ]);
+
+        $router->group(['prefix' => 'settings'], function (Router $router) {
+            $router->get('', 'SettingController@index');
+            $router->group(['prefix' => '{check}'], function (Router $router) {
+                $router->post('', 'SettingController@updateOrCreate');
+                $router->delete('', 'SettingController@destroy');
+            });
+        });
     });
 });

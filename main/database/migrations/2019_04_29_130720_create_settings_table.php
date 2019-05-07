@@ -16,7 +16,9 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->morphs('relation');
-            $table->unique(['relation_id', 'relation_type']);
+            $table->string('key');
+            $table->json('value');
+            $table->unique(['key', 'relation_id', 'relation_type']);
         });
     }
 

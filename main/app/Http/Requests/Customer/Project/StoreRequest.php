@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => "required|string|max:255|unique:projects,name,NULL,id,customer_id,{$this->user()->id}"
+            'name' => "required|string|max:255|unique:projects,name,NULL,id,user_id,{$this->user()->id}"
         ];
     }
 }
