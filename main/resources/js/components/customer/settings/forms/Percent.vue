@@ -1,7 +1,7 @@
 <template>
     <b-input-group>
         <b-form-input type="number" min="0" step=".01" max="100" :name="check" v-model="localValue" @change="save"
-                      :placeholder="__(`checks.${check}.title`)" v-validate="'decimal:2|min_value:0|max_value:100'"
+                      :placeholder="__(`checks.${check}.title`)" v-validate="'required|decimal:2|min_value:0|max_value:100'"
                       :state="noErrors(check)" :data-vv-as="__('messages.value')"/>
 
         <b-input-group-append>
@@ -38,7 +38,7 @@
     methods: {
       save(value) {
         value = value ? parseFloat(value) : null;
-        this.$emit('update-or-create', this.check, value, this);
+        this.$emit('update-or-create', value);
       }
     },
     watch: {

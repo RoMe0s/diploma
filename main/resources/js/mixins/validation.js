@@ -20,6 +20,9 @@ export default {
         return true;
       }
       return null;
+    },
+    resetValidation() {
+      this.$validator.reset();
     }
   }
 }

@@ -18,9 +18,9 @@
                     <b-form-group label-cols-sm="6" :label="__(`checks.${row.item.key}.title`)" label-size="lg"
                                   class="mb-0">
                         <component :is="getFormComponent(row.item)" :value="row.item.value" :check="row.item.key"
-                                   @delete-clicked="showDeleteConfirm(row.item.key)"
-                                   @update-or-create="updateOrCreate"
-                                   @info-clicked="row.toggleDetails"/>
+                                   @delete-clicked="showDeleteConfirm(row.item)"
+                                   @update-or-create="updateOrCreate($event, row.item)"
+                                   @info-clicked="row.toggleDetails" :ref="row.item.key"/>
                     </b-form-group>
                 </template>
                 <template slot="row-details" slot-scope="row">
@@ -54,11 +54,12 @@
       itemsProviderCallback(response) {
         return response.data;
       },
-      showDeleteConfirm(check) {
+      showDeleteConfirm(record) {
         this.deleteConfirm(() => {
-          this.sendRequest('customer.settings.destroy', check)
+          this.sendRequest('customer.settings.destroy', record.key)
             .then(() => {
-              this.$refs.table.refresh();
+              this.$set(record, 'value', null);
+              this.$refs[record.key].resetValidation();
               Swal.fire({
                 title: this.__('messages.deleted!'),
                 type: 'success'
@@ -76,14 +77,12 @@
             return PercentForm;
         }
       },
-      updateOrCreate(check, value, $children = null) {
-        const validatedCallback = $instance => $instance.sendRequest('customer.settings.update-or-create', [check, value])
-          .then(() => this.notify(this.__('messages.saved!'), 'success'));
-        if ($children === null) {
-          validatedCallback(this);
-          return;
-        }
-        $children.validate(check).then(() => validatedCallback($children));
+      updateOrCreate(value, record) {
+        this.sendRequest('customer.settings.update-or-create', [record.key, value])
+          .then(() => {
+            this.notify(this.__('messages.saved!'), 'success');
+            this.$set(record, 'value', value);
+          });
       }
     }
   }

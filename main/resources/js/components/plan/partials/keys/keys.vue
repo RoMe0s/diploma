@@ -29,7 +29,7 @@
                     <b-form-group>
                         <b-form-input name="count" type="number" min="0" v-model="value.count"
                                       :placeholder="__('messages.count')"
-                                      v-validate="'required|numeric|min_value:0|max:11'" :state="noErrors('count')"/>
+                                      v-validate="'required|integer|min_value:0|max:11'" :state="noErrors('count')"/>
                         <b-form-invalid-feedback>
                             {{ errors.first("count") }}
                         </b-form-invalid-feedback>

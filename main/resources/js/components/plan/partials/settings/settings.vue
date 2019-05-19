@@ -20,7 +20,7 @@
                         <b-form-input name="min" type="number" min="0"
                                       v-model="value.qty.min"
                                       :placeholder="__('messages.qty.min')"
-                                      v-validate="'required|numeric|min_value:0|max:11'"
+                                      v-validate="'required|integer|min_value:0|max:11'"
                                       :state="noErrors('min')"/>
                         <b-form-invalid-feedback>
                             {{ errors.first("min") }}
@@ -32,7 +32,7 @@
                         <b-form-input name="max" type="number" min="0"
                                       v-model="value.qty.max"
                                       :placeholder="__('messages.qty.max')"
-                                      v-validate="'required|numeric|min_value:0|max:11'"
+                                      v-validate="'required|integer|min_value:0|max:11'"
                                       :state="noErrors('max')"/>
                         <b-form-invalid-feedback>
                             {{ errors.first("max") }}

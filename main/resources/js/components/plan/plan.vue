@@ -23,7 +23,7 @@
                     <b-form-group>
                         <b-form-input name="from" type="number" min="0" v-model="value.sizes.from"
                                       :placeholder="__('messages.sizes.from')"
-                                      v-validate="'required|numeric|min_value:0|max:11'"
+                                      v-validate="'required|integer|min_value:0|max:11'"
                                       :state="noErrors('from')"/>
                         <b-form-invalid-feedback>
                             {{ errors.first("from") }}
@@ -34,7 +34,7 @@
                     <b-form-group>
                         <b-form-input name="to" type="number" min="0" v-model="value.sizes.to"
                                       :placeholder="__('messages.sizes.to')"
-                                      v-validate="'required|numeric|min_value:0|max:11'"
+                                      v-validate="'required|integer|min_value:0|max:11'"
                                       :state="noErrors('to')"/>
                         <b-form-invalid-feedback>
                             {{ errors.first("to") }}

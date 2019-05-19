@@ -30,8 +30,7 @@
     },
     methods: {
       toggle(status) {
-        this.$emit('input', status);
-        this.$emit('update-or-create', this.check, status);
+        this.$emit('update-or-create', status);
       }
     }
   }
