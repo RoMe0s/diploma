@@ -2,25 +2,25 @@
 
 namespace App\Services\Loaders\Customer;
 
-use App\Models\User;
-use App\Scopes\Customer\Project\Filter;
-use App\Scopes\Customer\Project\Sort;
+use App\Scopes\Customer\Order\Filter;
+use App\Scopes\Customer\Order\Sort;
 use App\Scopes\Pagination;
 use App\Scopes\ScopeInterface;
 use App\Services\Loaders\Loader;
-use App\Models\Project as ProjectModel;
+use App\Models\Order as OrderModel;
 use App\Services\Loaders\PaginatorInterface;
 use App\Services\Loaders\PaginatorTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
-class Project extends Loader implements PaginatorInterface
+class Order extends Loader implements PaginatorInterface
 {
     use PaginatorTrait;
 
     /**
-     * @var User|null
+     * @var Model|null
      */
-    private $user;
+    private $relation;
 
     /**
      * @var Pagination
@@ -37,11 +37,11 @@ class Project extends Loader implements PaginatorInterface
     }
 
     /**
-     * @param User $user
+     * @param Model $relation
      */
-    public function setUser(User $user): void
+    public function setRelation(Model $relation): void
     {
-        $this->user = $user;
+        $this->relation = $relation;
     }
 
     /**
@@ -56,9 +56,10 @@ class Project extends Loader implements PaginatorInterface
      * @param array $config
      * @return Builder
      */
-    public function prepareQuery(array $config): Builder
+    protected function prepareQuery(array $config): Builder
     {
-        return ProjectModel::query()->selectOrdersCount()->where('user_id', $this->user->id);
+        return OrderModel::query()->where('relation_type', get_class($this->relation))
+            ->where('relation_id', $this->relation->getKey());
     }
 
     /**

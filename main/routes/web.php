@@ -30,7 +30,9 @@ $router->get('email/verify', 'Auth\VerificationController@show')->name('verifica
 $router->get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 $router->get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
-$router->get('js/lang.js', 'StaticController@langJs');
+$router->group(['prefix' => 'js'], function (Router $router) {
+    $router->get('lang.js', 'StaticController@langJs');
+});
 
 $router->view('', 'home'); //TODO
 
@@ -45,6 +47,9 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         });
         $router->resource('projects', 'ProjectController', [
             'only' => ['index', 'create', 'edit']
+        ]);
+        $router->resource('orders', 'OrderController', [
+            'only' => ['index', 'create']
         ]);
     });
 });

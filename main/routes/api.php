@@ -27,6 +27,12 @@ $router->group(['prefix' => 'auth', 'namespace' => 'Auth'], function (Router $ro
 
 $router->group(['middleware' => 'auth'], function (Router $router) {
     $router->group([
+        'prefix' => 'config',
+        'namespace' => 'Config'
+    ], function (Router $router) {
+        $router->get('plan', 'PlanController@index');
+    });
+    $router->group([
         'namespace' => 'Customer',
         'middleware' => 'roles:' . Role::CUSTOMER
     ], function (Router $router) {
@@ -43,7 +49,6 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         $router->apiResource('projects', 'ProjectController', [
             'only' => ['index', 'store', 'update', 'destroy']
         ]);
-
         $router->group(['prefix' => 'settings'], function (Router $router) {
             $router->get('', 'SettingController@index');
             $router->group(['prefix' => '{check}'], function (Router $router) {
@@ -51,5 +56,8 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
                 $router->delete('', 'SettingController@destroy');
             });
         });
+        $router->apiResource('orders', 'OrderController', [
+            'only' => ['index']
+        ]);
     });
 });

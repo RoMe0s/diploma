@@ -22,6 +22,13 @@ export default {
       index: params => axios.get('/settings', {params}),
       destroy: check => axios.delete(`/settings/${check}`),
       'update-or-create': (check, value) => axios.post(`/settings/${check}`, {value}),
+    },
+    orders: {
+      index: params => axios.get('/orders', {params}),
+      store: data => axios.post('/orders', data)
     }
+  },
+  config: {
+    plan: () => axios.get('/config/plan')
   }
 }

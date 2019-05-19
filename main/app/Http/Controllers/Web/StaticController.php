@@ -21,9 +21,13 @@ class StaticController extends Controller
 
             return $strings;
         });
+        $this->echoJS('translations', $strings);
+    }
 
+    private function echoJS(string $key, $javascript)
+    {
         header('Content-Type: text/javascript');
-        echo('window.translations = ' . json_encode($strings) . ';');
+        echo('window.' . $key . ' = ' . json_encode($javascript) . ';');
         exit();
     }
 }

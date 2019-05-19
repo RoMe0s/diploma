@@ -9,7 +9,12 @@
     mixins: [MenuMixin],
     data() {
       return {
-        menu: [
+        ordersCount: 150
+      }
+    },
+    computed: {
+      menu() {
+        return [
           {
             href: '/',
             title: this.__('pages.dashboard'),
@@ -30,7 +35,7 @@
             title: this.__('pages.orders'),
             icon: 'fa fa-tasks',
             badge: {
-              text: '100+',
+              text: this.ordersCount,
               class: 'badge-danger'
             }
           },
@@ -44,7 +49,7 @@
             title: this.__('pages.settings'),
             icon: 'fa fa-cog'
           }
-        ]
+        ];
       }
     }
   }

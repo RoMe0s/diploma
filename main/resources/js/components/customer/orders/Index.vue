@@ -2,8 +2,8 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __('customer.projects.index') }}
-                <b-link class="btn btn-success float-right" href="/projects/create" :title="__('messages.create')">
+                {{ __('customer.orders.index') }}
+                <b-link class="btn btn-success float-right" href="/orders/create" :title="__('messages.create')">
                     <i class="fa fa-plus"></i>
                 </b-link>
             </b-card-title>
@@ -31,7 +31,7 @@
                 stacked="md"
                 selectable
                 bordered
-                api-url="customer.projects.index"
+                api-url="customer.orders.index"
                 :items="itemsProvider"
                 :filter="filter"
                 :fields="fields"
@@ -43,13 +43,9 @@
                 @row-selected="rowSelected">
                 <template slot="actions" slot-scope="row">
                     <b-btn-group>
-                        <b-link class="btn btn-sm btn-info" :href="`/projects/${row.item.id}/edit`"
+                        <b-link class="btn btn-sm btn-info" :href="`/orders/${row.item.id}/edit`"
                                 :title="__('messages.edit')">
                             <i class="fa fa-pencil-alt"></i>
-                        </b-link>
-                        <b-link class="btn btn-sm btn-success" :href="`/projects/${row.item.id}/settings`"
-                                :title="__('messages.settings')">
-                            <i class="fa fa-cog"></i>
                         </b-link>
                         <b-button size="sm" variant="danger" @click.prevent="showDeleteConfirm(row.item.id)"
                                   :title="__('messages.delete')">
@@ -98,15 +94,6 @@
             key: 'name',
             sortable: true,
             label: this.__('columns.name')
-          },
-          {
-            key: 'ordersCount',
-            sortable: true,
-            label: this.__('columns.orders')
-          },
-          {
-            key: 'actions',
-            label: this.__('columns.actions')
           }
         ],
         perPage: 25,
@@ -133,17 +120,17 @@
       },
       showDeleteConfirm(id) {
         this.deleteConfirm(() => {
-          this.sendRequest('customer.projects.destroy', id)
+          this.sendRequest('customer.orders.destroy', id)
             .then(this.deletedCallback);
         });
       },
       deleteSelected() {
         this.deleteConfirm(() => {
-          this.sendRequest('customer.projects.index-action', {
-            projects: this.selected,
+          this.sendRequest('customer.orders.index-action', {
+            orders: this.selected,
             action: 'delete'
-          }).then(this.deletedCallback);
-        });
+          }).then(this.deletedCallback)
+        })
       },
       itemsProviderCallback(response) {
         this.totalRows = response.data.totalRows;

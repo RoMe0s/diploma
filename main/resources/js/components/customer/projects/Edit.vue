@@ -11,7 +11,7 @@
                             :title="__('messages.settings')">
                         <i class="fa fa-cog"></i>
                     </b-link>
-                    <b-button variant="danger" @click.prevent="deleteConfirm(project.id)"
+                    <b-button variant="danger" @click.prevent="showDeleteConfirm(project.id)"
                               :title="__('messages.delete')">
                         <i class="fa fa-trash"></i>
                     </b-button>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import DeleteConfirmMixin from '../../../mixins/table/deleteConfirm';
+  import DeleteConfirmMixin from "../../../mixins/deleteConfirm";
 
   export default {
     mixins: [DeleteConfirmMixin],
@@ -55,12 +55,14 @@
       }
     },
     methods: {
-      deleteConfirmCallback(id) {
-        this.sendRequest('customer.projects.destroy', id)
-          .then(() => Swal.fire({
-            title: this.__('messages.deleted!'),
-            type: 'success'
-          }).then(() => window.location.href = '/projects'));
+      showDeleteConfirm(id) {
+        this.deleteConfirm(() => {
+          this.sendRequest('customer.projects.destroy', id)
+            .then(() => Swal.fire({
+              title: this.__('messages.deleted!'),
+              type: 'success'
+            }).then(() => window.location.href = '/projects'));
+        });
       },
       update() {
         this.validateAll()

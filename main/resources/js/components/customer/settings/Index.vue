@@ -32,11 +32,11 @@
 </template>
 
 <script>
-  import ProviderMixin from '../../../mixins/table/provider';
-  import DeleteConfirmMixin from '../../../mixins/table/deleteConfirm';
-  import NumericForm from './forms/Numeric';
-  import BooleanForm from './forms/Boolean';
-  import PercentForm from './forms/Percent';
+  import ProviderMixin from "../../../mixins/table/provider";
+  import DeleteConfirmMixin from "../../../mixins/deleteConfirm";
+  import NumericForm from "./forms/Numeric";
+  import BooleanForm from "./forms/Boolean";
+  import PercentForm from "./forms/Percent";
 
   export default {
     mixins: [ProviderMixin, DeleteConfirmMixin],

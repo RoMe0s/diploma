@@ -27,6 +27,9 @@ import CustomerProjectsSettingsIndex from './components/customer/projects/settin
 
 import CustomerSettingsIndex from './components/customer/settings/Index';
 
+import CustomerOrdersIndex from './components/customer/orders/Index';
+import CustomerOrdersCreate from './components/customer/orders/Create';
+
 Vue.use(VeeValidate, {
   inject: true,
   fieldsBagName: 'veeFields'
@@ -74,7 +77,10 @@ const app = new Vue({
     CustomerProjectsCreate,
     CustomerProjectsIndex,
     CustomerProjectsEdit,
-    CustomerSettingsIndex
+    CustomerSettingsIndex,
+
+    CustomerOrdersIndex,
+    CustomerOrdersCreate,
   },
   created() {
     this.sendRequest('auth.user')

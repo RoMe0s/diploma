@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import DeleteConfirmMixin from '../../../../mixins/table/deleteConfirm';
+  import DeleteConfirmMixin from "../../../../mixins/deleteConfirm";
   import NumericForm from '../../settings/forms/Numeric';
   import BooleanForm from '../../settings/forms/Boolean';
   import PercentForm from '../../settings/forms/Percent';
