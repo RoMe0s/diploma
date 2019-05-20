@@ -23,6 +23,14 @@ export default {
     },
     resetValidation() {
       this.$validator.reset();
+    },
+    addErrorToChildren(field, error) {
+      this.errors.add({field, msg: error});
+      this.$children.forEach($child => $child.addErrorToChildren(field, error));
+    },
+    resetValidationRecursive() {
+      this.resetValidation();
+      this.$children.forEach($child => $child.resetValidationRecursive());
     }
   }
 }

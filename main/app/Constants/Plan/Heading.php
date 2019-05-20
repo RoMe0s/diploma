@@ -18,6 +18,14 @@ class Heading
 
     const CLOSING = '-1';
 
+    const ALL = [
+        self::H2,
+        self::H3,
+        self::H4,
+        self::H5,
+        self::H6
+    ];
+
     /**
      * @return array
      */

@@ -65,6 +65,16 @@ export default {
       }
       return false;
     },
+    validationName(ref) {
+      let block = null;
+      if (this.position === this.planConfig.headings.opening) {
+        block = 'openingBlock';
+      }
+      if (this.position === this.planConfig.headings.closing) {
+        block = 'closingBlock';
+      }
+      return `plan.${block || `blocks.${this.position}`}.${ref}`;
+    },
     addSettingsBlock() {
       this.$emit("add-settings-block", this.position);
     },

@@ -57,7 +57,7 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             });
         });
         $router->apiResource('orders', 'OrderController', [
-            'only' => ['index']
+            'only' => ['index', 'store']
         ]);
     });
 });

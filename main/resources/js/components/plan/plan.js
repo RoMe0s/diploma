@@ -40,10 +40,8 @@ export default {
     settingsBlockSchema() {
       return {
         type: null,
-        qty: {
-          min: null,
-          max: null
-        }
+        min: null,
+        max: null
       };
     },
     keysBlockSchema() {
@@ -108,6 +106,7 @@ export default {
           nextNextIndex = this.blocksLength;
         }
       }
+      this.resetValidationRecursive();
       this.value.blocks.splice(
         index,
         nextNextIndex - index,
@@ -123,6 +122,7 @@ export default {
           nextIndex = this.blocksLength;
         }
       }
+      this.resetValidationRecursive();
       this.value.blocks.splice(
         prevIndex,
         nextIndex - prevIndex,

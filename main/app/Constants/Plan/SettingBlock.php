@@ -12,6 +12,13 @@ class SettingBlock
 
     const VIDEO = 'video';
 
+    const ALL = [
+        self::BOLD,
+        self::ITALIC,
+        self::IMAGE,
+        self::VIDEO
+    ];
+
     public static function getConfig(): array
     {
         return [

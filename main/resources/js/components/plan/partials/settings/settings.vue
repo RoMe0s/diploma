@@ -2,14 +2,18 @@
     <b-form-row>
         <b-col>
             <b-form-group>
-                <b-form-select name="type" v-model="value.type" :options="blocks" v-validate="'required'"
-                               :state="noErrors('type')">
+                <b-form-select v-model="value.type"
+                               :options="blocks"
+                               v-validate="'required'"
+                               :data-vv-name="validationName('type')"
+                               :data-vv-as="__('fields.type')"
+                               :state="noErrors(validationName('type'))">
                     <template slot="first">
                         <option :value="null" disabled>-- {{ __("messages.please select an option") }} --</option>
                     </template>
                 </b-form-select>
                 <b-form-invalid-feedback>
-                    {{ errors.first("type") }}
+                    {{ errors.first(validationName("type")) }}
                 </b-form-invalid-feedback>
             </b-form-group>
         </b-col>
@@ -17,25 +21,31 @@
             <b-form-row>
                 <b-col md="6">
                     <b-form-group>
-                        <b-form-input name="min" type="number" min="0"
-                                      v-model="value.qty.min"
-                                      :placeholder="__('messages.qty.min')"
+                        <b-form-input min="0"
+                                      type="number"
+                                      v-model="value.min"
+                                      :placeholder="__('fields.min')"
                                       v-validate="'required|integer|min_value:0|max:11'"
-                                      :state="noErrors('min')"/>
+                                      :data-vv-name="validationName('min')"
+                                      :data-vv-as="__('fields.min')"
+                                      :state="noErrors(validationName('min'))"/>
                         <b-form-invalid-feedback>
-                            {{ errors.first("min") }}
+                            {{ errors.first(validationName("min")) }}
                         </b-form-invalid-feedback>
                     </b-form-group>
                 </b-col>
                 <b-col md="5">
                     <b-form-group>
-                        <b-form-input name="max" type="number" min="0"
-                                      v-model="value.qty.max"
-                                      :placeholder="__('messages.qty.max')"
-                                      v-validate="'required|integer|min_value:0|max:11'"
-                                      :state="noErrors('max')"/>
+                        <b-form-input min="0"
+                                      type="number"
+                                      v-model="value.max"
+                                      :placeholder="__('fields.max')"
+                                      v-validate="'required|integer|max:11|min_value:' + value.min"
+                                      :data-vv-name="validationName('max')"
+                                      :data-vv-as="__('fields.max')"
+                                      :state="noErrors(validationName('max'))"/>
                         <b-form-invalid-feedback>
-                            {{ errors.first("max") }}
+                            {{ errors.first(validationName("max")) }}
                         </b-form-invalid-feedback>
                     </b-form-group>
                 </b-col>

@@ -2,10 +2,14 @@
     <b-form-row>
         <b-col>
             <b-form-group>
-                <b-form-input name="name" v-model="value.name" v-validate="'required|max:255'"
-                              :placeholder="__('messages.name')" :state="noErrors('name')"/>
+                <b-form-input v-model="value.name"
+                              v-validate="'required|max:255'"
+                              :placeholder="__('messages.name')"
+                              :data-vv-name="validationName('name')"
+                              :data-vv-as="__('messages.name')"
+                              :state="noErrors(validationName('name'))"/>
                 <b-form-invalid-feedback>
-                    {{ errors.first("name") }}
+                    {{ errors.first(validationName("name")) }}
                 </b-form-invalid-feedback>
             </b-form-group>
         </b-col>
@@ -13,25 +17,34 @@
             <b-form-row>
                 <b-col md="6">
                     <b-form-group>
-                        <b-form-select name="type" v-model="value.type" :options="types" v-validate="'required'"
-                                       :state="noErrors('type')">
+                        <b-form-select v-model="value.type"
+                                       :options="types"
+                                       v-validate="'required'"
+                                       :data-vv-name="validationName('type')"
+                                       :data-vv-as="__('fields.type')"
+                                       :state="noErrors(validationName('type'))">
                             <template slot="first">
                                 <option :value="null" disabled>-- {{ __("messages.please select an option") }} --
                                 </option>
                             </template>
                         </b-form-select>
                         <b-form-invalid-feedback>
-                            {{ errors.first("type") }}
+                            {{ errors.first(validationName("type")) }}
                         </b-form-invalid-feedback>
                     </b-form-group>
                 </b-col>
                 <b-col md="5">
                     <b-form-group>
-                        <b-form-input name="count" type="number" min="0" v-model="value.count"
-                                      :placeholder="__('messages.count')"
-                                      v-validate="'required|integer|min_value:0|max:11'" :state="noErrors('count')"/>
+                        <b-form-input min="0"
+                                      type="number"
+                                      v-model="value.count"
+                                      :placeholder="__('fields.count')"
+                                      v-validate="'required|integer|min_value:0|max:11'"
+                                      :data-vv-name="validationName('count')"
+                                      :data-vv-as="__('fields.count')"
+                                      :state="noErrors(validationName('count'))"/>
                         <b-form-invalid-feedback>
-                            {{ errors.first("count") }}
+                            {{ errors.first(validationName("count")) }}
                         </b-form-invalid-feedback>
                     </b-form-group>
                 </b-col>

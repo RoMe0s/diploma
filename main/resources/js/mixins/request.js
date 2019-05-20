@@ -44,7 +44,7 @@ export default {
         if ('errors' in responseData) {
           for (let field in responseData.errors) {
             for (let error of responseData.errors[field]) {
-              this.$validator.errors.add({field, msg: error});
+              this.addErrorToChildren(field, error);
             }
           }
         }

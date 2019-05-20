@@ -3,7 +3,7 @@
         <b-form-row>
             <b-col>
                 <b-form-row class="mb-3">
-                    <b-col v-if="previousSameIndex !== null || nextSameIndex">
+                    <b-col v-if="isMovable && previousSameIndex !== null || nextSameIndex">
                         <b-button-group>
                             <b-button variant="primary" @click="moveUp()" v-if="previousSameIndex !== null">
                                 <i class="fa fa-arrow-up"></i>
@@ -45,8 +45,12 @@
                     <b-form-row>
                         <b-col v-if="isMovable">
                             <b-form-group>
-                                <b-form-select name="heading" v-model="value.heading" :options="headingOptions"
-                                               v-validate="'required'" :state="noErrors('heading')">
+                                <b-form-select v-model="value.heading"
+                                               :options="headingOptions"
+                                               v-validate="'required'"
+                                               :data-vv-as="__('fields.heading')"
+                                               :data-vv-name="validationName('heading')"
+                                               :state="noErrors(validationName('heading'))">
                                     <template slot="first">
                                         <option :value="null" disabled>-- {{ __("messages.please select an option") }}
                                             --
@@ -54,16 +58,19 @@
                                     </template>
                                 </b-form-select>
                                 <b-form-invalid-feedback>
-                                    {{ errors.first("heading") }}
+                                    {{ errors.first(validationName("heading")) }}
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
                         <b-col v-if="isMovable">
                             <b-form-group>
-                                <b-form-input name="name" v-model="value.name" v-validate="'max:255'"
-                                              :state="noErrors('name')"/>
+                                <b-form-input v-model="value.name"
+                                              v-validate="'max:255'"
+                                              :data-vv-as="__('fields.name')"
+                                              :data-vv-name="validationName('name')"
+                                              :state="noErrors(validationName('name'))"/>
                                 <b-form-invalid-feedback>
-                                    {{ errors.first("name") }}
+                                    {{ errors.first(validationName("name")) }}
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
@@ -71,23 +78,31 @@
                             <b-form-row>
                                 <b-col>
                                     <b-form-group>
-                                        <b-form-input name="from" type="number" min="0" v-model="value.sizes.from"
+                                        <b-form-input min="0"
+                                                      type="number"
+                                                      v-model="value.sizes.from"
+                                                      v-validate="'integer|min_value:100|max:11'"
+                                                      :data-vv-as="__('fields.sizes.from')"
+                                                      :data-vv-name="validationName('sizes.from')"
                                                       :placeholder="__('messages.sizes.from')"
-                                                      v-validate="'integer|min_value:0|max:11'"
-                                                      :state="noErrors('from')"/>
+                                                      :state="noErrors(validationName('sizes.from'))"/>
                                         <b-form-invalid-feedback>
-                                            {{ errors.first("from") }}
+                                            {{ errors.first(validationName("sizes.from")) }}
                                         </b-form-invalid-feedback>
                                     </b-form-group>
                                 </b-col>
                                 <b-col>
                                     <b-form-group>
-                                        <b-form-input name="to" type="number" min="0" v-model="value.sizes.to"
+                                        <b-form-input min="0"
+                                                      type="number"
+                                                      v-model="value.sizes.to"
+                                                      v-validate="'integer|max:11|min_value:' + (value.sizes.from || 0)"
+                                                      :data-vv-as="__('fields.sizes.to')"
+                                                      :data-vv-name="validationName('sizes.to')"
                                                       :placeholder="__('messages.sizes.to')"
-                                                      v-validate="'integer|min_value:0|max:11'"
-                                                      :state="noErrors('to')"/>
+                                                      :state="noErrors(validationName('sizes.to'))"/>
                                         <b-form-invalid-feedback>
-                                            {{ errors.first("to") }}
+                                            {{ errors.first(validationName("sizes.to")) }}
                                         </b-form-invalid-feedback>
                                     </b-form-group>
                                 </b-col>
@@ -97,11 +112,14 @@
                     <b-form-row>
                         <b-col>
                             <b-form-group>
-                                <b-form-textarea name="description" v-model="value.description"
+                                <b-form-textarea v-model="value.description"
                                                  :placeholder="__('messages.description')"
-                                                 v-validate="'max:255'" :state="noErrors('description')"/>
+                                                 v-validate="'max:255'"
+                                                 :data-vv-as="__('fields.description')"
+                                                 :data-vv-name="validationName('description')"
+                                                 :state="noErrors(validationName('description'))"/>
                                 <b-form-invalid-feedback>
-                                    {{ errors.first("description") }}
+                                    {{ errors.first(validationName("description")) }}
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
@@ -119,6 +137,7 @@
                         </b-col>
                     </b-form-row>
                     <settings-component v-for="(block, index) in value.settings" v-model="value.settings[index]"
+                                        :validation-name-prefix="validationName(`settings.${index}`)"
                                         :key="'settings-' + value.uid + '-' + index" :blocks="planConfig.settings"
                                         @delete="deleteSettingsBlock(index)" ref="settings-blocks"/>
                     <b-form-row>
@@ -132,6 +151,7 @@
 
                 <b-card v-show="showKeys">
                     <keys-component v-for="(keys, index) in value.keys" v-model="value.keys[index]"
+                                    :validation-name-prefix="validationName(`keys.${index}`)"
                                     :key="'keys-' + value.uid + '-' + index" :types="planConfig.keys"
                                     @delete="deleteKeysBlock(index)" ref="keys-blocks"/>
                     <b-form-row>

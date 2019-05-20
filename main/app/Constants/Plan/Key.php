@@ -8,6 +8,11 @@ class Key
 
     const NOT_STRICT = 'not_strict';
 
+    const ALL = [
+        self::STRICT,
+        self::NOT_STRICT
+    ];
+
     /**
      * @return array
      */

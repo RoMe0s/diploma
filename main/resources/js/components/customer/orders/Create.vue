@@ -60,7 +60,7 @@
     data() {
       return {
         plan: {
-          sizes: {from: null, to: null},
+          sizes: {from: 0, to: null},
           openingBlock: null,
           closingBlock: null,
           allowBlocks: false,
@@ -72,14 +72,13 @@
     },
     methods: {
       store() {
-        this.validateAll()
-          .then(() => {
-            const data = {name: this.name, description: this.description, plan: this.plan};
-            this.sendRequest("customer.orders.store", data).then(response => {
-              Swal.fire({type: "success", title: this.__("messages.saved!")})
-                .then(() => window.location.href = `/orders/${response.data.id}/edit`);
-            });
+        this.validateAll().then(() => {
+          const data = {name: this.name, description: this.description, plan: this.plan};
+          this.sendRequest("customer.orders.store", data).then(response => {
+            Swal.fire({type: "success", title: this.__("messages.saved!")})
+              .then(() => window.location.href = `/orders/${response.data.id}/edit`);
           });
+        });
       },
       initPlan() {
         this.plan.blocks.push(blockSchema());

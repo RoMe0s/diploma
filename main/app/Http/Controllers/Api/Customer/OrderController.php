@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\Customer;
 
 use App\Http\Controllers\Api\Controller;
-use App\Services\Loaders\Customer\Order as Loader;
 use Illuminate\Http\Request;
+use App\Http\Requests\Customer\Order\StoreRequest;
+use App\Services\Loaders\Customer\Order as Loader;
 
 class OrderController extends Controller
 {
@@ -17,5 +18,13 @@ class OrderController extends Controller
     {
         $loader->setRelation($request->user());
         return $loader->paginate($request->all());
+    }
+
+    /**
+     * @param StoreRequest $request
+     */
+    public function store(StoreRequest $request)
+    {
+
     }
 }
