@@ -75,8 +75,8 @@
         this.validateAll().then(() => {
           const data = {name: this.name, description: this.description, plan: this.plan};
           this.sendRequest("customer.orders.store", data).then(response => {
-            Swal.fire({type: "success", title: this.__("messages.saved!")})
-              .then(() => window.location.href = `/orders/${response.data.id}/edit`);
+            /* Swal.fire({type: "success", title: this.__("messages.saved!")}) */
+            /* .then(() => window.location.href = `/orders/${response.data.id}/edit`); */
           });
         });
       },

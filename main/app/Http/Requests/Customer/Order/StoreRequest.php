@@ -6,6 +6,8 @@ use App\Constants\Plan\Key;
 use App\Constants\Plan\Heading;
 use App\Constants\Plan\SettingBlock;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Services\Plan\SizeValidator\CheckSubHeadings;
+use App\Services\Plan\SizeValidator\CheckTopHeadings;
 
 class StoreRequest extends FormRequest
 {
@@ -26,46 +28,56 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'nullable|required_without:description|string|max:255',
             'description' => 'nullable|required_without:name|max:10000',
-            'plan.sizes.from' => 'required|integer|min:100|digits_between:0,11',
-            'plan.sizes.to' => 'required|integer|gte:plan.sizes.from|digits_between:0,11',
+            'plan.sizes.from' => ['required', 'integer', 'min:100', 'digits_between:0,11'],
+            'plan.sizes.to' => ['required', 'integer', 'gte:plan.sizes.from', 'digits_between:0,11'],
             'plan.allowBlocks' => 'required|boolean',
 
-            'plan.openingBlock.allowBlocks' => 'boolean',
-            'plan.openingBlock.description' => 'string|max:10000',
-            'plan.openingBlock.sizes.from' => 'nullable|integer|min:0|digits_between:0,11',
-            'plan.openingBlock.sizes.to' => 'nullable|integer|gte:plan.openingBlock.sizes.from|digits_between:0,11',
-            'plan.openingBlock.keys.*.name' => 'required|string|max:255',
-            'plan.openingBlock.keys.*.type' => 'required|in:' . implode(',', Key::ALL),
-            'plan.openingBlock.keys.*.count' => 'required|integer|min:1|digits_between:0,11',
-            'plan.openingBlock.settings.*.type' => 'required|in:' . implode(',', SettingBlock::ALL),
-            'plan.openingBlock.settings.*.min' => 'required|integer|min:1|digits_between:0,11',
-            'plan.openingBlock.settings.*.max' => 'required|integer|gte:plan.openingBlock.settings.*.min|digits_between:0,11',
+            'plan.openingBlock.description' => 'sometimes|required|string|max:10000',
+            'plan.openingBlock.sizes.from' => 'sometimes|required|integer|min:0|digits_between:0,11',
+            'plan.openingBlock.sizes.to' => 'sometimes|required|integer|digits_between:0,11|gt:plan.openingBlock.sizes.from',
+            'plan.openingBlock.keys.*.name' => 'sometimes|required|string|max:255',
+            'plan.openingBlock.keys.*.type' => 'sometimes|required|in:' . implode(',', Key::ALL),
+            'plan.openingBlock.keys.*.count' => 'sometimes|required|integer|min:1|digits_between:0,11',
+            'plan.openingBlock.settings.*.type' => 'sometimes|required|in:' . implode(',', SettingBlock::ALL),
+            'plan.openingBlock.settings.*.min' => 'sometimes|required|integer|min:1|digits_between:0,11',
+            'plan.openingBlock.settings.*.max' => 'sometimes|required|integer|digits_between:0,11|gte:plan.openingBlock.settings.*.min',
 
-            'plan.closingBlock.description' => 'string|max:10000',
-            'plan.closingBlock.sizes.from' => 'nullable|integer|min:0|digits_between:0,11',
-            'plan.closingBlock.sizes.to' => 'nullable|integer|gte:plan.closingBlock.sizes.from|digits_between:0,11',
-            'plan.closingBlock.keys.*.name' => 'required|string|max:255',
-            'plan.closingBlock.keys.*.type' => 'required|in:' . implode(',', Key::ALL),
-            'plan.closingBlock.keys.*.count' => 'required|integer|min:1|digits_between:0,11',
-            'plan.closingBlock.settings.*.type' => 'required|in:' . implode(',', SettingBlock::ALL),
-            'plan.closingBlock.settings.*.min' => 'required|integer|min:1|digits_between:0,11',
-            'plan.closingBlock.settings.*.max' => 'required|integer|gte:plan.closingBlock.settings.*.min|digits_between:0,11',
+            'plan.closingBlock.description' => 'sometimes|required|string|max:10000',
+            'plan.closingBlock.sizes.from' => 'sometimes|required|integer|min:0|digits_between:0,11',
+            'plan.closingBlock.sizes.to' => 'sometimes|required|integer|digits_between:0,11|gt:plan.closingBlock.sizes.from',
+            'plan.closingBlock.keys.*.name' => 'sometimes|required|string|max:255',
+            'plan.closingBlock.keys.*.type' => 'sometimes|required|in:' . implode(',', Key::ALL),
+            'plan.closingBlock.keys.*.count' => 'sometimes|required|integer|min:1|digits_between:0,11',
+            'plan.closingBlock.settings.*.type' => 'sometimes|required|in:' . implode(',', SettingBlock::ALL),
+            'plan.closingBlock.settings.*.min' => 'sometimes|required|integer|min:1|digits_between:0,11',
+            'plan.closingBlock.settings.*.max' => 'sometimes|required|integer|digits_between:0,11|gte:plan.closingBlock.settings.*.min',
 
-            'plan.blocks.*.heading' => 'in:' . implode(',', Heading::ALL),
-            'plan.blocks.*.name' => 'nullable|required_without:plan.blocks.*.description|string|max:255',
-            'plan.blocks.*.description' => 'nullable|required_without:plan.blocks.*.name|string|max:10000',
-            'plan.blocks.*.sizes.from' => 'nullable|integer|min:0|digits_between:0,11',
-            'plan.blocks.*.sizes.to' => 'nullable|integer|gte:plan.blocks.*.sizes.from|digits_between:0,11',
-            'plan.blocks.*.keys.*.name' => 'required|string|max:255',
-            'plan.blocks.*.keys.*.type' => 'required|in:' . implode(',', Key::ALL),
-            'plan.blocks.*.keys.*.count' => 'required|integer|min:1|digits_between:0,11',
-            'plan.blocks.*.settings.*.type' => 'required|in:' . implode(',', SettingBlock::ALL),
-            'plan.blocks.*.settings.*.min' => 'required|integer|min:1|digits_between:0,11',
-            'plan.blocks.*.settings.*.max' => 'required|integer|gte:plan.blocks.*.settings.*.min|digits_between:0,11',
+            'plan.blocks.*.heading' => 'sometimes|in:' . implode(',', Heading::ALL),
+            'plan.blocks.*.name' => 'sometimes|required_without:plan.blocks.*.description|string|max:255',
+            'plan.blocks.*.description' => 'sometimes|required_without:plan.blocks.*.name|string|max:10000',
+            'plan.blocks.*.sizes.from' => 'sometimes|required|integer|min:0|digits_between:0,11',
+            'plan.blocks.*.sizes.to' => 'sometimes|required|integer|digits_between:0,11|gt:plan.blocks.*.sizes.from',
+            'plan.blocks.*.keys.*.name' => 'sometimes|required|string|max:255',
+            'plan.blocks.*.keys.*.type' => 'sometimes|required|in:' . implode(',', Key::ALL),
+            'plan.blocks.*.keys.*.count' => 'sometimes|required|integer|min:1|digits_between:0,11',
+            'plan.blocks.*.settings.*.type' => 'sometimes|required|in:' . implode(',', SettingBlock::ALL),
+            'plan.blocks.*.settings.*.min' => 'sometimes|required|integer|min:1|digits_between:0,11',
+            'plan.blocks.*.settings.*.max' => 'sometimes|required|integer|gte:plan.blocks.*.settings.*.min|digits_between:0,11',
         ];
+
+        $data = $this->input('plan', []);
+        $checkSubBlocks = resolve(CheckSubHeadings::class);
+        $rules += $checkSubBlocks->differences($data['blocks'] ?? []);
+
+        $checkTopHeadings = resolve(CheckTopHeadings::class);
+        foreach ($checkTopHeadings->differences($data) as $field => $rule) {
+            $rules[$field][] = $rule;
+        }
+
+        return $rules;
     }
 
     /**

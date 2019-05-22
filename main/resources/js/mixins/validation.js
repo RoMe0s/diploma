@@ -1,12 +1,16 @@
 export default {
   methods: {
+    validateAllRecursive(promises = []) {
+      promises.push(this.$validator.validateAll());
+      this.$children.forEach($child => $child.validateAllRecursive(promises));
+      return promises;
+    },
     validateAll() {
-      let promises = [this.$validator.validateAll()];
-      this.$children.forEach($child => promises.push($child.validateAll()));
-      return Promise.all(promises).then(validations => {
-        const isValid = validations.indexOf(false) < 0;
-        return new Promise((resolve, reject) => isValid ? resolve() : reject('Invalid!'));
-      });
+      return Promise.all(this.validateAllRecursive())
+        .then(validations => {
+          const isValid = validations.indexOf(false) < 0;
+          return new Promise((resolve, reject) => isValid ? resolve() : reject('Invalid!'));
+        });
     },
     validate(field) {
       return this.$validator.validate(field)
