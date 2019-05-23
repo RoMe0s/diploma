@@ -52,8 +52,8 @@
                                                :data-vv-name="validationName('heading')"
                                                :state="noErrors(validationName('heading'))">
                                     <template slot="first">
-                                        <option :value="null" disabled>-- {{ __("messages.please select an option") }}
-                                            --
+                                        <option :value="null" disabled>
+                                            -- {{ __("messages.please select an option") }} --
                                         </option>
                                     </template>
                                 </b-form-select>
@@ -127,15 +127,6 @@
                 </div>
 
                 <b-card v-show="showSettings">
-                    <b-form-row class="mb-3" v-if="isMovable">
-                        <b-col align="center">
-                            <b-form-checkbox v-model="value.allowBlocks" button
-                                             :button-variant="value.allowBlocks ? 'success' : 'secondary'">
-                                {{ __("messages." + (allowBlocks ? "disallow" : "allow")) }}
-                                {{ __("messages.custom blocks") }}
-                            </b-form-checkbox>
-                        </b-col>
-                    </b-form-row>
                     <settings-component v-for="(block, index) in value.settings" v-model="value.settings[index]"
                                         :validation-name-prefix="validationName(`settings.${index}`)"
                                         :key="'settings-' + value.uid + '-' + index" :blocks="planConfig.settings"

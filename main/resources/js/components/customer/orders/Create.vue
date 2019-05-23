@@ -24,6 +24,29 @@
                         {{ errors.first("description") }}
                     </b-form-invalid-feedback>
                 </b-form-group>
+                <b-form-group :label="__('fields.price')">
+                    <b-form-input type="number" name="price" min="0" step="0.01" v-model="price"
+                                  :placeholder="__('fields.price')"
+                                  v-validate="'required|decimal:2|min_value:0.01'" :state="noErrors('price')"/>
+                    <b-form-invalid-feedback>
+                        {{ errors.first("price") }}
+                    </b-form-invalid-feedback>
+                </b-form-group>
+                <b-form-group :label="__('fields.project')">
+                    <b-form-select name="project_id"
+                                   v-model="project_id"
+                                   :options="projects"
+                                   :state="noErrors('project_id')">
+                        <template slot="first">
+                            <option :value="null" disabled>
+                                -- {{ __("messages.please select an option") }} --
+                            </option>
+                        </template>
+                    </b-form-select>
+                    <b-form-invalid-feedback>
+                        {{ errors.first("project_id") }}
+                    </b-form-invalid-feedback>
+                </b-form-group>
                 <b-form-row class="mb-3">
                     <b-col>
                         <b-button block variant="outline-danger" @click="clearPlan()" :disabled="!hasBlocks">
@@ -63,20 +86,32 @@
           sizes: {from: 0, to: null},
           openingBlock: null,
           closingBlock: null,
-          allowBlocks: false,
           blocks: []
         },
         name: null,
-        description: null
+        price: null,
+        description: null,
+        projects: [],
+        project_id: null
+      }
+    },
+    computed: {
+      hasBlocks() {
+        return this.plan.blocks.length ? true : false;
       }
     },
     methods: {
       store() {
         this.validateAll().then(() => {
-          const data = {name: this.name, description: this.description, plan: this.plan};
-          this.sendRequest("customer.orders.store", data).then(response => {
-            /* Swal.fire({type: "success", title: this.__("messages.saved!")}) */
-            /* .then(() => window.location.href = `/orders/${response.data.id}/edit`); */
+          this.sendRequest("customer.orders.store", {
+            name: this.name,
+            description: this.description,
+            project_id: this.project_id,
+            price: this.price,
+            plan: this.plan
+          }).then(response => {
+            Swal.fire({type: "success", title: this.__("messages.saved!")})
+              .then(() => window.location.href = `/orders/${response.data.id}/edit`);
           });
         });
       },
@@ -87,10 +122,9 @@
         this.deleteConfirm(() => this.plan.blocks.splice(0, this.plan.blocks.length));
       }
     },
-    computed: {
-      hasBlocks() {
-        return this.plan.blocks.length ? true : false;
-      }
+    created() {
+      this.sendRequest("customer.projects.compact")
+        .then(response => this.projects = response.data);
     }
   }
 </script>

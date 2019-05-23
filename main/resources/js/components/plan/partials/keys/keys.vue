@@ -24,7 +24,8 @@
                                        :data-vv-as="__('fields.type')"
                                        :state="noErrors(validationName('type'))">
                             <template slot="first">
-                                <option :value="null" disabled>-- {{ __("messages.please select an option") }} --
+                                <option :value="null" disabled>
+                                    -- {{ __("messages.please select an option") }} --
                                 </option>
                             </template>
                         </b-form-select>

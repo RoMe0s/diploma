@@ -29,11 +29,11 @@ class CheckSubHeadings
         foreach ($blocks as $index => $block) {
             if ($childHeading = $this->getChildHeading($block['heading'])) {
                 [$childrenFromLength, $childrenToLength] = $this->childrenLength($blocks, $index + 1, $childHeading);
-                if ($childrenToLength > $block['sizes']['to']) {
-                    $result["plan.blocks.$index.sizes.to"] = 'min:' . $childrenToLength;
-                }
                 if ($childrenFromLength > $block['sizes']['from']) {
                     $result["plan.blocks.$index.sizes.from"] = 'min:' . $childrenFromLength;
+                }
+                if ($childrenToLength > $block['sizes']['to']) {
+                    $result["plan.blocks.$index.sizes.to"] = 'min:' . $childrenToLength;
                 }
             }
         }

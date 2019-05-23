@@ -12,6 +12,7 @@ export default {
       update: (id, data) => axios.put(`/projects/${id}`, data),
       store: data => axios.post(`/projects`, data),
       'index-action': data => axios.post('/projects/action', data),
+      compact: () => axios.get('/projects/compact'),
       settings: {
         index: (project, params) => axios.get(`/projects/${project}/settings`, {params}),
         destroy: (project, check) => axios.delete(`/projects/${project}/settings/${check}`),

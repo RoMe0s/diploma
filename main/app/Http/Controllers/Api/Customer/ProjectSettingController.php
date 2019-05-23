@@ -56,7 +56,7 @@ class ProjectSettingController extends Controller
      */
     public function destroy(Project $project, string $check, Request $request, Delete $delete)
     {
-        $this->authorize('update', $project);
+        $this->authorize('delete', $project);
         $delete->delete($check, $project);
         return response()->json();
     }

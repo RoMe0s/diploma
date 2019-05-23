@@ -1,28 +1,20 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Order;
 
-use App\Models\Order\Order;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Commit extends Model
 {
     /**
      * @var array
      */
     protected $fillable = [
-        'expired_at',
-        'order_id',
-        'text_id',
         'status',
-        'user_id'
-    ];
-
-    /**
-     * @var array
-     */
-    protected $dates = [
-        'expired_at'
+        'order_id',
+        'user_id',
+        'notice'
     ];
 
     /**

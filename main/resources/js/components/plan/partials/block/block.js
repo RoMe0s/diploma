@@ -34,10 +34,6 @@ export default {
     planConfig: {
       type: Object,
       required: true
-    },
-    allowBlocks: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -142,11 +138,6 @@ export default {
     },
     hasChild() {
       return this.isEditable && this.planConfig.headings.sequence[this.value.heading].next;
-    }
-  },
-  watch: {
-    allowBlocks() {
-      this.$set(this.value, "allowBlocks", false);
     }
   }
 }

@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Traits\BelongsToCustomer;
+use App\Models\Order\Order;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 class Project extends Model
 {
-    use BelongsToCustomer;
-
     /**
      * @var array
      */
@@ -24,6 +22,14 @@ class Project extends Model
     public function orders()
     {
         return $this->morphMany(Order::class, 'relation');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**

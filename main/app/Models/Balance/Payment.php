@@ -1,43 +1,44 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Balance;
 
-use App\Models\Order\Order;
+use App\Models\Task;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Payment extends Model
 {
     /**
      * @var array
      */
     protected $fillable = [
-        'expired_at',
-        'order_id',
-        'text_id',
+        'balance_id',
+        'task_id',
+        'amount',
+        'changed_at',
         'status',
-        'user_id'
+        'error'
     ];
 
     /**
      * @var array
      */
     protected $dates = [
-        'expired_at'
+        'changed_at'
     ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function author()
+    public function balance()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Balance::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function order()
+    public function task()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Task::class);
     }
 }

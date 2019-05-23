@@ -28,6 +28,18 @@ class ProjectController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param Loader $loader
+     * @return \Illuminate\Support\Collection
+     */
+    public function compact(Request $request, Loader $loader)
+    {
+        $loader->setUser($request->user());
+        $query = $loader->query($request->all());
+        return $query->pluck('name', 'id');
+    }
+
+    /**
      * @param StoreRequest $request
      * @param Store $store
      * @return \Illuminate\Http\JsonResponse

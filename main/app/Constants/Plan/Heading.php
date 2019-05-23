@@ -26,15 +26,12 @@ class Heading
         self::H6
     ];
 
-    const MIN_LENGTH = 100;
-
     /**
      * @return array
      */
     public static function getConfig(): array
     {
         return [
-            'minLength' => self::MIN_LENGTH,
             'sequence' => [
                 self::OPENING => [
                     'all' => [
@@ -98,7 +95,6 @@ class Heading
     public static function getShortConfig(): array
     {
         return [
-            'minLength' => self::MIN_LENGTH,
             'sequence' => [
                 self::H2 => self::H3,
                 self::H3 => self::H4,

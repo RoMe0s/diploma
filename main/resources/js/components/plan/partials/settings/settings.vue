@@ -9,7 +9,9 @@
                                :data-vv-as="__('fields.type')"
                                :state="noErrors(validationName('type'))">
                     <template slot="first">
-                        <option :value="null" disabled>-- {{ __("messages.please select an option") }} --</option>
+                        <option :value="null" disabled>
+                            -- {{ __("messages.please select an option") }} --
+                        </option>
                     </template>
                 </b-form-select>
                 <b-form-invalid-feedback>
@@ -40,7 +42,7 @@
                                       type="number"
                                       v-model="value.max"
                                       :placeholder="__('fields.max')"
-                                      v-validate="'required|integer|max:11|min_value:' + value.min"
+                                      v-validate="'required|integer|max:11|min_value:0'"
                                       :data-vv-name="validationName('max')"
                                       :data-vv-as="__('fields.max')"
                                       :state="noErrors(validationName('max'))"/>

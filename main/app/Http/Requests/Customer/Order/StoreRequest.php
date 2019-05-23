@@ -12,6 +12,11 @@ use App\Services\Plan\SizeValidator\CheckTopHeadings;
 class StoreRequest extends FormRequest
 {
     /**
+     * @var array
+     */
+    private $extraAttributes = [];
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -29,11 +34,12 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         $rules = [
+            'price' => 'required|numeric|numeric|min:0.01',
             'name' => 'nullable|required_without:description|string|max:255',
             'description' => 'nullable|required_without:name|max:10000',
+            'project_id' => 'nullable|exists:projects,id,user_id,' . $this->user()->id,
             'plan.sizes.from' => ['required', 'integer', 'min:100', 'digits_between:0,11'],
             'plan.sizes.to' => ['required', 'integer', 'gte:plan.sizes.from', 'digits_between:0,11'],
-            'plan.allowBlocks' => 'required|boolean',
 
             'plan.openingBlock.description' => 'sometimes|required|string|max:10000',
             'plan.openingBlock.sizes.from' => 'sometimes|required|integer|min:0|digits_between:0,11',
@@ -70,7 +76,9 @@ class StoreRequest extends FormRequest
 
         $data = $this->input('plan', []);
         $checkSubBlocks = resolve(CheckSubHeadings::class);
-        $rules += $checkSubBlocks->differences($data['blocks'] ?? []);
+        foreach ($checkSubBlocks->differences($data['blocks'] ?? []) as $field => $rule) {
+            $rules[$field] = $rule;
+        }
 
         $checkTopHeadings = resolve(CheckTopHeadings::class);
         foreach ($checkTopHeadings->differences($data) as $field => $rule) {
@@ -85,14 +93,14 @@ class StoreRequest extends FormRequest
      */
     public function attributes()
     {
-        return [
+        return array_merge($this->extraAttributes, [
             'name' => __('fields.name'),
+            'price' => __('fields.price'),
+            'project_id' => __('fields.project'),
             'description' => __('fields.description'),
             'plan.sizes.from' => __('fields.from'),
             'plan.sizes.to' => __('fields.to'),
-            'plan.allowBlocks' => __('fields.allow blocks'),
 
-            'plan.openingBlock.allowBlocks' => __('fields.allow blocks'),
             'plan.openingBlock.description' => __('fields.description'),
             'plan.openingBlock.sizes.from' => __('fields.from'),
             'plan.openingBlock.sizes.to' => __('fields.to'),
@@ -103,7 +111,6 @@ class StoreRequest extends FormRequest
             'plan.openingBlock.settings.*.min' => __('fields.min'),
             'plan.openingBlock.settings.*.max' => __('fields.max'),
 
-            'plan.closingBlock.allowBlocks' => __('fields.allow blocks'),
             'plan.closingBlock.description' => __('fields.description'),
             'plan.closingBlock.sizes.from' => __('fields.from'),
             'plan.closingBlock.sizes.to' => __('fields.to'),
@@ -114,7 +121,6 @@ class StoreRequest extends FormRequest
             'plan.closingBlock.settings.*.min' => __('fields.min'),
             'plan.closingBlock.settings.*.max' => __('fields.max'),
 
-            'plan.blocks.*.allowBlocks' => __('fields.allow blocks'),
             'plan.blocks.*.heading' => __('fields.heading'),
             'plan.blocks.*.name' => __('fields.name'),
             'plan.blocks.*.description' => __('fields.description'),
@@ -126,6 +132,6 @@ class StoreRequest extends FormRequest
             'plan.blocks.*.settings.*.type' => __('fields.type'),
             'plan.blocks.*.settings.*.min' => __('fields.min'),
             'plan.blocks.*.settings.*.max' => __('fields.max')
-        ];
+        ]);
     }
 }

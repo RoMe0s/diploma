@@ -73,7 +73,7 @@
       },
       showDeleteConfirm(record) {
         this.deleteConfirm(() => {
-          this.sendRequest('customer.settings.destroy', record.key)
+          this.sendRequest('customer.projects.settings.destroy', [this.project.id, record.key])
             .then(() => {
               this.$set(record, 'value', null);
               this.$refs[record.key].resetValidation();
@@ -95,7 +95,7 @@
         }
       },
       updateOrCreate(value, record) {
-        this.sendRequest('customer.settings.update-or-create', [record.key, value])
+        this.sendRequest('customer.projects.settings.update-or-create', [this.project.id, record.key, value])
           .then(() => {
             this.notify(this.__('messages.saved!'), 'success');
             this.$set(record, 'value', value);

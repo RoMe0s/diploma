@@ -37,6 +37,7 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         'middleware' => 'roles:' . Role::CUSTOMER
     ], function (Router $router) {
         $router->group(['prefix' => 'projects'], function (Router $router) {
+            $router->get('compact', 'ProjectController@compact');
             $router->post('action', 'ProjectController@action')->name('projects.action');
             $router->group(['prefix' => '{project}/settings'], function (Router $router) {
                 $router->get('', 'ProjectSettingController@index');

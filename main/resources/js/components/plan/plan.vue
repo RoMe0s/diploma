@@ -3,11 +3,6 @@
         <b-card-body>
             <b-form-row class="mb-3">
                 <b-col align="center">
-                    <b-form-checkbox v-model="value.allowBlocks" button
-                                     :button-variant="value.allowBlocks ? 'success' : 'secondary'">
-                        {{ __("messages.allow") }}
-                        {{ __("messages.custom blocks") }}
-                    </b-form-checkbox>
                     <b-form-checkbox @change="toggleUseOpeningBlock()" button
                                      :button-variant="useOpeningBlock ? 'success' : 'secondary'">
                         {{ __("messages.first paragraph") }}
@@ -22,7 +17,7 @@
                 <b-col>
                     <b-form-group>
                         <b-form-input type="number" min="0" v-model="value.sizes.from"
-                                      v-validate="'required|integer|min_value:100|max:11'"
+                                      v-validate="'required|integer|max:11|min_value:0'"
                                       :placeholder="__('messages.sizes.from')"
                                       :data-vv-as="__('messages.sizes.from')"
                                       data-vv-name="plan.sizes.from"
@@ -35,7 +30,7 @@
                 <b-col>
                     <b-form-group>
                         <b-form-input type="number" min="0" v-model="value.sizes.to"
-                                      v-validate="'required|integer|max:11|min_value:' + (value.sizes.from || 0)"
+                                      v-validate="'required|integer|max:11|min_value:0'"
                                       :placeholder="__('messages.sizes.to')"
                                       :data-vv-as="__('messages.sizes.to')"
                                       data-vv-name="plan.sizes.to"
@@ -53,9 +48,9 @@
             <block-component v-for="(block, index) in value.blocks" v-model="value.blocks[index]"
                              :key="'block-' + block.uid" :plan-config="planConfig" :position="index"
                              :previous-heading-type="previousHeadingType(index)" :next-same-index="nextSameIndex(index)"
-                             :allow-blocks="value.allowBlocks" :previous-same-index="previousSameIndex(index)"
-                             :blocks-length="blocksLength" @move-up="moveUp" @move-down="moveDown"
-                             @add-before="addBefore" @add-after="addAfter" @add-settings-block="addSettingsBlock"
+                             :previous-same-index="previousSameIndex(index)" :blocks-length="blocksLength"
+                             @move-up="moveUp" @move-down="moveDown" @add-before="addBefore"
+                             @add-after="addAfter" @add-settings-block="addSettingsBlock"
                              @add-keys-block="addKeysBlock" @add-child="addChild" @delete="deleteBlock" ref="blocks"/>
             <block-component v-model="value.closingBlock" :plan-config="planConfig"
                              :position="planConfig.headings.closing"

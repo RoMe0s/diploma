@@ -29,8 +29,11 @@ export default {
       this.$validator.reset();
     },
     addErrorToChildren(field, error) {
-      this.errors.add({field, msg: error});
-      this.$children.forEach($child => $child.addErrorToChildren(field, error));
+      if (field in this.veeFields) {
+        this.errors.add({field, msg: error});
+      } else {
+        this.$children.forEach($child => $child.addErrorToChildren(field, error));
+      }
     },
     resetValidationRecursive() {
       this.resetValidation();
