@@ -16,7 +16,6 @@ class Balance extends Model
      * @var array
      */
     protected $fillable = [
-        'system',
         'amount',
         'user_id'
     ];
@@ -43,5 +42,13 @@ class Balance extends Model
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function lockedChunks()
+    {
+        return $this->hasMany(LockedChunk::class);
     }
 }

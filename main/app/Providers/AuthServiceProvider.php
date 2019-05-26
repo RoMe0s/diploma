@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Order;
 use App\Models\Project;
+use App\Models\Order\Order;
 use App\Policies\Customer\OrderPolicy;
 use App\Policies\Customer\ProjectPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;

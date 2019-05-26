@@ -26,7 +26,13 @@ export default {
     },
     orders: {
       index: params => axios.get('/orders', {params}),
-      store: data => axios.post('/orders', data)
+      show: id => axios.get(`/orders/${id}`),
+      store: data => axios.post('/orders', data),
+      update: (id, data) => axios.put(`/orders/${id}`, data),
+      destroy: id => axios.delete(`/orders/${id}`),
+      'index-action': data => axios.post('/orders/action', data),
+      publish: id => axios.post(`/orders/${id}/publish`),
+      rollback: id => axios.post(`/orders/${id}/rollback`)
     }
   },
   config: {

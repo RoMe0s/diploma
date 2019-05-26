@@ -64,11 +64,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function balances()
+    public function balance()
     {
-        return $this->hasMany(Balance::class);
+        return $this->hasOne(Balance::class);
     }
 
     /**

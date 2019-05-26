@@ -2,52 +2,8 @@
 
 namespace App\Constants\Check;
 
-/*
-==================================
-                Order:
-                Назва
-                Опис
-Посилання з інфо. (окрема табличка)
-==================================
-
-==================================
-        |Табличка "Плани"|
-        ------------------
-        Пункти від автора (bool)
-        Об'єм тексту (int)
-----------------------------------
-        Об'єм першого абзацу (int, null)
-        Перший абзац до плану (bool)
-----------------------------------
-        |Табличка "Блоки"|
-        ------------------
-        Заголовок (int, null)
-        Назва (varchar, null)
-        Об'єм (int, null)
-        Опис (varchar)
-        Позиція (int)
-----------------------------------
-        |Табличка "Ключі"|
-        ------------------
-        Значення (varchar)
-        К-сть (int)
-        Тип (enum)
-----------------------------------
-        |Табличка "Обов'язкові елементи"|
-        ------------------
-        Тег (varchar)
-        К-сть до (int)
-        К-сть від (int)
-----------------------------------
-        Останній абзац після плану (bool)
-        Об'єм останнього абзацу (int, null)
-==================================
- */
-
 class Available
 {
-    const ALLOWED_OVERHEAD = 'AllowedOverhead';
-
     const USES_KEYWORDS_IN_TITLES = 'UsesKeywordsInTitles';
 
     const DISALLOW_TITLE_3_NEXT_TO_TITLE_2 = 'DisallowTitle3NextToTitle2';
@@ -70,7 +26,6 @@ class Available
 
     const SEQUENCE = [
         // GLOBAL
-        self::ALLOWED_OVERHEAD,
         self::USES_KEYWORDS_IN_TITLES,
         self::DISALLOW_TITLE_3_NEXT_TO_TITLE_2,
         // TITLE

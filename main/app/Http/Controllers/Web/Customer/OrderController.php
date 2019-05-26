@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Customer;
 
+use App\Models\Order\Order;
 use App\Http\Controllers\Web\Controller;
 
 class OrderController extends Controller
@@ -28,5 +29,16 @@ class OrderController extends Controller
     public function create()
     {
         return $this->render('create');
+    }
+
+    /**
+     * @param Order $order
+     * @return \Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function edit(Order $order)
+    {
+        $this->authorize('view', $order);
+        return $this->render('edit', ['id' => $order->id]);
     }
 }

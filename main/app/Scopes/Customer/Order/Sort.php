@@ -35,8 +35,12 @@ class Sort implements ScopeInterface
      */
     private function getSortBy(Model $model, array $config): string
     {
-        //TODO: add fields
-        switch ($config['sortBy'] ?? null) {
+        $sortBy = $config['sortBy'] ?? null;
+        switch ($sortBy) {
+            case 'date':
+                return $sortBy;
+            case 'status':
+                return $model->qualifyColumn($sortBy);
             default:
                 return $model->getQualifiedKeyName();
         }

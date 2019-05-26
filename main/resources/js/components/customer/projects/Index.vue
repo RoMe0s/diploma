@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __('customer.projects.index') }}
+                {{ __("customer.projects.index") }}
                 <b-link class="btn btn-success float-right" href="/projects/create" :title="__('messages.create')">
                     <i class="fa fa-plus"></i>
                 </b-link>
@@ -90,23 +90,23 @@
       return {
         fields: [
           {
-            key: 'id',
+            key: "id",
             sortable: true,
-            label: this.__('columns.id')
+            label: this.__("columns.id")
           },
           {
-            key: 'name',
+            key: "name",
             sortable: true,
-            label: this.__('columns.name')
+            label: this.__("columns.name")
           },
           {
-            key: 'ordersCount',
+            key: "ordersCount",
             sortable: true,
-            label: this.__('columns.orders')
+            label: this.__("columns.orders")
           },
           {
-            key: 'actions',
-            label: this.__('columns.actions')
+            key: "actions",
+            label: this.__("columns.actions")
           }
         ],
         perPage: 25,
@@ -115,33 +115,33 @@
         totalRows: 0,
         currentPage: 1,
         sortDesc: false,
-        sortDirection: 'desc',
+        sortDirection: "desc",
         pageOptions: [25, 50, 100],
         selected: [],
         deletedCallback: () => {
           this.$refs.table.refresh();
           Swal.fire({
-            title: this.__('messages.deleted!'),
-            type: 'success'
+            title: this.__("messages.deleted!"),
+            type: "success"
           });
         }
       }
     },
     methods: {
       rowSelected(items) {
-        this.selected = _.values(_.mapValues(items, 'id'));
+        this.selected = _.values(_.mapValues(items, "id"));
       },
       showDeleteConfirm(id) {
         this.deleteConfirm(() => {
-          this.sendRequest('customer.projects.destroy', id)
+          this.sendRequest("customer.projects.destroy", id)
             .then(this.deletedCallback);
         });
       },
       deleteSelected() {
         this.deleteConfirm(() => {
-          this.sendRequest('customer.projects.index-action', {
+          this.sendRequest("customer.projects.index-action", {
             projects: this.selected,
-            action: 'delete'
+            action: "delete"
           }).then(this.deletedCallback);
         });
       },

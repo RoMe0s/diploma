@@ -49,7 +49,7 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             'only' => ['index', 'create', 'edit']
         ]);
         $router->resource('orders', 'OrderController', [
-            'only' => ['index', 'create']
+            'only' => ['index', 'create', 'edit']
         ]);
     });
 });

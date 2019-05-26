@@ -38,7 +38,7 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
     ], function (Router $router) {
         $router->group(['prefix' => 'projects'], function (Router $router) {
             $router->get('compact', 'ProjectController@compact');
-            $router->post('action', 'ProjectController@action')->name('projects.action');
+            $router->post('action', 'ProjectController@action');
             $router->group(['prefix' => '{project}/settings'], function (Router $router) {
                 $router->get('', 'ProjectSettingController@index');
                 $router->group(['prefix' => '{check}'], function (Router $router) {
@@ -57,8 +57,15 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
                 $router->delete('', 'SettingController@destroy');
             });
         });
+        $router->group(['prefix' => 'orders'], function (Router $router) {
+            $router->post('action', 'OrderController@action');
+            $router->group(['prefix' => '{order}'], function (Router $router) {
+                $router->post('publish', 'OrderController@publish');
+                $router->post('rollback', 'OrderController@rollback');
+            });
+        });
         $router->apiResource('orders', 'OrderController', [
-            'only' => ['index', 'store']
+            'only' => ['index', 'show', 'store', 'update', 'destroy']
         ]);
     });
 });

@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __('customer.orders.index') }}
+                {{ __("customer.orders.index") }}
                 <b-link class="btn btn-success float-right" href="/orders/create" :title="__('messages.create')">
                     <i class="fa fa-plus"></i>
                 </b-link>
@@ -41,8 +41,21 @@
                 :current-page="currentPage"
                 :sort-direction="sortDirection"
                 @row-selected="rowSelected">
+                <template slot="status" slot-scope="row">
+                    <b-badge variant="info">
+                        {{ __(`messages.order.status.${row.item.status}`) }}
+                    </b-badge>
+                </template>
                 <template slot="actions" slot-scope="row">
                     <b-btn-group>
+                        <b-button size="sm" variant="success" @click.prevent="showPlayConfirm(row.item.id)"
+                                  v-if="row.item.can_be_published">
+                            <i class="fa fa-play"></i>
+                        </b-button>
+                        <b-button size="sm" variant="warning" @click.prevent="stopPlayConfirm(row.item.id)"
+                                  v-if="row.item.can_be_rollbacked">
+                            <i class="fa fa-stop"></i>
+                        </b-button>
                         <b-link class="btn btn-sm btn-info" :href="`/orders/${row.item.id}/edit`"
                                 :title="__('messages.edit')">
                             <i class="fa fa-pencil-alt"></i>
@@ -86,14 +99,28 @@
       return {
         fields: [
           {
-            key: 'id',
+            key: "id",
             sortable: true,
-            label: this.__('columns.id')
+            label: this.__("columns.id")
           },
           {
-            key: 'name',
+            key: "name",
             sortable: true,
-            label: this.__('columns.name')
+            label: this.__("columns.name")
+          },
+          {
+            key: "status",
+            sortable: true,
+            label: this.__("columns.status")
+          },
+          {
+            key: "date",
+            sortable: true,
+            label: this.__("columns.changed at")
+          },
+          {
+            key: "actions",
+            label: this.__("columns.actions")
           }
         ],
         perPage: 25,
@@ -102,35 +129,61 @@
         totalRows: 0,
         currentPage: 1,
         sortDesc: false,
-        sortDirection: 'desc',
+        sortDirection: "desc",
         pageOptions: [25, 50, 100],
         selected: [],
         deletedCallback: () => {
           this.$refs.table.refresh();
           Swal.fire({
-            title: this.__('messages.deleted!'),
-            type: 'success'
+            title: this.__("messages.deleted!"),
+            type: "success"
           });
         }
       }
     },
     methods: {
       rowSelected(items) {
-        this.selected = _.values(_.mapValues(items, 'id'));
+        this.selected = _.values(_.mapValues(items, "id"));
       },
       showDeleteConfirm(id) {
         this.deleteConfirm(() => {
-          this.sendRequest('customer.orders.destroy', id)
+          this.sendRequest("customer.orders.destroy", id)
             .then(this.deletedCallback);
         });
       },
       deleteSelected() {
         this.deleteConfirm(() => {
-          this.sendRequest('customer.orders.index-action', {
+          this.sendRequest("customer.orders.index-action", {
             orders: this.selected,
-            action: 'delete'
+            action: "delete"
           }).then(this.deletedCallback)
         })
+      },
+      showPlayConfirm(id) {
+        Swal.fire({
+          title: this.__("messages.are you sure?"),
+          showCancelButton: true,
+          type: "success",
+          confirmButtonText: this.__("messages.publish order"),
+          cancelButtonText: this.__("messages.cancel")
+        }).then(value => {
+          if (value) {
+            this.sendRequest("customer.orders.publish", id)
+          }
+        });
+      },
+      stopPlayConfirm(id) {
+        Swal.fire({
+          title: this.__("messages.are you sure?"),
+          showCancelButton: true,
+          type: "warning",
+          confirmButtonText: this.__("messages.rollback order"),
+          cancelButtonText: this.__("messages.cancel")
+        }).then(value => {
+          if (value) {
+            this.sendRequest("customer.orders.rollback", id)
+          }
+        });
       },
       itemsProviderCallback(response) {
         this.totalRows = response.data.totalRows;

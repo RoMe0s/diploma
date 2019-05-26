@@ -29,6 +29,7 @@ import CustomerSettingsIndex from './components/customer/settings/Index';
 
 import CustomerOrdersIndex from './components/customer/orders/Index';
 import CustomerOrdersCreate from './components/customer/orders/Create';
+import CustomerOrdersEdit from './components/customer/orders/edit/edit.vue';
 
 Vue.use(VeeValidate, {
   inject: true,
@@ -81,6 +82,7 @@ const app = new Vue({
 
     CustomerOrdersIndex,
     CustomerOrdersCreate,
+    CustomerOrdersEdit
   },
   created() {
     this.sendRequest('auth.user')

@@ -18,11 +18,12 @@ class CreateBlocksTable extends Migration
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->string('heading', 25);
-            $table->unsignedInteger('position')->unique();
             $table->unsignedInteger('size_from');
             $table->unsignedInteger('size_to');
             $table->unsignedBigInteger('plan_id');
+            $table->unsignedInteger('position');
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
+            $table->unique(['plan_id', 'position']);
         });
     }
 

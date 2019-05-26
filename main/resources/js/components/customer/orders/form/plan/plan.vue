@@ -1,5 +1,5 @@
 <template>
-    <b-card :header="__('messages.plan')" no-body>
+    <b-card :header="__('messages.plan')" no-body v-if="planConfig">
         <b-card-body>
             <b-form-row class="mb-3">
                 <b-col align="center">

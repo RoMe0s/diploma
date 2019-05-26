@@ -1,6 +1,6 @@
-import DeleteConfirmMixin from "../../mixins/deleteConfirm";
-import BlockComponent from "./partials/block/block.vue";
-import {blockSchema} from "../../helpers/plan";
+import DeleteConfirmMixin from "../../../../../mixins/deleteConfirm.js"
+import BlockComponent from "./partials/block/block.vue"
+import {blockSchema} from "../../../../../helpers/plan"
 
 export default {
   mixins: [DeleteConfirmMixin],
@@ -15,26 +15,11 @@ export default {
   },
   data() {
     return {
-      planConfig: {
-        headings: {
-          sequence: {
-            0: []
-          },
-          latest: null,
-          opening: null,
-          closing: null
-        },
-        keys: {},
-        settings: {}
-      },
-      useOpeningBlock: false,
-      useClosingBlock: false,
+      useOpeningBlock: this.value.openingBlock !== null,
+      useClosingBlock: this.value.closingBlock !== null,
+      planConfig: null,
       lastUid: 1
     }
-  },
-  created() {
-    this.sendRequest("config.plan")
-      .then(response => this.planConfig = response.data);
   },
   methods: {
     settingsBlockSchema() {
@@ -46,7 +31,7 @@ export default {
     },
     keysBlockSchema() {
       return {
-        name: null,
+        value: null,
         type: null,
         count: null
       };
@@ -77,7 +62,8 @@ export default {
     },
     addBefore(index) {
       const heading = this.value.blocks[index].heading;
-      this.value.blocks.splice(index, 0, {...blockSchema(this.getBlockUid()), heading});
+      const block = {...blockSchema(this.getBlockUid()), heading};
+      this.value.blocks.splice(index, 0, block);
     },
     addAfter(index) {
       const heading = this.value.blocks[index].heading;
@@ -194,5 +180,9 @@ export default {
     blocksLength() {
       return this.value.blocks.length;
     }
+  },
+  created() {
+    this.sendRequest("config.plan")
+      .then(response => this.planConfig = response.data)
   }
 }

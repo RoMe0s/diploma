@@ -3,6 +3,7 @@
 namespace App\Models\Balance;
 
 use App\Models\Task;
+use App\Models\Order\Order;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -12,6 +13,7 @@ class Payment extends Model
      */
     protected $fillable = [
         'balance_id',
+        'order_id',
         'task_id',
         'amount',
         'changed_at',
@@ -40,5 +42,13 @@ class Payment extends Model
     public function task()
     {
         return $this->belongsTo(Task::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 }

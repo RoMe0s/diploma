@@ -1,7 +1,7 @@
 export const blockSchema = (uid = 1) => ({
-  sizes: {from: null, to: null},
-  allowBlocks: false,
+  sizes: {from: "0", to: null},
   description: null,
+  position: null,
   heading: null,
   settings: [],
   name: null,

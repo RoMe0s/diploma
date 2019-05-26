@@ -2,25 +2,25 @@
 
 namespace App\Services\Loaders\Customer;
 
-use App\Scopes\Customer\Order\Filter;
-use App\Scopes\Customer\Order\Sort;
+use App\Models\User;
 use App\Scopes\Pagination;
 use App\Scopes\ScopeInterface;
 use App\Services\Loaders\Loader;
-use App\Models\Order as OrderModel;
+use App\Scopes\Customer\Order\Sort;
+use App\Scopes\Customer\Order\Filter;
+use App\Models\Order\Order as OrderModel;
 use App\Services\Loaders\PaginatorInterface;
 use App\Services\Loaders\PaginatorTrait;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class Order extends Loader implements PaginatorInterface
 {
     use PaginatorTrait;
 
     /**
-     * @var Model|null
+     * @var User|null
      */
-    private $relation;
+    private $user;
 
     /**
      * @var Pagination
@@ -28,7 +28,7 @@ class Order extends Loader implements PaginatorInterface
     private $pagination;
 
     /**
-     * Project constructor.
+     * Order constructor.
      * @param Pagination $pagination
      */
     function __construct(Pagination $pagination)
@@ -37,11 +37,11 @@ class Order extends Loader implements PaginatorInterface
     }
 
     /**
-     * @param Model $relation
+     * @param User $user
      */
-    public function setRelation(Model $relation): void
+    public function setUser(User $user): void
     {
-        $this->relation = $relation;
+        $this->user = $user;
     }
 
     /**
@@ -58,8 +58,10 @@ class Order extends Loader implements PaginatorInterface
      */
     protected function prepareQuery(array $config): Builder
     {
-        return OrderModel::query()->where('relation_type', get_class($this->relation))
-            ->where('relation_id', $this->relation->getKey());
+        $order = new OrderModel;
+        return $order->newQuery()->select($order->qualifyColumn('*'))
+            ->selectSub("IFNULL({$order->qualifyColumn('done_at')}, {$order->qualifyColumn('updated_at')})", 'date')
+            ->relatedToUser($this->user);
     }
 
     /**

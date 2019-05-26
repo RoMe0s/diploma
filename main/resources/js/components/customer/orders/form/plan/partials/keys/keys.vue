@@ -2,14 +2,14 @@
     <b-form-row>
         <b-col>
             <b-form-group>
-                <b-form-input v-model="value.name"
+                <b-form-input v-model="value.value"
                               v-validate="'required|max:255'"
-                              :placeholder="__('messages.name')"
-                              :data-vv-name="validationName('name')"
-                              :data-vv-as="__('messages.name')"
-                              :state="noErrors(validationName('name'))"/>
+                              :placeholder="__('messages.value')"
+                              :data-vv-name="validationName('value')"
+                              :data-vv-as="__('messages.value')"
+                              :state="noErrors(validationName('value'))"/>
                 <b-form-invalid-feedback>
-                    {{ errors.first(validationName("name")) }}
+                    {{ errors.first(validationName("value")) }}
                 </b-form-invalid-feedback>
             </b-form-group>
         </b-col>
@@ -40,7 +40,7 @@
                                       type="number"
                                       v-model="value.count"
                                       :placeholder="__('fields.count')"
-                                      v-validate="'required|integer|min_value:0|max:11'"
+                                      v-validate="'required|integer|min_value:1|max:11'"
                                       :data-vv-name="validationName('count')"
                                       :data-vv-as="__('fields.count')"
                                       :state="noErrors(validationName('count'))"/>

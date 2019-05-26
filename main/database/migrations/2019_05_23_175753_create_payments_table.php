@@ -18,8 +18,10 @@ class CreatePaymentsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('balance_id');
             $table->foreign('balance_id')->references('id')->on('balances')->onDelete('cascade');
-            $table->unsignedBigInteger('task_id');
+            $table->unsignedBigInteger('task_id')->unique();
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
+            $table->unsignedBigInteger('order_id')->unique();
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->string('amount');
             $table->enum('status', Payment::ALL)->default(Payment::NEW);
             $table->timestamp('changed_at')->nullable();

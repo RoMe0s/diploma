@@ -17,8 +17,8 @@ class Block extends Model
     protected $fillable = [
         'name',
         'description',
-        'heading',
         'position',
+        'heading',
         'size_from',
         'size_to',
         'plan_id'

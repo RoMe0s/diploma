@@ -1,5 +1,6 @@
 <?php
 
+use App\Constants\Status\Order;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -22,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->timestamp('done_at')->nullable();
             $table->unsignedBigInteger('text_id')->nullable();
             $table->foreign('text_id')->references('id')->on('texts')->onDelete('set null');
+            $table->enum('status', Order::ALL)->default(Order::DRAFT);
             $table->timestamps();
         });
     }

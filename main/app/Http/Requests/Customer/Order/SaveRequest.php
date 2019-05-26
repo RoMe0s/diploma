@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Services\Plan\SizeValidator\CheckSubHeadings;
 use App\Services\Plan\SizeValidator\CheckTopHeadings;
 
-class StoreRequest extends FormRequest
+class SaveRequest extends FormRequest
 {
     /**
      * @var array
@@ -38,13 +38,13 @@ class StoreRequest extends FormRequest
             'name' => 'nullable|required_without:description|string|max:255',
             'description' => 'nullable|required_without:name|max:10000',
             'project_id' => 'nullable|exists:projects,id,user_id,' . $this->user()->id,
-            'plan.sizes.from' => ['required', 'integer', 'min:100', 'digits_between:0,11'],
+            'plan.sizes.from' => ['required', 'integer', 'min:0', 'digits_between:0,11'],
             'plan.sizes.to' => ['required', 'integer', 'gte:plan.sizes.from', 'digits_between:0,11'],
 
             'plan.openingBlock.description' => 'sometimes|required|string|max:10000',
             'plan.openingBlock.sizes.from' => 'sometimes|required|integer|min:0|digits_between:0,11',
             'plan.openingBlock.sizes.to' => 'sometimes|required|integer|digits_between:0,11|gt:plan.openingBlock.sizes.from',
-            'plan.openingBlock.keys.*.name' => 'sometimes|required|string|max:255',
+            'plan.openingBlock.keys.*.value' => 'sometimes|required|string|max:255',
             'plan.openingBlock.keys.*.type' => 'sometimes|required|in:' . implode(',', Key::ALL),
             'plan.openingBlock.keys.*.count' => 'sometimes|required|integer|min:1|digits_between:0,11',
             'plan.openingBlock.settings.*.type' => 'sometimes|required|in:' . implode(',', SettingBlock::ALL),
@@ -54,7 +54,7 @@ class StoreRequest extends FormRequest
             'plan.closingBlock.description' => 'sometimes|required|string|max:10000',
             'plan.closingBlock.sizes.from' => 'sometimes|required|integer|min:0|digits_between:0,11',
             'plan.closingBlock.sizes.to' => 'sometimes|required|integer|digits_between:0,11|gt:plan.closingBlock.sizes.from',
-            'plan.closingBlock.keys.*.name' => 'sometimes|required|string|max:255',
+            'plan.closingBlock.keys.*.value' => 'sometimes|required|string|max:255',
             'plan.closingBlock.keys.*.type' => 'sometimes|required|in:' . implode(',', Key::ALL),
             'plan.closingBlock.keys.*.count' => 'sometimes|required|integer|min:1|digits_between:0,11',
             'plan.closingBlock.settings.*.type' => 'sometimes|required|in:' . implode(',', SettingBlock::ALL),
@@ -66,7 +66,7 @@ class StoreRequest extends FormRequest
             'plan.blocks.*.description' => 'sometimes|required_without:plan.blocks.*.name|string|max:10000',
             'plan.blocks.*.sizes.from' => 'sometimes|required|integer|min:0|digits_between:0,11',
             'plan.blocks.*.sizes.to' => 'sometimes|required|integer|digits_between:0,11|gt:plan.blocks.*.sizes.from',
-            'plan.blocks.*.keys.*.name' => 'sometimes|required|string|max:255',
+            'plan.blocks.*.keys.*.value' => 'sometimes|required|string|max:255',
             'plan.blocks.*.keys.*.type' => 'sometimes|required|in:' . implode(',', Key::ALL),
             'plan.blocks.*.keys.*.count' => 'sometimes|required|integer|min:1|digits_between:0,11',
             'plan.blocks.*.settings.*.type' => 'sometimes|required|in:' . implode(',', SettingBlock::ALL),
@@ -104,7 +104,7 @@ class StoreRequest extends FormRequest
             'plan.openingBlock.description' => __('fields.description'),
             'plan.openingBlock.sizes.from' => __('fields.from'),
             'plan.openingBlock.sizes.to' => __('fields.to'),
-            'plan.openingBlock.keys.*.name' => __('fields.name'),
+            'plan.openingBlock.keys.*.value' => __('fields.value'),
             'plan.openingBlock.keys.*.type' => __('fields.type'),
             'plan.openingBlock.keys.*.count' => __('fields.count'),
             'plan.openingBlock.settings.*.type' => __('fields.type'),
@@ -114,7 +114,7 @@ class StoreRequest extends FormRequest
             'plan.closingBlock.description' => __('fields.description'),
             'plan.closingBlock.sizes.from' => __('fields.from'),
             'plan.closingBlock.sizes.to' => __('fields.to'),
-            'plan.closingBlock.keys.*.name' => __('fields.name'),
+            'plan.closingBlock.keys.*.value' => __('fields.value'),
             'plan.closingBlock.keys.*.type' => __('fields.type'),
             'plan.closingBlock.keys.*.count' => __('fields.count'),
             'plan.closingBlock.settings.*.type' => __('fields.type'),
@@ -126,7 +126,7 @@ class StoreRequest extends FormRequest
             'plan.blocks.*.description' => __('fields.description'),
             'plan.blocks.*.sizes.from' => __('fields.from'),
             'plan.blocks.*.sizes.to' => __('fields.to'),
-            'plan.blocks.*.keys.*.name' => __('fields.name'),
+            'plan.blocks.*.keys.*.value' => __('fields.value'),
             'plan.blocks.*.keys.*.type' => __('fields.type'),
             'plan.blocks.*.keys.*.count' => __('fields.count'),
             'plan.blocks.*.settings.*.type' => __('fields.type'),
