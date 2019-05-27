@@ -112,7 +112,7 @@ class Order extends Model
     /**
      * @return bool
      */
-    public function canBeRollbacked(): bool
+    public function canBeRolledBack(): bool
     {
         return $this->status === OrderStatus::PUBLISHED;
     }

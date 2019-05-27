@@ -105,7 +105,7 @@ class OrderController extends Controller
     public function publish(Order $order, PublishRequest $request, Publish $publish)
     {
         $this->authorize('update', $order);
-        $publish->publish($order, $request->validated());
+        $publish->publish($order, $request->user());
         return response()->json();
     }
 
@@ -117,7 +117,7 @@ class OrderController extends Controller
      */
     public function rollback(Order $order, Rollback $rollback)
     {
-        $this->authorize('update', $order);
+        $this->authorize('rollback', $order);
         $rollback->rollback($order);
         return response()->json();
     }

@@ -2,7 +2,9 @@
 
 namespace App\Services\Handlers\Customer\Order;
 
+use App\Constants\Status\Order as OrderStatus;
 use App\Models\Order\Order;
+use Illuminate\Support\Facades\DB;
 
 class Rollback
 {
@@ -11,6 +13,9 @@ class Rollback
      */
     public function rollback(Order $order): void
     {
-        //TODO
+        DB::transaction(function () use ($order) {
+            $order->update(['status' => OrderStatus::DRAFT]);
+            $order->lockedChunk()->delete();
+        });
     }
 }

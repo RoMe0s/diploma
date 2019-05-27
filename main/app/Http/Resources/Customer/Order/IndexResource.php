@@ -24,7 +24,7 @@ class IndexResource extends JsonResource
             'name' => $order->name,
             'status' => $order->status,
             'can_be_published' => $order->canBePublished(),
-            'can_be_rollbacked' => $order->canBeRollbacked()
+            'can_be_rolled_back' => $order->canBeRolledBack()
         ];
     }
 }

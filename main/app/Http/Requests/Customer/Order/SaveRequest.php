@@ -62,8 +62,8 @@ class SaveRequest extends FormRequest
             'plan.closingBlock.settings.*.max' => 'sometimes|required|integer|digits_between:0,11|gte:plan.closingBlock.settings.*.min',
 
             'plan.blocks.*.heading' => 'sometimes|in:' . implode(',', Heading::ALL),
-            'plan.blocks.*.name' => 'sometimes|required_without:plan.blocks.*.description|string|max:255',
-            'plan.blocks.*.description' => 'sometimes|required_without:plan.blocks.*.name|string|max:10000',
+            'plan.blocks.*.name' => 'sometimes|required_without:plan.blocks.*.description|string|nullable|max:255',
+            'plan.blocks.*.description' => 'sometimes|required_without:plan.blocks.*.name|string|nullable|max:10000',
             'plan.blocks.*.sizes.from' => 'sometimes|required|integer|min:0|digits_between:0,11',
             'plan.blocks.*.sizes.to' => 'sometimes|required|integer|digits_between:0,11|gt:plan.blocks.*.sizes.from',
             'plan.blocks.*.keys.*.value' => 'sometimes|required|string|max:255',

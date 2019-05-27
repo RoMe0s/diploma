@@ -29,7 +29,56 @@ export default {
     },
     update() {
       this.validateAll().then(() => this.sendRequest("customer.orders.update", [this.id, this.value])
-        .then(response => Swal.fire(this.__("messages.saved!"), "", "success")))
+        .then(() => Swal.fire(this.__("messages.saved!"), "", "success")))
+    },
+    showPublishConfirm() {
+      Swal.fire({
+        title: this.__("messages.are you sure?"),
+        showCancelButton: true,
+        type: "success",
+        confirmButtonText: this.__("messages.publish order"),
+        cancelButtonText: this.__("messages.cancel")
+      }).then(answer => {
+        if (answer.value === true) {
+          this.sendRequest("customer.orders.publish", this.id)
+            .then(() => {
+              this.$set(this.value, "can_be_rolled_back", true)
+              this.$set(this.value, "can_be_published", false)
+              Swal.fire({
+                title: this.__("messages.published!"),
+                type: "success"
+              });
+            })
+            .catch(error => {
+              Swal.fire({
+                text: _.join(_.flattenDeep(_.values(error.response.data.errors)), "\n"),
+                title: this.__("messages.error"),
+                type: "error"
+              });
+            })
+        }
+      });
+    },
+    showRollbackConfirm() {
+      Swal.fire({
+        title: this.__("messages.are you sure?"),
+        showCancelButton: true,
+        type: "warning",
+        confirmButtonText: this.__("messages.rollback order"),
+        cancelButtonText: this.__("messages.cancel")
+      }).then(answer => {
+        if (answer.value === true) {
+          this.sendRequest("customer.orders.rollback", this.id)
+            .then(() => {
+              this.$set(this.value, "can_be_rolled_back", false)
+              this.$set(this.value, "can_be_published", true)
+              Swal.fire({
+                title: this.__("messages.rolled back!"),
+                type: "success"
+              });
+            })
+        }
+      });
     }
   },
   created() {

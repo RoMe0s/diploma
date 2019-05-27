@@ -30,6 +30,9 @@ class OrderPolicy
      */
     public function update(User $user, Order $order): bool
     {
+        if (!$order->canBePublished()) {
+            return false;
+        }
         if ($order->relation_type === User::class) {
             return $order->relation_id == $user->id;
         }
@@ -43,6 +46,25 @@ class OrderPolicy
      */
     public function delete(User $user, Order $order): bool
     {
+        if (!$order->canBePublished()) {
+            return false;
+        }
+        if ($order->relation_type === User::class) {
+            return $order->relation_id == $user->id;
+        }
+        return $order->relation->user_id === $user->id;
+    }
+
+    /**
+     * @param User $user
+     * @param Order $order
+     * @return bool
+     */
+    public function rollback(User $user, Order $order): bool
+    {
+        if (!$order->canBeRolledBack()) {
+            return false;
+        }
         if ($order->relation_type === User::class) {
             return $order->relation_id == $user->id;
         }

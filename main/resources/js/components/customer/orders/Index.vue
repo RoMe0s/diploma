@@ -48,12 +48,12 @@
                 </template>
                 <template slot="actions" slot-scope="row">
                     <b-btn-group>
-                        <b-button size="sm" variant="success" @click.prevent="showPlayConfirm(row.item.id)"
+                        <b-button size="sm" variant="success" @click.prevent="showPublishConfirm(row.item.id)"
                                   v-if="row.item.can_be_published">
                             <i class="fa fa-play"></i>
                         </b-button>
-                        <b-button size="sm" variant="warning" @click.prevent="stopPlayConfirm(row.item.id)"
-                                  v-if="row.item.can_be_rollbacked">
+                        <b-button size="sm" variant="warning" @click.prevent="showRollbackConfirm(row.item.id)"
+                                  v-if="row.item.can_be_rolled_back">
                             <i class="fa fa-stop"></i>
                         </b-button>
                         <b-link class="btn btn-sm btn-info" :href="`/orders/${row.item.id}/edit`"
@@ -159,29 +159,50 @@
           }).then(this.deletedCallback)
         })
       },
-      showPlayConfirm(id) {
+      showPublishConfirm(id) {
         Swal.fire({
           title: this.__("messages.are you sure?"),
           showCancelButton: true,
           type: "success",
           confirmButtonText: this.__("messages.publish order"),
           cancelButtonText: this.__("messages.cancel")
-        }).then(value => {
-          if (value) {
+        }).then(answer => {
+          if (answer.value === true) {
             this.sendRequest("customer.orders.publish", id)
+              .then(() => {
+                this.$refs.table.refresh();
+                Swal.fire({
+                  title: this.__("messages.published!"),
+                  type: "success"
+                });
+              })
+              .catch(error => {
+                Swal.fire({
+                  text: _.join(_.flattenDeep(_.values(error.response.data.errors)), "\n"),
+                  title: this.__("messages.error"),
+                  type: "error"
+                });
+              })
           }
         });
       },
-      stopPlayConfirm(id) {
+      showRollbackConfirm(id) {
         Swal.fire({
           title: this.__("messages.are you sure?"),
           showCancelButton: true,
           type: "warning",
           confirmButtonText: this.__("messages.rollback order"),
           cancelButtonText: this.__("messages.cancel")
-        }).then(value => {
-          if (value) {
+        }).then(answer => {
+          if (answer.value === true) {
             this.sendRequest("customer.orders.rollback", id)
+              .then(() => {
+                this.$refs.table.refresh();
+                Swal.fire({
+                  title: this.__("messages.rolled back!"),
+                  type: "success"
+                });
+              })
           }
         });
       },

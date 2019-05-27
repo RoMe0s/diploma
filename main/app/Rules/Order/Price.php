@@ -14,6 +14,11 @@ class Price implements Rule
     private $customer;
 
     /**
+     * @var float
+     */
+    private $value;
+
+    /**
      * Price constructor.
      * @param User $customer
      */
@@ -29,6 +34,7 @@ class Price implements Rule
      */
     public function passes($attribute, $value)
     {
+        $this->value = $value;
         if ($balance = $this->customer->balance) {
             $balance = (new Customer($balance))->getAvailable();
             return $balance - $value >= 0;
@@ -43,7 +49,6 @@ class Price implements Rule
      */
     public function message()
     {
-        //TODO: add price into the rule
-        return __('validation.order.price');
+        return sprintf(__('validation.balance.amount'), $this->value);
     }
 }

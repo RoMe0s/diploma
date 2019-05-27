@@ -12,7 +12,7 @@ class ShowResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -26,7 +26,7 @@ class ShowResource extends JsonResource
             'description' => $order->description,
             'project_id' => $this->getProjectId($order),
             'can_be_published' => $order->canBePublished(),
-            'can_be_rollbacked' => $order->canBeRollbacked(),
+            'can_be_rolled_back' => $order->canBeRolledBack(),
             'plan' => PlanResource::make($this->whenLoaded('plan'))
         ];
     }
