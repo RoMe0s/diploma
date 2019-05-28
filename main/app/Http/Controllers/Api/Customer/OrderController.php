@@ -121,4 +121,16 @@ class OrderController extends Controller
         $rollback->rollback($order);
         return response()->json();
     }
+
+    /**
+     * @param Request $request
+     * @param Loader $loader
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function count(Request $request, Loader $loader)
+    {
+        $loader->setUser($request->user());
+        $count = $loader->query([])->count();
+        return response()->json(compact('count'));
+    }
 }

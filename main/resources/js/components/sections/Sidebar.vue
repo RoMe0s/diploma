@@ -1,11 +1,11 @@
 <template>
-    <component :is="this.$root.authenticated.role" v-if="hasChild()"></component>
+    <component :is="this.getUser().role" v-if="hasChild()"></component>
 </template>
 
 <script>
   import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
-  import Customer from './sidebar/Customer';
-  import Author from './sidebar/Author';
+  import Customer from './sidebar/Customer'
+  import Author from './sidebar/Author'
 
   export default {
     components: {
@@ -14,7 +14,7 @@
     },
     methods: {
       hasChild() {
-        return this.$root.authenticated !== null && this.$root.authenticated.role in this.$options.components;
+        return this.getUser() !== null && this.getUser().role in this.$options.components;
       }
     }
   }

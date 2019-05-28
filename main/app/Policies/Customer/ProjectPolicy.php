@@ -12,6 +12,17 @@ class ProjectPolicy
 
     /**
      * @param User $user
+     * @return bool
+     */
+    public function before(User $user)
+    {
+        if (!$user->isCustomer()) {
+            return false;
+        }
+    }
+
+    /**
+     * @param User $user
      * @param Project $project
      * @return bool
      */

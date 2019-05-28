@@ -34,9 +34,9 @@ $router->group(['prefix' => 'js'], function (Router $router) {
     $router->get('lang.js', 'StaticController@langJs');
 });
 
-$router->view('', 'home'); //TODO
 
 $router->group(['middleware' => 'auth'], function (Router $router) {
+    $router->view('', 'balance');
     $router->group([
         'namespace' => 'Customer',
         'middleware' => 'roles:' . Role::CUSTOMER
@@ -51,5 +51,8 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         $router->resource('orders', 'OrderController', [
             'only' => ['index', 'create', 'edit']
         ]);
+        $router->group(['prefix' => 'profile'], function (Router $router) {
+            $router->view('', 'customer.profile.index');
+        });
     });
 });

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Checker') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/lang.js') }}" defer></script>
@@ -27,10 +27,10 @@
 <body>
 <div id="app" :class="{'collapsed': collapsed, 'authenticated': authenticated}">
     @guest
-        <top-menu></top-menu>
+        <guest-top-menu></guest-top-menu>
     @else
+        <auth-top-menu></auth-top-menu>
         <sidebar></sidebar>
-        <div class="bg bg-danger"></div>
     @endif
     <div class="container container-fluid mt-4 mb-4">
         @yield('content')

@@ -36,14 +36,13 @@
     },
     methods: {
       store() {
-        this.validateAll()
-          .then(() => this.sendRequest('customer.projects.store', {name: this.name})
-            .then(response => {
-              Swal.fire({
-                type: 'success',
-                title: this.__('messages.saved!')
-              }).then(() => window.location.href = `/projects/${response.data.id}/edit`);
-            }));
+        this.validateAll().then(isValid => {
+          if (isValid) {
+            this.sendRequest('customer.projects.store', {name: this.name})
+              .then(response => Swal.fire({type: 'success', title: this.__('messages.saved!')})
+                .then(() => window.location.href = `/projects/${response.data.id}/edit`))
+          }
+        });
       }
     }
   }

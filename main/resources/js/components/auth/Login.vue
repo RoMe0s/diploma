@@ -49,11 +49,15 @@
     },
     methods: {
       signIn() {
-        this.validateAll().then(() => this.sendRequest('auth.login', {
-          email: this.email,
-          password: this.password,
-          remember: this.remember
-        }).then(response => window.location.href = response.data.redirectTo));
+        this.validateAll().then(isValid => {
+          if (isValid) {
+            this.sendRequest('auth.login', {
+              email: this.email,
+              password: this.password,
+              remember: this.remember
+            }).then(response => window.location.href = response.data.redirectTo)
+          }
+        });
       }
     }
   }

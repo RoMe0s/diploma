@@ -65,12 +65,15 @@
         });
       },
       update() {
-        this.validateAll()
-          .then(() => this.sendRequest("customer.projects.update", [this.project.id, {name: this.name}])
-            .then(() => {
-              Swal.fire(this.__("messages.saved!"), "", "success");
-              this.title = this.name;
-            }));
+        this.validateAll().then(isValid => {
+          if (isValid) {
+            this.sendRequest("customer.projects.update", [this.project.id, {name: this.name}])
+              .then(() => {
+                Swal.fire(this.__("messages.saved!"), "", "success");
+                this.title = this.name;
+              })
+          }
+        });
       }
     }
   }

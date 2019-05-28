@@ -12,10 +12,9 @@ class Customer
     private $balance;
 
     /**
-     * Customer constructor.
      * @param Balance $balance
      */
-    function __construct(Balance $balance)
+    public function setBalance(Balance $balance): void
     {
         $this->balance = $balance;
     }

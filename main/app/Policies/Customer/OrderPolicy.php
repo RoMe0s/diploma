@@ -12,6 +12,17 @@ class OrderPolicy
 
     /**
      * @param User $user
+     * @return bool
+     */
+    public function before(User $user)
+    {
+        if (!$user->isCustomer()) {
+            return false;
+        }
+    }
+
+    /**
+     * @param User $user
      * @param Order $order
      * @return bool
      */

@@ -35,11 +35,7 @@ class Price implements Rule
     public function passes($attribute, $value)
     {
         $this->value = $value;
-        if ($balance = $this->customer->balance) {
-            $balance = (new Customer($balance))->getAvailable();
-            return $balance - $value >= 0;
-        }
-        return false;
+        return $this->getBalance()->getAvailable() - $value >= 0;
     }
 
     /**
@@ -50,5 +46,15 @@ class Price implements Rule
     public function message()
     {
         return sprintf(__('validation.balance.amount'), $this->value);
+    }
+
+    /**
+     * @return Customer
+     */
+    private function getBalance(): Customer
+    {
+        $balance = new Customer;
+        $balance->setBalance($this->customer->balance);
+        return $balance;
     }
 }

@@ -9,7 +9,7 @@
     mixins: [MenuMixin],
     data() {
       return {
-        ordersCount: 150
+        ordersCount: 0
       }
     },
     computed: {
@@ -17,11 +17,6 @@
         return [
           {
             href: '/',
-            title: this.__('pages.dashboard'),
-            icon: 'fa fa-home'
-          },
-          {
-            href: '/coins',
             title: this.__('pages.balance'),
             icon: 'fa fa-coins'
           },
@@ -51,6 +46,10 @@
           }
         ];
       }
+    },
+    created() {
+      this.sendRequest("customer.orders.count")
+        .then(response => this.ordersCount = response.data.count)
     }
   }
 </script>

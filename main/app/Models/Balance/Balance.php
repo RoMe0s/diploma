@@ -16,6 +16,7 @@ class Balance extends Model
      * @var array
      */
     protected $fillable = [
+        'bill',
         'amount',
         'user_id'
     ];

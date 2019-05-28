@@ -28,8 +28,12 @@ export default {
       });
     },
     update() {
-      this.validateAll().then(() => this.sendRequest("customer.orders.update", [this.id, this.value])
-        .then(() => Swal.fire(this.__("messages.saved!"), "", "success")))
+      this.validateAll().then(isValid => {
+        if (isValid) {
+          this.sendRequest("customer.orders.update", [this.id, this.value])
+            .then(() => Swal.fire(this.__("messages.saved!"), "", "success"))
+        }
+      })
     },
     showPublishConfirm() {
       Swal.fire({

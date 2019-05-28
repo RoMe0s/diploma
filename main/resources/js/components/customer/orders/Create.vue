@@ -46,10 +46,12 @@
     },
     methods: {
       store() {
-        this.validateAll().then(() => {
-          this.sendRequest("customer.orders.store", this.value)
-            .then(response => Swal.fire({type: "success", title: this.__("messages.saved!")})
-              .then(() => window.location.href = `/orders/${response.data.id}/edit`));
+        this.validateAll().then(isValid => {
+          if (isValid) {
+            this.sendRequest("customer.orders.store", this.value)
+              .then(response => Swal.fire({type: "success", title: this.__("messages.saved!")})
+                .then(() => window.location.href = `/orders/${response.data.id}/edit`))
+          }
         });
       }
     }

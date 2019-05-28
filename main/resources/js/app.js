@@ -17,7 +17,8 @@ import ValidationMixin from './mixins/validation';
 
 import AuthRegister from './components/auth/Register';
 import AuthLogin from './components/auth/Login';
-import TopMenu from './components/sections/TopMenu';
+import GuestTopMenu from './components/sections/top-menu/guest.vue'
+import AuthTopMenu from './components/sections/top-menu/auth.vue'
 import Sidebar from './components/sections/Sidebar';
 
 import CustomerProjectsCreate from './components/customer/projects/Create';
@@ -30,6 +31,10 @@ import CustomerSettingsIndex from './components/customer/settings/Index';
 import CustomerOrdersIndex from './components/customer/orders/Index';
 import CustomerOrdersCreate from './components/customer/orders/Create';
 import CustomerOrdersEdit from './components/customer/orders/edit/edit.vue';
+
+import CustomerBalance from './components/customer/balance/balance.vue'
+
+import CustomerProfile from './components/customer/profile/profile.vue'
 
 Vue.use(VeeValidate, {
   inject: true,
@@ -45,6 +50,9 @@ Vue.mixin({
   methods: {
     notify(message, type = 'error') {
       this.$toasted[type](message);
+    },
+    getUser() {
+      return this.$root.authenticated;
     }
   }
 });
@@ -72,7 +80,8 @@ const app = new Vue({
     AuthRegister,
     AuthLogin,
     Sidebar,
-    TopMenu,
+    GuestTopMenu,
+    AuthTopMenu,
 
     CustomerProjectsSettingsIndex,
     CustomerProjectsCreate,
@@ -82,11 +91,18 @@ const app = new Vue({
 
     CustomerOrdersIndex,
     CustomerOrdersCreate,
-    CustomerOrdersEdit
+    CustomerOrdersEdit,
+
+    CustomerBalance,
+
+    CustomerProfile
   },
   created() {
-    this.sendRequest('auth.user')
-      .then(response => this.authenticated = response.data.user);
+    this.sendRequest("auth.user")
+      .then(response => {
+        this.authenticated = response.data.user
+        this.$emit("user-loaded")
+      });
   },
   data() {
     return {

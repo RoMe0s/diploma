@@ -5,16 +5,12 @@ export default {
       this.$children.forEach($child => $child.validateAllRecursive(promises));
       return promises;
     },
-    validateAll() {
-      return Promise.all(this.validateAllRecursive())
-        .then(validations => {
-          const isValid = validations.indexOf(false) < 0;
-          return new Promise((resolve, reject) => isValid ? resolve() : reject('Invalid!'));
-        });
+    async validateAll() {
+      return await Promise.all(this.validateAllRecursive())
+        .then(validations => validations.indexOf(false) < 0)
     },
-    validate(field) {
-      return this.$validator.validate(field)
-        .then(isValid => new Promise((resolve, reject) => isValid ? resolve() : reject('Invalid!')));
+    async validate(field) {
+      return await this.$validator.validate(field)
     },
     noErrors(ref) {
       if (this.errors.has(ref)) {
@@ -26,7 +22,7 @@ export default {
       return null;
     },
     resetValidation() {
-      this.$validator.reset();
+      this.$validator.reset().then(console.log);
     },
     addErrorToChildren(field, error) {
       if (field in this.veeFields) {

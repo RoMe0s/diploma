@@ -72,16 +72,19 @@
     },
     methods: {
       signUp() {
-        this.validateAll().then(() => this.sendRequest('auth.register', {
-          name: this.name,
-          role: this.role,
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.password_confirmation
-        }).then(response => {
-          console.log(response);
-          window.location.href = response.data.redirectTo;
-        }));
+        this.validateAll().then(isValid => {
+          if (isValid) {
+            this.sendRequest('auth.register', {
+              name: this.name,
+              role: this.role,
+              email: this.email,
+              password: this.password,
+              password_confirmation: this.password_confirmation
+            }).then(response => {
+              window.location.href = response.data.redirectTo;
+            })
+          }
+        });
       },
       transformRoles() {
         return _.transform(this.roles, (result, value) => {
