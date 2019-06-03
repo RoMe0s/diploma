@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Task;
 use App\Models\Project;
 use App\Models\Order\Order;
+use App\Policies\OrderPolicy;
 use App\Models\Balance\Balance;
-use App\Policies\Customer\OrderPolicy;
+use App\Policies\BalancePolicy;
+use App\Policies\Author\TaskPolicy;
 use App\Policies\Customer\ProjectPolicy;
-use App\Policies\Customer\BalancePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -20,7 +22,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Project::class => ProjectPolicy::class,
         Balance::class => BalancePolicy::class,
-        Order::class => OrderPolicy::class
+        Order::class => OrderPolicy::class,
+        Task::class => TaskPolicy::class
     ];
 
     /**

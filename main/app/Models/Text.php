@@ -10,6 +10,7 @@ class Text extends Model
      * @var array
      */
     protected $fillable = [
+        'name',
         'length',
         'content'
     ];

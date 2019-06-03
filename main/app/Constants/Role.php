@@ -8,10 +8,7 @@ class Role
 
     const CUSTOMER = 'customer';
 
-    const ADMIN = 'admin';
-
     const ALL = [
-        self::ADMIN,
         self::AUTHOR,
         self::CUSTOMER
     ];

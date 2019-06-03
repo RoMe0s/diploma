@@ -2,6 +2,7 @@
 
 namespace App\Services\Loaders\Customer;
 
+use App\Models\Plan\Plan;
 use App\Models\User;
 use App\Scopes\Pagination;
 use App\Scopes\ScopeInterface;
@@ -59,7 +60,10 @@ class Order extends Loader implements PaginatorInterface
     protected function prepareQuery(array $config): Builder
     {
         $order = new OrderModel;
+        $plan = new Plan;
         return $order->newQuery()->select($order->qualifyColumn('*'))
+            ->leftJoin($plan->getTable(), $plan->qualifyColumn('order_id'), '=', $order->getQualifiedKeyName())
+            ->selectSub($order->qualifyColumn('price') . '*' . $plan->qualifyColumn('size_to'), 'dirty_price')
             ->selectSub("IFNULL({$order->qualifyColumn('done_at')}, {$order->qualifyColumn('updated_at')})", 'date')
             ->relatedToUser($this->user);
     }

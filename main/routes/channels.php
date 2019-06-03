@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use App\Models\Task;
+
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -11,6 +14,6 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('Author.Task.{task}', function (User $user, Task $task) {
+    return $user->id === $task->user_id;
 });

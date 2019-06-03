@@ -39,7 +39,10 @@ class Sort implements ScopeInterface
         switch ($sortBy) {
             case 'date':
                 return $sortBy;
+            case 'price':
+                return 'dirty_price';
             case 'status':
+            case 'name':
                 return $model->qualifyColumn($sortBy);
             default:
                 return $model->getQualifiedKeyName();

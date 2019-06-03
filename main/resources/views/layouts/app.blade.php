@@ -10,19 +10,28 @@
     <title>{{ config('app.name', 'Checker') }}</title>
 
     <!-- Scripts -->
+    <script src="{{ asset('js/bootstrap.js') }}" defer></script>
     <script src="{{ asset('js/lang.js') }}" defer></script>
-    @stack('scripts')
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    @guest
+        <script src="{{ asset('js/chunks/guest.js') }}" defer></script>
+    @else
+        <script src="{{ asset('js/chunks/auth.js') }}" defer></script>
+        @customer
+        <script src="{{ asset('js/chunks/customer.js') }}" defer></script>
+        @else
+            <script src="{{ asset('js/chunks/author.js') }}" defer></script>
+            @endcustomer
+        @endguest
+        <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+              integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+              crossorigin="anonymous">
 
-    <!-- Styles -->
-    @stack('styles')
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
 <div id="app" :class="{'collapsed': collapsed, 'authenticated': authenticated}">

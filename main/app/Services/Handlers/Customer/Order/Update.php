@@ -14,12 +14,13 @@ class Update
 {
     /**
      * @param Order $order
+     * @param User $user
      * @param array $data
      */
-    public function update(Order $order, array $data): void
+    public function update(Order $order, User $user, array $data): void
     {
-        DB::transaction(function () use ($order, $data) {
-            $this->updateOrder($order, $data);
+        DB::transaction(function () use ($order, $user, $data) {
+            $this->updateOrder($order, $user, $data);
             $this->updatePlan($order, $data['plan']);
         });
     }
@@ -33,6 +34,7 @@ class Update
     {
         $order->fill([
             'description' => $data['description'],
+            'estimate' => $data['estimate'],
             'price' => $data['price'],
             'name' => $data['name']
         ]);

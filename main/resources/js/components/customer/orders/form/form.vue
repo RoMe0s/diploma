@@ -15,11 +15,19 @@
             </b-form-invalid-feedback>
         </b-form-group>
         <b-form-group :label="__('fields.price')">
-            <b-form-input type="number" name="price" min="0" step="0.01" v-model="value.price"
+            <b-form-input type="number" name="price" min="0.01" step="0.01" v-model="value.price"
                           :placeholder="__('fields.price')"
                           v-validate="'required|decimal:2|min_value:0.01'" :state="noErrors('price')"/>
             <b-form-invalid-feedback>
                 {{ errors.first("price") }}
+            </b-form-invalid-feedback>
+        </b-form-group>
+        <b-form-group :label="__('fields.estimate')">
+            <b-form-input type="number" name="estimate" min="1" v-model="value.estimate"
+                          :placeholder="__('fields.estimate')" v-validate="'required|integer|min_value:1'"
+                          :state="noErrors('estimate')"/>
+            <b-form-invalid-feedback>
+                {{ errors.first("estimate") }}
             </b-form-invalid-feedback>
         </b-form-group>
         <b-form-group :label="__('fields.project')">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Customer\Order;
 
+use App\Constants\Status\Order;
 use App\Models\User;
 use App\Models\Project;
 use Illuminate\Validation\Rule;
@@ -31,15 +32,17 @@ class ActionRequest extends FormRequest
             'action' => 'required|in:delete',
             'orders.*' => [
                 Rule::exists('orders', 'id')->where(function ($builder) {
-                    $builder->where(function ($builder) {
-                        $builder->where('relation_type', User::class)
-                            ->where('relation_id', $this->user()->id);
-                    })->orWhere(function ($builder) {
-                        $projectSubQuery = Project::query()->where('user_id', $this->user()->id)
-                            ->whereRaw('orders.relation_id = projects.id')
-                            ->toBase();
-                        $builder->where('relation_type', Project::class)
-                            ->addWhereExistsQuery($projectSubQuery);
+                    $builder->where('status', Order::DRAFT)->where(function ($builder) {
+                        $builder->where(function ($builder) {
+                            $builder->where('relation_type', User::class)
+                                ->where('relation_id', $this->user()->id);
+                        })->orWhere(function ($builder) {
+                            $projectSubQuery = Project::query()->where('user_id', $this->user()->id)
+                                ->whereRaw('orders.relation_id = projects.id')
+                                ->toBase();
+                            $builder->where('relation_type', Project::class)
+                                ->addWhereExistsQuery($projectSubQuery);
+                        });
                     });
                 })
             ]

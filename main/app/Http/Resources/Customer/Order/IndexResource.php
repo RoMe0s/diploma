@@ -21,8 +21,9 @@ class IndexResource extends JsonResource
         return [
             'id' => $order->id,
             'date' => $order->date,
-            'name' => $order->name,
             'status' => $order->status,
+            'name' => $order->getShowName(),
+            'price' => round($order->dirty_price / 1000, 2),
             'can_be_published' => $order->canBePublished(),
             'can_be_rolled_back' => $order->canBeRolledBack()
         ];

@@ -33,8 +33,9 @@
         value: {
           description: null,
           project_id: null,
+          estimate: null,
           plan: {
-            sizes: {from: "0", to: null},
+            sizes: {from: 0, to: null},
             openingBlock: null,
             closingBlock: null,
             blocks: []

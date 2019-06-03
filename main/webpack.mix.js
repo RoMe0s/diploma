@@ -12,4 +12,9 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+  .js('resources/js/bootstrap.js', 'public/js')
+  .js('resources/js/chunks/guest.js', 'public/js/chunks')
+  .js('resources/js/chunks/auth.js', 'public/js/chunks')
+  .js('resources/js/chunks/customer.js', 'public/js/chunks')
+  .js('resources/js/chunks/author.js', 'public/js/chunks')
+  .sass('resources/sass/app.scss', 'public/css');

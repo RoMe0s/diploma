@@ -34,12 +34,12 @@ class OrderController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param Order $order
+     * @param Request $request
      * @return array
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Request $request, Order $order)
+    public function show(Order $order, Request $request)
     {
         $this->authorize('view', $order);
         $order->load(['relation', 'plan.blocks.settingBlocks', 'plan.blocks.keys']);

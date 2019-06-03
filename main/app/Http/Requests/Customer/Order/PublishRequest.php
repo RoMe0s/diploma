@@ -25,7 +25,7 @@ class PublishRequest extends FormRequest
      */
     public function rules()
     {
-        return ['price' => new Price($this->user())];
+        return ['amount' => new Price($this->user())];
     }
 
     /**
@@ -35,6 +35,6 @@ class PublishRequest extends FormRequest
     {
         /** @var Order $order */
         $order = $this->route('order');
-        return ['price' => $order->getTotalPrice()];
+        return ['amount' => $order->getTotalPrice()];
     }
 }

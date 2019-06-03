@@ -44,22 +44,20 @@ export default {
         cancelButtonText: this.__("messages.cancel")
       }).then(answer => {
         if (answer.value === true) {
-          this.sendRequest("customer.orders.publish", this.id)
-            .then(() => {
-              this.$set(this.value, "can_be_rolled_back", true)
-              this.$set(this.value, "can_be_published", false)
-              Swal.fire({
-                title: this.__("messages.published!"),
-                type: "success"
-              });
+          this.sendRequest("customer.orders.publish", this.id, error => {
+            Swal.fire({
+              text: _.join(_.flattenDeep(_.values(error.response.data.errors)), "\n"),
+              title: this.__("messages.error"),
+              type: "error"
             })
-            .catch(error => {
-              Swal.fire({
-                text: _.join(_.flattenDeep(_.values(error.response.data.errors)), "\n"),
-                title: this.__("messages.error"),
-                type: "error"
-              });
+          }).then(() => {
+            this.$set(this.value, "can_be_rolled_back", true)
+            this.$set(this.value, "can_be_published", false)
+            Swal.fire({
+              title: this.__("messages.published!"),
+              type: "success"
             })
+          })
         }
       });
     },

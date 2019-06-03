@@ -36,7 +36,9 @@ $router->group(['prefix' => 'js'], function (Router $router) {
 
 
 $router->group(['middleware' => 'auth'], function (Router $router) {
-    $router->view('', 'balance');
+    $router->view('', 'global.balance');
+    $router->view('profile', 'global.profile');
+    $router->view('orders', 'global.orders');
     $router->group([
         'namespace' => 'Customer',
         'middleware' => 'roles:' . Role::CUSTOMER
@@ -49,10 +51,15 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
             'only' => ['index', 'create', 'edit']
         ]);
         $router->resource('orders', 'OrderController', [
-            'only' => ['index', 'create', 'edit']
+            'only' => ['create', 'edit']
         ]);
-        $router->group(['prefix' => 'profile'], function (Router $router) {
-            $router->view('', 'customer.profile.index');
-        });
+    });
+    $router->group([
+        'namespace' => 'Author',
+        'middleware' => 'roles:' . Role::AUTHOR
+    ], function (Router $router) {
+        $router->resource('tasks', 'TaskController', [
+            'only' => ['index', 'edit']
+        ]);
     });
 });

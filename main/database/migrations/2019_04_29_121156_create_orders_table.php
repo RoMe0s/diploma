@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->text('description')->nullable();
             $table->morphs('relation');
             $table->decimal('price');
+            $table->unsignedInteger('estimate');
             $table->timestamp('done_at')->nullable();
             $table->unsignedBigInteger('text_id')->nullable();
             $table->foreign('text_id')->references('id')->on('texts')->onDelete('set null');

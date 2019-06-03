@@ -41,6 +41,14 @@
                 :current-page="currentPage"
                 :sort-direction="sortDirection"
                 @row-selected="rowSelected">
+                <template slot="name" slot-scope="row">
+                    <span v-if="row.item.name">
+                        {{ row.item.name }}
+                    </span>
+                    <b-badge variant="secondary" v-else>
+                        {{ __('messages.not applicated') }}
+                    </b-badge>
+                </template>
                 <template slot="status" slot-scope="row">
                     <b-badge variant="info">
                         {{ __(`messages.order.status.${row.item.status}`) }}
@@ -61,7 +69,7 @@
                             <i class="fa fa-pencil-alt"></i>
                         </b-link>
                         <b-button size="sm" variant="danger" @click.prevent="showDeleteConfirm(row.item.id)"
-                                  :title="__('messages.delete')">
+                                  :title="__('messages.delete')" v-if="row.item.can_be_published">
                             <i class="fa fa-trash"></i>
                         </b-button>
                     </b-btn-group>
@@ -107,6 +115,11 @@
             key: "name",
             sortable: true,
             label: this.__("columns.name")
+          },
+          {
+            key: "price",
+            sortable: true,
+            label: this.__("columns.price")
           },
           {
             key: "status",
@@ -168,21 +181,19 @@
           cancelButtonText: this.__("messages.cancel")
         }).then(answer => {
           if (answer.value === true) {
-            this.sendRequest("customer.orders.publish", id)
-              .then(() => {
-                this.$refs.table.refresh();
-                Swal.fire({
-                  title: this.__("messages.published!"),
-                  type: "success"
-                });
+            this.sendRequest("customer.orders.publish", id, error => {
+              Swal.fire({
+                text: _.join(_.flattenDeep(_.values(error.response.data.errors)), "\n"),
+                title: this.__("messages.error"),
+                type: "error"
               })
-              .catch(error => {
-                Swal.fire({
-                  text: _.join(_.flattenDeep(_.values(error.response.data.errors)), "\n"),
-                  title: this.__("messages.error"),
-                  type: "error"
-                });
-              })
+            }).then(() => {
+              this.$refs.table.refresh();
+              Swal.fire({
+                title: this.__("messages.published!"),
+                type: "success"
+              });
+            })
           }
         });
       },

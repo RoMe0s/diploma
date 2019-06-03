@@ -24,7 +24,7 @@ class CreateTasksTable extends Migration
             $table->timestamp('expired_at')->nullable();
             $table->unsignedBigInteger('text_id')->nullable();
             $table->foreign('text_id')->references('id')->on('texts')->onDelete('set null');
-            $table->timestamps();
+            $table->timestamp('created_at');
         });
     }
 

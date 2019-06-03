@@ -36,6 +36,7 @@ class Store
     {
         $order = new Order([
             'description' => $data['description'],
+            'estimate' => $data['estimate'],
             'price' => $data['price'],
             'name' => $data['name']
         ]);

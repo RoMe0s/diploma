@@ -80,7 +80,7 @@
                                     <b-form-group>
                                         <b-form-input min="0"
                                                       type="number"
-                                                      v-model="value.sizes.from"
+                                                      v-model.number="value.sizes.from"
                                                       v-validate="'required|integer|max:11|min_value:1'"
                                                       :data-vv-as="__('fields.sizes.from')"
                                                       :data-vv-name="validationName('sizes.from')"
@@ -95,7 +95,7 @@
                                     <b-form-group>
                                         <b-form-input min="0"
                                                       type="number"
-                                                      v-model="value.sizes.to"
+                                                      v-model.number="value.sizes.to"
                                                       v-validate="'required|integer|max:11|min_value:1'"
                                                       :data-vv-as="__('fields.sizes.to')"
                                                       :data-vv-name="validationName('sizes.to')"

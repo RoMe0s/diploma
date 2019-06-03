@@ -1,5 +1,5 @@
 export const blockSchema = (uid = 1) => ({
-  sizes: {from: "0", to: null},
+  sizes: {from: 0, to: null},
   description: null,
   position: null,
   heading: null,

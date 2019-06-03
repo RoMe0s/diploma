@@ -22,6 +22,15 @@ class Filter implements ScopeInterface
      */
     public function apply(Builder $builder, array $config): void
     {
-        $builder->where('name', 'LIKE', "%{$config['filter']}%");
+        $filter = $config['filter'];
+        $nameColumn = $builder->getModel()->qualifyColumn('name');
+        $descriptionColumn = $builder->getModel()->qualifyColumn('description');
+
+        $builder->where(function (Builder $builder) use ($nameColumn, $descriptionColumn, $filter) {
+            $builder->where($nameColumn, 'LIKE', "%$filter%")
+                ->orWhere(function (Builder $builder) use ($nameColumn, $descriptionColumn, $filter) {
+                    $builder->whereNull($nameColumn)->where($descriptionColumn, 'LIKE', "%$filter%");
+                });
+        });
     }
 }

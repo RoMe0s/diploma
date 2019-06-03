@@ -16,7 +16,7 @@
             <b-form-row>
                 <b-col>
                     <b-form-group>
-                        <b-form-input type="number" min="0" v-model="value.sizes.from"
+                        <b-form-input type="number" min="0" v-model.number="value.sizes.from"
                                       v-validate="'required|integer|max:11|min_value:0'"
                                       :placeholder="__('messages.sizes.from')"
                                       :data-vv-as="__('messages.sizes.from')"
@@ -29,7 +29,7 @@
                 </b-col>
                 <b-col>
                     <b-form-group>
-                        <b-form-input type="number" min="0" v-model="value.sizes.to"
+                        <b-form-input type="number" min="0" v-model.number="value.sizes.to"
                                       v-validate="'required|integer|max:11|min_value:0'"
                                       :placeholder="__('messages.sizes.to')"
                                       :data-vv-as="__('messages.sizes.to')"

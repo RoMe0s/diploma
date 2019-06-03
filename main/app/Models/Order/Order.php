@@ -21,6 +21,7 @@ class Order extends Model
         'relation_type',
         'relation_id',
         'description',
+        'estimate',
         'status',
         'price',
         'done_at',
@@ -90,13 +91,15 @@ class Order extends Model
     public function scopeRelatedToUser(Builder $builder, User $user)
     {
         $builder->where(function (Builder $builder) use ($user) {
-            $builder->where('relation_type', User::class)
-                ->where('relation_id', $user->id);
+            $builder->where($this->qualifyColumn('relation_type'), User::class)
+                ->where($this->qualifyColumn('relation_id'), $user->id);
         })->orWhere(function (Builder $builder) use ($user) {
-            $projectSubQuery = Project::query()->where('user_id', $user->id)
-                ->whereRaw('orders.relation_id = projects.id')
+            $project = new Project;
+            $projectSubQuery = $project->newQuery()
+                ->where($project->qualifyColumn('user_id'), $user->id)
+                ->whereRaw("{$this->qualifyColumn('relation_id')} = {$project->getQualifiedKeyName()}")
                 ->toBase();
-            $builder->where('relation_type', Project::class)
+            $builder->where($this->qualifyColumn('relation_type'), Project::class)
                 ->addWhereExistsQuery($projectSubQuery);
         });
     }
@@ -128,5 +131,30 @@ class Order extends Model
             $sizeTo = $this->plan()->value('size_to');
         }
         return round($this->price * $sizeTo / 1000, 2);
+    }
+
+    /**
+     * @param int $descriptionLength
+     * @return string|null
+     */
+    public function getShowName(int $descriptionLength = 75): ?string
+    {
+        if ($this->name) {
+            return $this->name;
+        }
+        return $this->getShortDescription($descriptionLength);
+    }
+
+    /**
+     * @param int $length
+     * @return string|null
+     */
+    public function getShortDescription(int $length = 75): ?string
+    {
+        $description = $this->description;
+        if ($description && mb_strlen($description) > $length) {
+            $description = mb_substr($description, 0, $length) . '...';
+        }
+        return $description;
     }
 }

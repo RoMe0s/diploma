@@ -37,6 +37,7 @@ class SaveRequest extends FormRequest
             'price' => 'required|numeric|numeric|min:0.01',
             'name' => 'nullable|required_without:description|string|max:255',
             'description' => 'nullable|required_without:name|max:10000',
+            'estimate' => 'required|integer|min:1|digits_between:0,11',
             'project_id' => 'nullable|exists:projects,id,user_id,' . $this->user()->id,
             'plan.sizes.from' => ['required', 'integer', 'min:0', 'digits_between:0,11'],
             'plan.sizes.to' => ['required', 'integer', 'gte:plan.sizes.from', 'digits_between:0,11'],
