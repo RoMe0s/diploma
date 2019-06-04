@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Customer\Plan;
+namespace App\Http\Resources\Plan;
 
 use App\Models\Plan\Block;
 use Illuminate\Http\Resources\Json\JsonResource;

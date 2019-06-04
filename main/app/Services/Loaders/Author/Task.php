@@ -11,6 +11,7 @@ use App\Services\Loaders\PaginatorTrait;
 use App\Services\Loaders\PaginatorInterface;
 use App\Models\Task as TaskModel;
 use App\Scopes\Author\Task\Filter;
+use App\Scopes\Author\Task\Active;
 use App\Scopes\Author\Task\Sort;
 use App\Models\Order\Commit;
 use App\Models\Order\Order;
@@ -94,6 +95,7 @@ class Task extends Loader implements PaginatorInterface
     {
         return [
             Filter::class,
+            Active::class,
             Sort::class
         ];
     }

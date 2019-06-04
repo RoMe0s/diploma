@@ -9,7 +9,8 @@
     mixins: [MenuMixin],
     data() {
       return {
-        ordersCount: 0
+        ordersCount: 0,
+        tasksCount: 0
       }
     },
     computed: {
@@ -37,7 +38,11 @@
           {
             href: "/tasks",
             title: this.__("pages.tasks"),
-            icon: "fa fa-tasks"
+            icon: "fa fa-tasks",
+            badge: {
+              text: this.tasksCount,
+              class: "badge-danger"
+            }
           }
         ]
       }
@@ -45,12 +50,20 @@
     methods: {
       decrementOrdersCount() {
         this.ordersCount--;
+      },
+      decrementTasksCount() {
+        this.tasksCount--;
       }
     },
     created() {
-      this.eventHub.$on("order-was-taken", this.decrementOrdersCount)
+      this.eventHub.$on("order-was-taken", this.decrementOrdersCount);
+      this.eventHub.$on("task-was-failed", this.decrementTasksCount);
+
       this.sendRequest("author.orders.count")
-        .then(response => this.ordersCount = response.data.count)
+        .then(response => this.ordersCount = response.data.count);
+
+      this.sendRequest("author.tasks.count")
+        .then(response => this.tasksCount = response.data.count);
     }
   }
 </script>

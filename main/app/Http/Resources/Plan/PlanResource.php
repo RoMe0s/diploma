@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Customer\Plan;
+namespace App\Http\Resources\Plan;
 
 use App\Constants\Plan\Heading;
 use App\Models\Plan\Plan as PlanModel;

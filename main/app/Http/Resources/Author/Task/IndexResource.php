@@ -21,21 +21,9 @@ class IndexResource extends JsonResource
             'date' => $task->date,
             'status' => $task->status,
             'name' => $this->getShowName($task),
-            'expired_at' => $this->getExpiredAtDiff($task),
+            'expired_at' => $task->getExpiredAtDiff(),
             'has_expired_at' => (bool)$task->has_expired_at
         ];
-    }
-
-    /**
-     * @param Task $task
-     * @return string|null
-     */
-    private function getExpiredAtDiff(Task $task): ?string
-    {
-        if ($task->expired_at && $task->expired_at->gt(now())) {
-            return $task->expired_at->diffForHumans();
-        }
-        return null;
     }
 
     /**

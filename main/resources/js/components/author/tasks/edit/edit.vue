@@ -3,6 +3,14 @@
         <b-card-header>
             <b-card-title>
                 {{ __("author.tasks.edit") }} #{{ id }}
+                <b-button-group class="float-right">
+                    <b-link class="btn btn-primary" href="/tasks" :title="__('messages.to list')">
+                        <i class="fa fa-arrow-left"></i>
+                    </b-link>
+                    <b-button variant="danger" @click.prevent="showCancelConfirm()" :title="__('messages.cancel')">
+                        <i class="fa fa-ban"></i>
+                    </b-button>
+                </b-button-group>
             </b-card-title>
         </b-card-header>
         <b-card-body>
@@ -12,10 +20,10 @@
                         {{ value.expired_at }}
                     </b-badge>
                     <b-badge variant="primary" :title="__('messages.sizes')">
-                        {{ value.order.sizes.from }} - {{ value.order.sizes.to }}
+                        {{ value.order.plan.sizes.from }} - {{ value.order.plan.sizes.to }}
                     </b-badge>
                     <b-badge variant="success" :title="__('messages.prices')">
-                        {{ value.order.price.min }} - {{ value.order.price.max }}
+                        {{ value.order.prices.min }} - {{ value.order.prices.max }}
                     </b-badge>
                 </div>
                 <h2 v-if="value.order.name">
@@ -24,8 +32,11 @@
                 <p v-if="value.order.description">
                     {{ value.order.description }}
                 </p>
+
+                <plan-component :value="value.order.plan"/>
+
                 <b-form-group :label="__('fields.name')" v-if="!value.order.name">
-                    <b-form-input name="name" v-model="value.name" :placeholder="__('fields.name')"
+                    <b-form-input name="name" v-model="value.text.name" :placeholder="__('fields.name')"
                                   v-validate="'max:255'" :state="noErrors('name')"/>
                     <b-form-invalid-feedback>
                         {{ errors.first("name") }}

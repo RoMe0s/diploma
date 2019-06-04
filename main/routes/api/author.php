@@ -15,8 +15,14 @@ $router->group(['prefix' => 'orders'], function (Router $router) {
 $router->apiResource('orders', 'OrderController', [
     'only' => ['index']
 ]);
+$router->group(['prefix' => 'tasks'], function (Router $router) {
+    $router->get('count', 'TaskController@count');
+    $router->group(['prefix' => '{task}'], function (Router $router) {
+        $router->post('cancel', 'TaskController@cancel');
+    });
+});
 $router->apiResource('tasks', 'TaskController', [
-    'only' => ['index', 'edit']
+    'only' => ['index', 'show']
 ]);
 $router->group(['prefix' => 'balance'], function (Router $router) {
     $router->get('', 'BalanceController@index');

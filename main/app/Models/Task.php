@@ -51,4 +51,23 @@ class Task extends Model
     {
         return $this->hasOne(Payment::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function text()
+    {
+        return $this->belongsTo(Text::class);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getExpiredAtDiff(): ?string
+    {
+        if ($this->expired_at && $this->expired_at->gt(now())) {
+            return $this->expired_at->diffForHumans();
+        }
+        return null;
+    }
 }

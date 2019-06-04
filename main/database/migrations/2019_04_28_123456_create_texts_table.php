@@ -15,9 +15,9 @@ class CreateTextsTable extends Migration
     {
         Schema::create('texts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->mediumText('content');
-            $table->unsignedMediumInteger('length');
+            $table->string('name')->nullable();
+            $table->mediumText('content')->nullable();
+            $table->unsignedMediumInteger('length')->default(0);
             $table->timestamps();
         });
     }

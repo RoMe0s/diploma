@@ -53,6 +53,8 @@ export default {
     tasks: {
       index: params => axios.get("/author/tasks", {params}),
       show: id => axios.get(`/author/tasks/${id}`),
+      cancel: id => axios.post(`/author/tasks/${id}/cancel`),
+      count: () => axios.get("/author/tasks/count")
     },
     balance: {
       index: () => axios.get("/author/balance"),

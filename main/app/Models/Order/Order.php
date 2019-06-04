@@ -4,6 +4,7 @@ namespace App\Models\Order;
 
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Text;
 use App\Models\Project;
 use App\Models\Plan\Plan;
 use App\Models\Balance\Payment;
@@ -82,6 +83,14 @@ class Order extends Model
     public function lockedChunk()
     {
         return $this->hasOne(LockedChunk::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function text()
+    {
+        return $this->belongsTo(Text::class);
     }
 
     /**

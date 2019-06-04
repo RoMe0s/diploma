@@ -167,6 +167,14 @@ export default {
     getBlockUid() {
       return ++this.lastUid;
     },
+    blockUid(block) {
+      if ("uid" in block) {
+        return block.uid;
+      }
+      const uid = this.getBlockUid();
+      this.$set(block, "uid", uid);
+      return uid;
+    },
     toggleUseOpeningBlock() {
       this.useOpeningBlock = !this.useOpeningBlock;
       this.$set(this.value, "openingBlock", this.useOpeningBlock ? blockSchema(this.planConfig.headings.opening) : null);

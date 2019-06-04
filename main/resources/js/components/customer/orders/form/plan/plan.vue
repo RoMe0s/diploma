@@ -46,7 +46,7 @@
                              @add-settings-block="addSettingsBlock(null, value.openingBlock)"
                              @add-keys-block="addKeysBlock(null, value.openingBlock)" v-if="useOpeningBlock"/>
             <block-component v-for="(block, index) in value.blocks" v-model="value.blocks[index]"
-                             :key="'block-' + block.uid" :plan-config="planConfig" :position="index"
+                             :key="`block-${blockUid(block)}`" :plan-config="planConfig" :position="index"
                              :previous-heading-type="previousHeadingType(index)" :next-same-index="nextSameIndex(index)"
                              :previous-same-index="previousSameIndex(index)" :blocks-length="blocksLength"
                              @move-up="moveUp" @move-down="moveDown" @add-before="addBefore"

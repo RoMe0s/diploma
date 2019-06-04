@@ -4,7 +4,7 @@ namespace App\Http\Resources\Customer\Order;
 
 use App\Models\Project;
 use App\Models\Order\Order;
-use App\Http\Resources\Customer\Plan\PlanResource;
+use App\Http\Resources\Plan\PlanResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ShowResource extends JsonResource
