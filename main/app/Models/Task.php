@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Order\Order;
 use App\Models\Balance\Payment;
 use Illuminate\Database\Eloquent\Model;
+use App\Constants\Status\Task as Status;
 
 class Task extends Model
 {
@@ -69,5 +70,13 @@ class Task extends Model
             return $this->expired_at->diffForHumans();
         }
         return null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEditable(): bool
+    {
+        return $this->status === Status::WRITING;
     }
 }

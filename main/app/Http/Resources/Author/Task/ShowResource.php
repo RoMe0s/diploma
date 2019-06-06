@@ -21,6 +21,7 @@ class ShowResource extends JsonResource
         $task = $this->resource;
 
         return [
+            'is_editable' => $task->isEditable(),
             'expired_at' => $task->getExpiredAtDiff(),
             'text' => Text::make($this->whenLoaded('text')),
             'order' => Order::make($this->whenLoaded('order'))

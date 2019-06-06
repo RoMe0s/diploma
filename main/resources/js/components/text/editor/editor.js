@@ -9,9 +9,25 @@ Vue.use(VueFroala);
 import config from "./config.js";
 
 export default {
+  props: {
+    content: {
+      required: true,
+      validator: prop => typeof prop === 'string' || prop === null
+    }
+  },
+  data() {
+    return {
+      value: this.content
+    };
+  },
   methods: {
     getConfig() {
       return config;
+    }
+  },
+  watch: {
+    value: function (value) {
+      this.$emit("input", value);
     }
   }
 }

@@ -1,4 +1,5 @@
 export default {
+  vueIgnoreAttrs: ['class', 'id', 'fr-original-style'],
   heightMin: 500,
   toolbarButtons: {
     moreText: {
@@ -108,6 +109,7 @@ export default {
     'thead',
     'tr',
     'u',
-    'ul'
+    'ul',
+    'br'
   ]
 }

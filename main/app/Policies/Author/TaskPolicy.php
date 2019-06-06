@@ -30,4 +30,14 @@ class TaskPolicy
     {
         return $user->id === $task->user_id;
     }
+
+    /**
+     * @param User $user
+     * @param Task $task
+     * @return bool
+     */
+    public function update(User $user, Task $task): bool
+    {
+        return $task->isEditable() && $user->id === $task->user_id;
+    }
 }

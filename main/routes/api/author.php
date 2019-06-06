@@ -19,10 +19,11 @@ $router->group(['prefix' => 'tasks'], function (Router $router) {
     $router->get('count', 'TaskController@count');
     $router->group(['prefix' => '{task}'], function (Router $router) {
         $router->post('cancel', 'TaskController@cancel');
+        $router->post('to-check', 'TaskController@toCheck');
     });
 });
 $router->apiResource('tasks', 'TaskController', [
-    'only' => ['index', 'show']
+    'only' => ['index', 'show', 'update']
 ]);
 $router->group(['prefix' => 'balance'], function (Router $router) {
     $router->get('', 'BalanceController@index');

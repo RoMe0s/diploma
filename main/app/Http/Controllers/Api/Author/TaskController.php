@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Api\Author;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\Controller;
+use App\Services\Handlers\Author\Task\Update;
+use App\Services\Handlers\Author\Task\ToCheck;
 use App\Services\Loaders\Author\Task as Loader;
 use App\Http\Resources\Author\Task\IndexResource;
 use App\Http\Resources\Author\Task\ShowResource;
+use App\Http\Requests\Author\Task\UpdateRequest;
 
 class TaskController extends Controller
 {
@@ -50,5 +53,32 @@ class TaskController extends Controller
             $q->with(['settingBlocks', 'keys']);
         }]);
         return ShowResource::make($task)->resolve($request);
+    }
+
+    /**
+     * @param Task $task
+     * @param UpdateRequest $request
+     * @param Update $update
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function update(Task $task, UpdateRequest $request, Update $update)
+    {
+        $this->authorize('update', $task);
+        $update->update($task, $request->validated());
+        return response()->json();
+    }
+
+    /**
+     * @param Task $task
+     * @param ToCheck $toCheck
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function toCheck(Task $task, ToCheck $toCheck)
+    {
+        $this->authorize('update', $task);
+        $toCheck->toCheck($task);
+        return response()->json();
     }
 }
