@@ -43,6 +43,8 @@
                     </b-form-invalid-feedback>
                 </b-form-group>
 
+                <text-editor v-model="value.text.content"/>
+
             </b-form>
         </b-card-body>
         <b-card-footer class="text-center">

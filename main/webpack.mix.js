@@ -17,4 +17,5 @@ mix.js('resources/js/app.js', 'public/js')
   .js('resources/js/chunks/auth.js', 'public/js/chunks')
   .js('resources/js/chunks/customer.js', 'public/js/chunks')
   .js('resources/js/chunks/author.js', 'public/js/chunks')
+  .js('resources/js/chunks/editor.js', 'public/js/chunks')
   .sass('resources/sass/app.scss', 'public/css');

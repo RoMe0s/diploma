@@ -4,9 +4,9 @@ namespace App\Constants\Plan;
 
 class SettingBlock
 {
-    const BOLD = 'b';
+    const BOLD = 'strong';
 
-    const ITALIC = 'i';
+    const ITALIC = 'em';
 
     const IMAGE = 'img';
 
