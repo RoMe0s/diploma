@@ -31,7 +31,7 @@
             icon: 'fa fa-tasks',
             badge: {
               text: this.ordersCount,
-              class: 'badge-danger'
+              class: 'default-badge'
             }
           },
           {

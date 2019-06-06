@@ -32,7 +32,7 @@
             icon: "fa fa-folder",
             badge: {
               text: this.ordersCount,
-              class: "badge-danger"
+              class: "default-badge"
             }
           },
           {
@@ -41,7 +41,7 @@
             icon: "fa fa-tasks",
             badge: {
               text: this.tasksCount,
-              class: "badge-danger"
+              class: "default-badge"
             }
           }
         ]
