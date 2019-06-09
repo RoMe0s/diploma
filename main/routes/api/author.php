@@ -28,6 +28,7 @@ $router->apiResource('tasks', 'TaskController', [
 $router->group(['prefix' => 'balance'], function (Router $router) {
     $router->get('', 'BalanceController@index');
     $router->match(['put', 'patch'], '', 'BalanceController@update');
+    $router->post('withdraw', 'BalanceController@withdraw');
 });
 $router->group(['prefix' => 'profile'], function (Router $router) {
     $router->match(['put', 'patch'], '', 'ProfileController@update');

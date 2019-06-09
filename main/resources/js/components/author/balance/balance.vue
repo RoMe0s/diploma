@@ -45,9 +45,12 @@
                     </b-card-text>
                 </b-card>
             </b-card-group>
+
+            <withdraw-form route="author.balance.withdraw" v-if="showWithdrawForm" class="mt-3"/>
+
         </b-card-body>
         <b-card-footer align="center">
-            <b-button variant="secondary">
+            <b-button variant="secondary" @click="toggleWithdrawForm()" :disabled="billIsEmpty">
                 {{ __("messages.withdraw funds") }}
             </b-button>
         </b-card-footer>

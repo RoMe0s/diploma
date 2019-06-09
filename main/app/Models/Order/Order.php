@@ -2,6 +2,7 @@
 
 namespace App\Models\Order;
 
+use App\Models\Setting;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Text;
@@ -67,6 +68,14 @@ class Order extends Model
     public function payment()
     {
         return $this->hasOne(Payment::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function settings()
+    {
+        return $this->morphMany(Setting::class, 'relation');
     }
 
     /**

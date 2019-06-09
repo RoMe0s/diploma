@@ -61,8 +61,11 @@
                 <b-card-body v-html="value.text.content"/>
             </b-card>
         </b-card-body>
-        <b-card-footer class="text-center">
-            <b-button variant="success" @click="sendToCheck()">
+        <b-card-footer class="text-center" v-if="isEditable">
+            <b-button variant="success" @click="save()" v-if="isEdited">
+                {{ __("messages.save") }}
+            </b-button>
+            <b-button variant="success" @click="sendToCheck()" v-else>
                 {{ __("messages.send to check") }}
             </b-button>
         </b-card-footer>

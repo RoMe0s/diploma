@@ -11,6 +11,7 @@ use App\Services\Loaders\Author\Task as Loader;
 use App\Http\Resources\Author\Task\IndexResource;
 use App\Http\Resources\Author\Task\ShowResource;
 use App\Http\Requests\Author\Task\UpdateRequest;
+use App\Services\Handlers\Author\Task\Cancel;
 
 class TaskController extends Controller
 {
@@ -73,12 +74,26 @@ class TaskController extends Controller
      * @param Task $task
      * @param ToCheck $toCheck
      * @return \Illuminate\Http\JsonResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function toCheck(Task $task, ToCheck $toCheck)
     {
         $this->authorize('update', $task);
         $toCheck->toCheck($task);
+        return response()->json();
+    }
+
+    /**
+     * @param Task $task
+     * @param Cancel $cancel
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function cancel(Task $task, Cancel $cancel)
+    {
+        $this->authorize('update', $task);
+        $cancel->cancel($task);
         return response()->json();
     }
 }

@@ -33,6 +33,14 @@ class Project extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function settings()
+    {
+        return $this->morphMany(Setting::class, 'relation');
+    }
+
+    /**
      * @param Builder $builder
      */
     public function scopeSelectOrdersCount(Builder $builder)

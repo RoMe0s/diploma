@@ -45,12 +45,18 @@
                     </b-card-text>
                 </b-card>
             </b-card-group>
+
+            <div class="mt-3" v-if="showRefillForm || showWithdrawForm">
+                <refill-form route="customer.balance.refill" v-if="showRefillForm"/>
+                <withdraw-form route="customer.balance.withdraw" v-if="showWithdrawForm"/>
+            </div>
+
         </b-card-body>
         <b-card-footer align="center">
-            <b-button variant="primary">
+            <b-button variant="primary" @click="toggleRefillForm()" :disabled="billIsEmpty">
                 {{ __("messages.refill balance") }}
             </b-button>
-            <b-button variant="secondary">
+            <b-button variant="secondary" @click="toggleWithdrawForm()" :disabled="billIsEmpty">
                 {{ __("messages.withdraw funds") }}
             </b-button>
         </b-card-footer>

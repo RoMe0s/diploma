@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api\Author;
 
+use App\Http\Requests\Author\Balance\WithdrawRequest;
 use App\Models\User;
 use App\Services\Balance\Author;
 use App\Http\Controllers\Api\Controller;
 use App\Http\Requests\Author\Balance\UpdateRequest;
+use App\Services\Balance\Withdraw;
 use Illuminate\Http\Request;
 
 class BalanceController extends Controller
@@ -39,6 +41,19 @@ class BalanceController extends Controller
         $balance = $request->user()->balance;
         $this->authorize('update', $balance);
         $balance->update($request->validated());
+        return response()->json();
+    }
+
+    /**
+     * @param WithdrawRequest $request
+     * @param Withdraw $withdraw
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function withdraw(WithdrawRequest $request, Withdraw $withdraw)
+    {
+        $balance = $request->user()->balance;
+        $withdraw->withdraw($balance, $request->validated());
         return response()->json();
     }
 }

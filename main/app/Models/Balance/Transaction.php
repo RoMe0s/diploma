@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
+    const UPDATED_AT = null;
+
+    /**
+     * @var bool
+     */
+    public $incrementing = false;
+
     /**
      * @var array
      */
@@ -13,7 +20,8 @@ class Transaction extends Model
         'balance_id',
         'notice',
         'after',
-        'before'
+        'before',
+        'id'
     ];
 
     /**

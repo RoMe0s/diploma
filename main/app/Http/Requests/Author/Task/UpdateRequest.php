@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Author\Task;
 
+use App\Models\Task;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest

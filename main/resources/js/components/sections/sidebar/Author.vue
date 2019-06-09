@@ -48,15 +48,16 @@
       }
     },
     methods: {
-      decrementOrdersCount() {
+      changeCountersForNewOrder() {
         this.ordersCount--;
+        this.tasksCount++;
       },
       decrementTasksCount() {
         this.tasksCount--;
       }
     },
     created() {
-      this.eventHub.$on("order-was-taken", this.decrementOrdersCount);
+      this.eventHub.$on("order-was-taken", this.changeCountersForNewOrder);
       this.eventHub.$on("task-was-failed", this.decrementTasksCount);
 
       this.sendRequest("author.orders.count")

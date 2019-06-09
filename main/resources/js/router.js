@@ -37,7 +37,9 @@ export default {
     },
     balance: {
       index: () => axios.get("/customer/balance"),
-      update: data => axios.patch("/customer/balance", data)
+      update: data => axios.patch("/customer/balance", data),
+      refill: data => axios.post("/customer/balance/refill", data),
+      withdraw: data => axios.post("/customer/balance/withdraw", data)
     },
     profile: {
       update: data => axios.patch("/customer/profile", data),
@@ -60,7 +62,8 @@ export default {
     },
     balance: {
       index: () => axios.get("/author/balance"),
-      update: data => axios.patch("/author/balance", data)
+      update: data => axios.patch("/author/balance", data),
+      withdraw: data => axios.post("/author/balance/withdraw", data)
     },
     profile: {
       update: data => axios.patch("/author/profile", data),

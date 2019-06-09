@@ -46,10 +46,6 @@ services:
       - ./phoenix:/application
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-    links:
-      - redis
-    depends_on:
-      - redis
 
   echo-server:
     build: docker/echo-server
@@ -95,7 +91,7 @@ services:
     build: docker/scheduler
     container_name: checker-scheduler
     command: sh /usr/bin/entrypoint.sh
-    restart: unless-stopped 
+    restart: unless-stopped
     volumes:
       - ./main:/application
       - ./docker/scheduler/entrypoint.sh:/usr/bin/entrypoint.sh

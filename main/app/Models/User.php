@@ -80,11 +80,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function setting()
+    public function settings()
     {
-        return $this->morphOne(Setting::class, 'relation');
+        return $this->morphMany(Setting::class, 'relation');
     }
 
     /**

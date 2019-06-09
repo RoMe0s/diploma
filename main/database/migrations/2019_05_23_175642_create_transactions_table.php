@@ -20,7 +20,7 @@ class CreateTransactionsTable extends Migration
             $table->string('notice');
             $table->string('before');
             $table->string('after');
-            $table->timestamps();
+            $table->timestamp('created_at');
         });
     }
 

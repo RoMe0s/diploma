@@ -41,6 +41,8 @@ $router->apiResource('orders', 'OrderController', [
 $router->group(['prefix' => 'balance'], function (Router $router) {
     $router->get('', 'BalanceController@index');
     $router->match(['put', 'patch'], '', 'BalanceController@update');
+    $router->post('withdraw', 'BalanceController@withdraw');
+    $router->post('refill', 'BalanceController@refill');
 });
 $router->group(['prefix' => 'profile'], function (Router $router) {
     $router->match(['put', 'patch'], '', 'ProfileController@update');

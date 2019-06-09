@@ -50,11 +50,21 @@ export default {
         .then(() => this.isEdited = false);
     },
     sendToCheck() {
-      this.sendRequest("author.tasks.to-check", this.id)
-        .then(() => {
-          this.onCheck = true;
-          Swal.fire(this.__("messages.have been sent!"), "", "success");
-        });
+      Swal.fire({
+        type: "info",
+        title: this.__("messages.are you sure?"),
+        showCancelButton: true,
+        confirmButtonText: this.__("messages.yes, send to check!"),
+        cancelButtonText: this.__("messages.cancel")
+      }).then(answer => {
+        if (answer.value === true) {
+          this.sendRequest("author.tasks.to-check", this.id)
+            .then(() => {
+              this.onCheck = true;
+              Swal.fire(this.__("messages.have been sent!"), "", "success");
+            });
+        }
+      });
     },
     debouncedSave: _.debounce(function () {
       this.contentError === null && this.isEdited && this.save();
