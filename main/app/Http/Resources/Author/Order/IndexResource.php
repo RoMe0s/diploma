@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Author\Order;
 
 use App\Models\Order\Order;
+use App\Services\Price\Author;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class IndexResource extends JsonResource
@@ -23,8 +24,8 @@ class IndexResource extends JsonResource
             'name' => $order->getShowName(),
             'estimate' => $order->estimate,
             'prices' => [
-                'min' => round($order->dirty_min_price / 1000, 2),
-                'max' => round($order->dirty_max_price / 1000, 2)
+                'min' => Author::convert($order->dirty_min_price / 1000),
+                'max' => Author::convert($order->dirty_max_price / 1000)
             ],
             'sizes' => [
                 'from' => $order->size_from,

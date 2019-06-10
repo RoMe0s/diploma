@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __('auth.login') }}
+                {{ __('messages.login') }}
             </b-card-title>
         </b-card-header>
         <b-card-body>
@@ -23,15 +23,15 @@
                 </b-form-group>
                 <b-form-group>
                     <b-form-checkbox v-model="remember">
-                        {{ __('auth.remember me') }}
+                        {{ __('messages.remember me') }}
                     </b-form-checkbox>
                 </b-form-group>
                 <div class="text-center">
                     <b-button type="submit" variant="success">
-                        {{ __('auth.login') }}
+                        {{ __('messages.login') }}
                     </b-button>
                     <b-link class="btn btn-link" href="/password/reset">
-                        {{ __('auth.forgot your password?') }}
+                        {{ __('messages.forgot your password?') }}
                     </b-link>
                 </div>
             </b-form>

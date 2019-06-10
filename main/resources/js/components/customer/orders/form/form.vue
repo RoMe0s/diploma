@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-form-group :label="__('fields.name')">
-            <b-form-input name="name" v-model="value.name" :placeholder="__('fields.name')"
+        <b-form-group :label="__('fields.title')">
+            <b-form-input name="name" v-model="value.name" :placeholder="__('fields.title')"
                           v-validate="'max:255'" :state="noErrors('name')"/>
             <b-form-invalid-feedback>
                 {{ errors.first("name") }}

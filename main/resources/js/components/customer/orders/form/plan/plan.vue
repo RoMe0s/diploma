@@ -18,8 +18,8 @@
                     <b-form-group>
                         <b-form-input type="number" min="0" v-model.number="value.sizes.from"
                                       v-validate="'required|integer|max:11|min_value:0'"
-                                      :placeholder="__('messages.sizes.from')"
-                                      :data-vv-as="__('messages.sizes.from')"
+                                      :placeholder="__('fields.size from')"
+                                      :data-vv-as="__('fields.size from')"
                                       data-vv-name="plan.sizes.from"
                                       :state="noErrors('plan.sizes.from')"/>
                         <b-form-invalid-feedback>
@@ -31,8 +31,8 @@
                     <b-form-group>
                         <b-form-input type="number" min="0" v-model.number="value.sizes.to"
                                       v-validate="'required|integer|max:11|min_value:0'"
-                                      :placeholder="__('messages.sizes.to')"
-                                      :data-vv-as="__('messages.sizes.to')"
+                                      :placeholder="__('fields.size to')"
+                                      :data-vv-as="__('fields.size to')"
                                       data-vv-name="plan.sizes.to"
                                       :state="noErrors('plan.sizes.to')"/>
                         <b-form-invalid-feedback>

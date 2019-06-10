@@ -4,6 +4,7 @@ namespace App\Http\Requests\Customer\Order;
 
 use App\Models\Order\Order;
 use App\Rules\Order\Price;
+use App\Services\Price\Customer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PublishRequest extends FormRequest
@@ -35,6 +36,7 @@ class PublishRequest extends FormRequest
     {
         /** @var Order $order */
         $order = $this->route('order');
-        return ['amount' => $order->getTotalPrice()];
+        $amount = Customer::convert($order->getTotalPrice());
+        return ['amount' => $amount];
     }
 }

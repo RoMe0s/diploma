@@ -5,6 +5,7 @@ namespace App\Services\Balance;
 use App\Models\Balance\Balance;
 use App\Models\Balance\LockedChunk;
 use Illuminate\Database\Eloquent\Builder;
+use App\Services\Price\Author as AuthorPrice;
 
 class Author
 {
@@ -34,9 +35,10 @@ class Author
      */
     public function getLocked(): float
     {
-        return LockedChunk::query()->whereHas('order.task', function (Builder $builder) {
+        $lockedAmount = LockedChunk::query()->whereHas('order.task', function (Builder $builder) {
             $builder->where('user_id', $this->balance->user_id);
         })->sum('amount');
+        return AuthorPrice::convert($lockedAmount);
     }
 
     /**

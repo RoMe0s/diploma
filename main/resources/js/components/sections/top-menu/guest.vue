@@ -8,10 +8,10 @@
             <b-collapse id="nav-collapse" class="justify-content-end" is-nav>
                 <b-navbar-nav>
                     <b-nav-item href="/login">
-                        Login
+                        {{ __('messages.login') }}
                     </b-nav-item>
                     <b-nav-item href="/register">
-                        Register
+                        {{ __('messages.register') }}
                     </b-nav-item>
                 </b-navbar-nav>
             </b-collapse>

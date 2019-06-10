@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __('customer.settings.index') }}
+                {{ __('messages.settings') }}
             </b-card-title>
         </b-card-header>
         <b-card-body>
@@ -45,7 +45,7 @@
         fields: [
           {
             key: 'key',
-            label: this.__('columns.key')
+            label: this.__('messages.key')
           }
         ]
       }

@@ -1,0 +1,33 @@
+<?php
+
+return [
+    'login' => 'Логін',
+    'remember me' => 'Запамʼятати мене',
+    'forgot your password?' => 'Забули свій пароль?',
+    'register' => 'Реєстрація',
+    'profile' => 'Профіль',
+    'logout' => 'Вихід',
+    'save' => 'Зберегти',
+    'balance' => 'Баланс',
+    'orders' => 'Замовлення',
+    'projects' => 'Проекти',
+    'settings' => 'Налаштування',
+    'total amount' => 'Загальний обʼєм',
+    'available amount' => 'Доступний залишок',
+    'locked amount' => 'Недоступний залишок',
+    'refill balance' => 'Поповнити баланс',
+    'withdraw funds' => 'Вивести кошти',
+    'key' => 'Ключ',
+    'yes' => 'Так',
+    'no' => 'Ні',
+    'title' => 'Назва',
+    'clear plan' => 'Очистити план',
+    'init plan' => 'Додати план',
+    'clear' => 'Очистити',
+    'first paragraph' => 'Перший абзац',
+    'last paragraph' => 'Останній абзац',
+    'plan' => 'План',
+    'change' => 'Змінити',
+    'account info' => 'Головна інформація',
+    'change password' => 'Зміна паролю'
+];

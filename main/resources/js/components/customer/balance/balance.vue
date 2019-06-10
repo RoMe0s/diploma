@@ -22,7 +22,7 @@
             </b-form-group>
             <b-card-group deck>
                 <b-card bg-variant="default"
-                        :header="__('messages.balance.total amount')"
+                        :header="__('messages.total amount')"
                         align="center">
                     <b-card-text>
                         {{ amount }}
@@ -30,7 +30,7 @@
                 </b-card>
 
                 <b-card bg-variant="default"
-                        :header="__('messages.balance.available amount')"
+                        :header="__('messages.available amount')"
                         align="center">
                     <b-card-text>
                         {{ available }}
@@ -38,7 +38,7 @@
                 </b-card>
 
                 <b-card bg-variant="default" text-variant="dark"
-                        :header="__('messages.balance.locked amount')"
+                        :header="__('messages.locked amount')"
                         align="center">
                     <b-card-text>
                         {{ locked }}

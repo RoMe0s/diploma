@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Customer\Order;
 
 use App\Models\Order\Order;
+use App\Services\Price\Customer;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class IndexResource extends JsonResource
@@ -23,7 +24,7 @@ class IndexResource extends JsonResource
             'date' => $order->date,
             'status' => $order->status,
             'name' => $order->getShowName(),
-            'price' => round($order->dirty_price / 1000, 2),
+            'price' => Customer::convert($order->dirty_price / 1000),
             'can_be_published' => $order->canBePublished(),
             'can_be_rolled_back' => $order->canBeRolledBack()
         ];

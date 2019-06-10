@@ -17,7 +17,7 @@
         return [
           {
             href: '/',
-            title: this.__('pages.balance'),
+            title: this.__('messages.balance'),
             icon: 'fa fa-coins'
           },
           {
@@ -27,7 +27,7 @@
           },
           {
             href: '/orders',
-            title: this.__('pages.orders'),
+            title: this.__('messages.orders'),
             icon: 'fa fa-tasks',
             badge: {
               text: this.ordersCount,
@@ -36,12 +36,12 @@
           },
           {
             href: '/projects',
-            title: this.__('pages.projects'),
+            title: this.__('messages.projects'),
             icon: 'fa fa-boxes'
           },
           {
             href: '/settings',
-            title: this.__('pages.settings'),
+            title: this.__('messages.settings'),
             icon: 'fa fa-cog'
           }
         ];

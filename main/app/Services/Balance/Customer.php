@@ -3,6 +3,7 @@
 namespace App\Services\Balance;
 
 use App\Models\Balance\Balance;
+use App\Services\Price\Customer as CustomerPrice;
 
 class Customer
 {
@@ -32,8 +33,8 @@ class Customer
      */
     public function getLocked(): float
     {
-        $this->balance->loadMissing('lockedChunks');
-        return $this->balance->lockedChunks->sum('amount');
+        $lockedAmount = $this->balance->lockedChunks()->sum('amount');
+        return CustomerPrice::convert($lockedAmount);
     }
 
     /**
