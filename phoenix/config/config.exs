@@ -10,9 +10,8 @@ use Mix.Config
 # Configures the endpoint
 config :checker, CheckerWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "Da3Hy0dv8piIoZPQo2r0ZSWXt0RpkS3aoYywoQsyAu9qFoXEYqmR+7fZuUdnRYUw",
-  render_errors: [view: CheckerWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: Checker.PubSub, adapter: Phoenix.PubSub.PG2]
+  secret_key_base: "nGEZLY5grGImyiwTcd73lsqZJQ11SX6QV+impYbB2ReN0HNe6asElHHw48BurRr9",
+  render_errors: [view: CheckerWeb.ErrorView, accepts: ~w(json)]
 
 # Configures Elixir's Logger
 config :logger, :console,

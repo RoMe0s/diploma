@@ -9,7 +9,8 @@ defmodule Checker.Application do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      CheckerWeb.Endpoint
+      CheckerWeb.Endpoint,
+      Checker.Queue
       # Starts a worker by calling: Checker.Worker.start_link(arg)
       # {Checker.Worker, arg},
     ]

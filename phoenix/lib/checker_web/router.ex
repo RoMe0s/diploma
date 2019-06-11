@@ -7,5 +7,7 @@ defmodule CheckerWeb.Router do
 
   scope "/api", CheckerWeb do
     pipe_through :api
+
+    post "/check", CheckController, :store
   end
 end
