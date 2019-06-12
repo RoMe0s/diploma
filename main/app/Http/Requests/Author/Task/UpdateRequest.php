@@ -14,7 +14,12 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user() && $this->user()->isAuthor();
+        if ($this->user() && $this->user()->isAuthor()) {
+            /** @var Task $task */
+            $task = $this->route('task');
+            return $task->isEditable();
+        }
+        return false;
     }
 
     /**
