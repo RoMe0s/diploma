@@ -4,7 +4,6 @@ const findKey = (chunks = [], translations = {}) => {
     if (chunk in translations) {
       return findKey(chunks, translations[chunk]);
     }
-    throw "hui";
     return chunks.length ? chunks.pop() : chunk;
   }
   if (typeof translations === 'string') {
@@ -17,12 +16,7 @@ export default {
   methods: {
     __(key) {
       let chunks = key.split('.');
-      try {
-        return findKey(chunks, window.translations || {}) || chunks.pop();
-      } catch (e) {
-        console.log(key);
-      }
-      return "hui";
+      return findKey(chunks, window.translations || {}) || chunks.pop();
     }
   }
 };

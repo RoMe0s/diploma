@@ -46,7 +46,7 @@
                 </b-form-group>
                 <div class="text-center">
                     <b-button type="submit" variant="success">
-                        {{ __('auth.register') }}
+                        {{ __('messages.register') }}
                     </b-button>
                 </div>
             </b-form>
