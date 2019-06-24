@@ -6,11 +6,7 @@ class Commit
 {
     const WRITING = 'writing';
 
-    const WRITTEN = 'written';
-
     const CHECKING = 'checking';
-
-    const CHECKED = 'checked';
 
     const PAYING = 'paying';
 
@@ -20,9 +16,7 @@ class Commit
 
     const ALL = [
         self::WRITING,
-        self::WRITTEN,
         self::CHECKING,
-        self::CHECKED,
         self::PAYING,
         self::DONE,
         self::FAILED

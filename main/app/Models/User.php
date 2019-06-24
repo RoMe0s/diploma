@@ -6,6 +6,7 @@ use App\Constants\Role;
 use App\Models\Order\Order;
 use App\Models\Order\Commit;
 use App\Models\Balance\Balance;
+use App\Models\Task\Task;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;

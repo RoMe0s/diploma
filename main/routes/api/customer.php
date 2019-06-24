@@ -48,3 +48,19 @@ $router->group(['prefix' => 'profile'], function (Router $router) {
     $router->match(['put', 'patch'], '', 'ProfileController@update');
     $router->post('password', 'ProfileController@password');
 });
+$router->group(['prefix' => 'tasks'], function (Router $router) {
+    $router->get('count', 'TaskController@count');
+});
+$router->group(['prefix' => 'tasks'], function (Router $router) {
+    $router->group(['prefix' => '{task}'], function (Router $router) {
+        $router->post('accept', 'TaskController@accept');
+        $router->post('rollback', 'TaskController@rollback');
+        $router->group(['prefix' => 'chat', 'namespace' => 'Task'], function (Router $router) {
+            $router->get('', 'ChatController@index');
+            $router->post('', 'ChatController@store');
+        });
+    });
+});
+$router->apiResource('tasks', 'TaskController', [
+    'only' => ['index', 'show']
+]);

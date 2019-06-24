@@ -1,8 +1,12 @@
 import PlanComponent from "./plan/plan.vue";
+import SettingsComponent from "./settings/settings.vue";
+import ChecksComponent from "./checks/checks.vue";
 
 export default {
   components: {
-    PlanComponent
+    PlanComponent,
+    SettingsComponent,
+    ChecksComponent
   },
   props: {
     id: {
@@ -16,7 +20,8 @@ export default {
       wasChanged: false,
       isEdited: false,
       onCheck: false,
-      value: null
+      value: null,
+      checks: []
     };
   },
   computed: {
@@ -75,16 +80,23 @@ export default {
       this.contentError = null;
       this.$set(this.value.text, "content", content);
       this.debouncedSave();
+    },
+    refresh() {
+      this.sendRequest("author.tasks.show", this.id)
+        .then(response => {
+          this.value = response.data;
+          this.onCheck = false;
+        });
     }
   },
   created() {
-    this.sendRequest("author.tasks.show", this.id)
-      .then(response => this.value = response.data);
+    this.refresh();
   },
   mounted() {
     Echo.private("Author.Task." + this.id)
       .listen("Author\\Task\\Checked", () => {
-        alert("checked by websockets") //TODO: add check results loading
+        Swal.fire(this.__("messages.checked!"), "", "info");
+        this.refresh();
       })
       .listen("Author\\Task\\TimeIsOver", () => {
         Swal.fire(this.__("messages.unfortunately, the time is over"), "", "error")

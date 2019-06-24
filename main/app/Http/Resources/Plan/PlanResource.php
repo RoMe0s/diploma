@@ -20,18 +20,12 @@ class PlanResource extends JsonResource
         return [
             'blocks' => $this->whenLoaded('blocks', function () {
                 $blocks = $this->blocks->whereIn('heading', Heading::ALL);
-                return BlockResource::collection($blocks);
+                return BlockResource::collection($blocks)->resolve();
             }),
             'openingBlock' => $this->whenLoaded('blocks', function () {
                 $block = $this->blocks->where('heading', Heading::OPENING)->first();
                 if ($block) {
-                    return BlockResource::make($block);
-                }
-            }),
-            'closingBlock' => $this->whenLoaded('blocks', function () {
-                $block = $this->blocks->where('heading', Heading::CLOSING)->first();
-                if ($block) {
-                    return BlockResource::make($block);
+                    return BlockResource::make($block)->resolve();
                 }
             }),
             'sizes' => [

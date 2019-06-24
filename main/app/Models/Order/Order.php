@@ -3,7 +3,7 @@
 namespace App\Models\Order;
 
 use App\Models\Setting;
-use App\Models\Task;
+use App\Models\Task\Task;
 use App\Models\User;
 use App\Models\Text;
 use App\Models\Project;
@@ -152,27 +152,14 @@ class Order extends Model
     }
 
     /**
-     * @param int $descriptionLength
-     * @return string|null
+     * @param User $user
+     * @return bool
      */
-    public function getShowName(int $descriptionLength = 75): ?string
+    public function belongsToCustomer(User $user): bool
     {
-        if ($this->name) {
-            return $this->name;
+        if ($this->relation_type === Project::class) {
+            return $this->relation->user_id == $user->id;
         }
-        return $this->getShortDescription($descriptionLength);
-    }
-
-    /**
-     * @param int $length
-     * @return string|null
-     */
-    public function getShortDescription(int $length = 75): ?string
-    {
-        $description = $this->description;
-        if ($description && mb_strlen($description) > $length) {
-            $description = mb_substr($description, 0, $length) . '...';
-        }
-        return $description;
+        return $this->relation_id == $user->id;
     }
 }

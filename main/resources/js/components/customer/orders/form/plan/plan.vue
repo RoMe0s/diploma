@@ -7,10 +7,6 @@
                                      :button-variant="useOpeningBlock ? 'success' : 'secondary'">
                         {{ __("messages.first paragraph") }}
                     </b-form-checkbox>
-                    <b-form-checkbox @change="toggleUseClosingBlock" button
-                                     :button-variant="useClosingBlock ? 'success' : 'secondary'">
-                        {{ __("messages.last paragraph") }}
-                    </b-form-checkbox>
                 </b-col>
             </b-form-row>
             <b-form-row>
@@ -52,11 +48,6 @@
                              @move-up="moveUp" @move-down="moveDown" @add-before="addBefore"
                              @add-after="addAfter" @add-settings-block="addSettingsBlock"
                              @add-keys-block="addKeysBlock" @add-child="addChild" @delete="deleteBlock" ref="blocks"/>
-            <block-component v-model="value.closingBlock" :plan-config="planConfig"
-                             :position="planConfig.headings.closing"
-                             @add-settings-block="addSettingsBlock(null, value.closingBlock)"
-                             @add-keys-block="addKeysBlock(null, value.closingBlock)"
-                             v-if="useClosingBlock"/>
         </b-card-body>
     </b-card>
 </template>

@@ -18,7 +18,7 @@ class KeyResource extends JsonResource
 
         return [
             'value' => $key->value,
-            'count' => $key->count,
+            'count' => (int)$key->count,
             'type' => $key->type
         ];
     }

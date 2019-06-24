@@ -20,8 +20,8 @@ class BlockResource extends JsonResource
             'name' => $block->name,
             'heading' => $block->heading,
             'description' => $block->description,
-            'settings' => SettingBlockResource::collection($this->whenLoaded('settingBlocks')),
-            'keys' => KeyResource::collection($this->whenLoaded('keys')),
+            'settings' => SettingBlockResource::collection($this->whenLoaded('settingBlocks'))->resolve(),
+            'keys' => KeyResource::collection($this->whenLoaded('keys'))->resolve(),
             'sizes' => [
                 'from' => (int)$block->size_from,
                 'to' => (int)$block->size_to

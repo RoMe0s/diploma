@@ -25,14 +25,6 @@
                      :sort-desc.sync="sortDesc"
                      :current-page="currentPage"
                      :sort-direction="sortDirection">
-                <template slot="name" slot-scope="row">
-                    <span v-if="row.item.name">
-                        {{ row.item.name }}
-                    </span>
-                    <b-badge variant="secondary" v-else>
-                        {{ __('messages.not applicated') }}
-                    </b-badge>
-                </template>
                 <template slot="size_from" slot-scope="row">
                     {{ row.item.sizes.from }}
                 </template>

@@ -43,11 +43,8 @@ services:
     build: docker/phoenix
     container_name: checker-phoenix
     restart: unless-stopped
-    command: mix phx.server
     volumes:
       - ./phoenix:/application
-    environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
 
   echo-server:
     build: docker/echo-server

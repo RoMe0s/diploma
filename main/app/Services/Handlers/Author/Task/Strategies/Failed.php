@@ -3,7 +3,7 @@
 namespace App\Services\Handlers\Author\Task\Strategies;
 
 use Carbon\Carbon;
-use App\Models\Task;
+use App\Models\Task\Task;
 use App\Models\Order\Commit;
 use App\Constants\Status\Order;
 use Illuminate\Support\Facades\DB;

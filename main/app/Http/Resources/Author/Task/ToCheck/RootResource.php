@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Author\Task\ToCheck;
 
-use App\Models\Task;
+use App\Models\Task\Task;
 use App\Models\Order\Order;
-use App\Services\Setting\Helper;
+use App\Http\Resources\Author\Task\SettingResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RootResource extends JsonResource
@@ -20,15 +20,11 @@ class RootResource extends JsonResource
         /** @var Order $order */
         $order = $task->order;
 
-        $array =  [
+        return [
+            'callback_url' => 'http://webserver/check/' . $task->id,
             'html' => $this->whenLoaded('text', $task->text->content),
-            'plan' => PlanResource::make($order->plan)
+            'plan' => PlanResource::make($order->plan)->resolve(),
+            'settings' => SettingResource::collection($this->whenLoaded('settings'))->resolve()
         ];
-
-        if ($settings = (new Helper)->getForOrder($order)) {
-            $array['setting'] = SettingResource::collection($settings);
-        }
-
-        return $array;
     }
 }

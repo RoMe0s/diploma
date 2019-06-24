@@ -66,9 +66,6 @@ export default {
       if (this.position === this.planConfig.headings.opening) {
         block = 'openingBlock';
       }
-      if (this.position === this.planConfig.headings.closing) {
-        block = 'closingBlock';
-      }
       return `plan.${block || `blocks.${this.position}`}.${ref}`;
     },
     addSettingsBlock() {
@@ -118,11 +115,8 @@ export default {
     isOpening() {
       return this.position === this.planConfig.headings.opening;
     },
-    isClosing() {
-      return this.position === this.planConfig.headings.closing;
-    },
     isMovable() {
-      return !this.isOpening && !this.isClosing;
+      return !this.isOpening;
     },
     isEditable() {
       return this.isMovable && this.value.heading;

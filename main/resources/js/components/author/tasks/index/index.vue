@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __("customer.tasks.index") }}
+                {{ __("author.tasks.index") }}
             </b-card-title>
         </b-card-header>
         <b-card-body>
@@ -25,14 +25,6 @@
                      :sort-desc.sync="sortDesc"
                      :current-page="currentPage"
                      :sort-direction="sortDirection">
-                <template slot="name" slot-scope="row">
-                    <span v-if="row.item.name">
-                        {{ row.item.name }}
-                    </span>
-                    <b-badge variant="secondary" v-else>
-                        {{ __('messages.not applicated') }}
-                    </b-badge>
-                </template>
                 <template slot="status" slot-scope="row">
                     <b-badge variant="info">
                         {{ __(`messages.task.status.${row.item.status}`) }}
@@ -52,7 +44,7 @@
                                 :title="__('messages.edit')" v-if="row.item.has_expired_at">
                             <i class="fa fa-pencil-alt"></i>
                         </b-link>
-                        <b-link class="btn btn-sm btn-secondary" :href="`/tasks/${row.item.id}`"
+                        <b-link class="btn btn-sm btn-secondary" :href="`/tasks/${row.item.id}/edit`"
                                 :title="__('messages.show')" v-else>
                             <i class="fa fa-eye"></i>
                         </b-link>

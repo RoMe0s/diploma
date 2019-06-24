@@ -16,10 +16,15 @@ $router->apiResource('orders', 'OrderController', [
     'only' => ['index']
 ]);
 $router->group(['prefix' => 'tasks'], function (Router $router) {
+    $router->get('done', 'TaskController@done');
     $router->get('count', 'TaskController@count');
     $router->group(['prefix' => '{task}'], function (Router $router) {
         $router->post('cancel', 'TaskController@cancel');
         $router->post('to-check', 'TaskController@toCheck');
+        $router->group(['prefix' => 'chat', 'namespace' => 'Task'], function (Router $router) {
+            $router->get('', 'ChatController@index');
+            $router->post('', 'ChatController@store');
+        });
     });
 });
 $router->apiResource('tasks', 'TaskController', [

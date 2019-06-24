@@ -9,10 +9,11 @@ use App\Services\Loaders\Loader;
 use Illuminate\Database\Eloquent\Builder;
 use App\Services\Loaders\PaginatorTrait;
 use App\Services\Loaders\PaginatorInterface;
-use App\Models\Task as TaskModel;
+use App\Models\Task\Task as TaskModel;
 use App\Scopes\Author\Task\Filter;
 use App\Scopes\Author\Task\Active;
 use App\Scopes\Author\Task\Sort;
+use App\Scopes\Author\Task\Done;
 use App\Models\Order\Commit;
 use App\Models\Order\Order;
 
@@ -85,7 +86,7 @@ class Task extends Loader implements PaginatorInterface
                 '=',
                 $task->qualifyColumn('order_id')
             )
-            ->where('user_id', $this->user->id);
+            ->where($task->qualifyColumn('user_id'), $this->user->id);
     }
 
     /**
@@ -96,7 +97,8 @@ class Task extends Loader implements PaginatorInterface
         return [
             Filter::class,
             Active::class,
-            Sort::class
+            Sort::class,
+            Done::class
         ];
     }
 }

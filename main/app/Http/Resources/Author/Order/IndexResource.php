@@ -21,7 +21,7 @@ class IndexResource extends JsonResource
 
         return [
             'id' => $order->id,
-            'name' => $order->getShowName(),
+            'name' => $order->name,
             'estimate' => $order->estimate,
             'prices' => [
                 'min' => Author::convert($order->dirty_min_price / 1000),

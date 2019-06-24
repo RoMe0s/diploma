@@ -41,14 +41,6 @@
                 :current-page="currentPage"
                 :sort-direction="sortDirection"
                 @row-selected="rowSelected">
-                <template slot="name" slot-scope="row">
-                    <span v-if="row.item.name">
-                        {{ row.item.name }}
-                    </span>
-                    <b-badge variant="secondary" v-else>
-                        {{ __('messages.not applicated') }}
-                    </b-badge>
-                </template>
                 <template slot="status" slot-scope="row">
                     <b-badge variant="info">
                         {{ __(`messages.order.status.${row.item.status}`) }}

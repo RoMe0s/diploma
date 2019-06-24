@@ -4,7 +4,7 @@ namespace App\Services\Price;
 
 use App\Constants\Tax;
 
-class Author
+class Author extends Price
 {
     /**
      * @param float $price
@@ -12,6 +12,6 @@ class Author
      */
     public static function convert(float $price): float
     {
-        return round($price * Tax::AUTHOR, 2);
+        return parent::convert($price * Tax::AUTHOR);
     }
 }

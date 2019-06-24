@@ -46,6 +46,6 @@ class Author
      */
     public function getAvailable(): float
     {
-        return $this->balance->amount;
+        return AuthorPrice::convert($this->balance->amount);
     }
 }

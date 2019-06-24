@@ -22,7 +22,7 @@ export default {
       return null;
     },
     resetValidation() {
-      this.$validator.reset().then(console.log);
+      this.$validator.reset();
     },
     addErrorToChildren(field, error) {
       if (field in this.veeFields) {

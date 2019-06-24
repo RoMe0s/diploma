@@ -1,42 +1,52 @@
-# 1) Беремо перших @limit записів та доповнюємо в do_next
 defmodule Checker.Queue do
   alias Checker.Tables.Check
-  use Agent
+  use GenServer
+
+  @timeout 5_000
 
   def start_link(_) do
-    records = Check.all()
-    Agent.start_link(fn -> records end, name: __MODULE__)
+    GenServer.start_link(__MODULE__, Check.fetch, name: __MODULE__)
   end
 
-  def push(%Check{} = record) do
-    {:ok, record} = Check.store(record)
-    Agent.cast(__MODULE__, fn state -> state ++ [record] end)
+  def init(state) do
+    Process.send_after(self(), :tick, @timeout)
+    {:ok, state}
   end
 
-  def current do
-    Agent.get(__MODULE__, fn
-      [current | _] -> current
-      [] -> nil
-    end)
+  def handle_info(:tick, %Check{} = check) do
+    do_tick(check)
+  end
+  def handle_info(:tick, _) do
+    do_tick()
   end
 
-  def next do
-    Agent.get(__MODULE__, &do_next/1)
+  def handle_cast(:tick, %Check{} = check) do
+    do_tick(check)
+  end
+  def handle_cast(:tick, _) do
+    do_tick()
   end
 
-  defp do_next([current | [next | all]]) do
-    Check.delete(current)
-    Agent.cast(__MODULE__, fn _ -> [next | all] end)
-    next
+  def handle_cast(:finished, %Check{} = check) do
+    Checker.Delete.delete(check)
+    Process.send_after(self(), :tick, @timeout)
+    {:noreply, Check.fetch}
   end
 
-  defp do_next([current]) do
-    Check.delete(current)
-    Agent.cast(__MODULE__, fn _ -> [] end)
-    nil
+  def restart do
+    GenServer.cast(__MODULE__, :tick)
   end
 
-  defp do_next([]) do
-    nil
+  def finished() do
+    GenServer.cast(__MODULE__, :finished)
+  end
+
+  defp do_tick(%Check{} = check) do
+    spawn_link(Checker.Check, :check, [check])
+    {:noreply, check}
+  end
+  defp do_tick() do
+    Process.send_after(self(), :tick, @timeout)
+    {:noreply, Check.fetch}
   end
 end

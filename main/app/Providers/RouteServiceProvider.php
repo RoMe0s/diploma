@@ -39,6 +39,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapCheckRoutes();
+
         //
     }
 
@@ -70,5 +72,17 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace . '\Api')
             ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * @return void
+     */
+    protected function mapCheckRoutes()
+    {
+        Route::as('check.')
+            ->prefix('check')
+            ->middleware('bindings')
+            ->namespace($this->namespace . '\Check')
+            ->group(base_path('routes/check.php'));
     }
 }

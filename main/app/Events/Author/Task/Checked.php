@@ -2,7 +2,7 @@
 
 namespace App\Events\Author\Task;
 
-use App\Models\Task;
+use App\Models\Task\Task;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;

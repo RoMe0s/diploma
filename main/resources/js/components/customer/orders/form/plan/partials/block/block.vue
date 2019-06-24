@@ -65,7 +65,7 @@
                         <b-col v-if="isMovable">
                             <b-form-group>
                                 <b-form-input v-model="value.name"
-                                              v-validate="'max:255'"
+                                              v-validate="'required|max:255'"
                                               :data-vv-as="__('fields.name')"
                                               :data-vv-name="validationName('name')"
                                               :state="noErrors(validationName('name'))"/>

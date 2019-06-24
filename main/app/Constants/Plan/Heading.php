@@ -16,8 +16,6 @@ class Heading
 
     const H6 = '6';
 
-    const CLOSING = '-1';
-
     const ALL = [
         self::H2,
         self::H3,
@@ -84,8 +82,7 @@ class Heading
                     'next' => null
                 ]
             ],
-            'opening' => self::OPENING,
-            'closing' => self::CLOSING
+            'opening' => self::OPENING
         ];
     }
 
@@ -102,8 +99,7 @@ class Heading
                 self::H5 => self::H6,
                 self::H6 => null
             ],
-            'opening' => self::OPENING,
-            'closing' => self::CLOSING
+            'opening' => self::OPENING
         ];
     }
 }

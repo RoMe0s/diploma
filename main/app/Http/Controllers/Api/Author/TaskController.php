@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api\Author;
 
-use App\Models\Task;
+use App\Models\Task\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\Controller;
 use App\Services\Handlers\Author\Task\Update;
-use App\Services\Handlers\Author\Task\ToCheck;
 use App\Services\Loaders\Author\Task as Loader;
 use App\Http\Resources\Author\Task\IndexResource;
 use App\Http\Resources\Author\Task\ShowResource;
-use App\Http\Requests\Author\Task\UpdateRequest;
 use App\Services\Handlers\Author\Task\Cancel;
+use App\Services\Handlers\Author\Task\Director;
+use App\Http\Resources\Author\Task\DoneResource;
 
 class TaskController extends Controller
 {
@@ -25,6 +25,21 @@ class TaskController extends Controller
         $loader->setUser($request->user());
         $paginated = $loader->paginate($request->all());
         $resource = IndexResource::collection($paginated['rows']);
+        $paginated['rows'] = $resource->resolve($request);
+        return $paginated;
+    }
+
+    /**
+     * @param Request $request
+     * @param Loader $loader
+     * @return array
+     */
+    public function done(Request $request, Loader $loader)
+    {
+        $loader->setUser($request->user());
+        $params = $request->merge(['done' => true])->all();
+        $paginated = $loader->paginate($params);
+        $resource = DoneResource::collection($paginated['rows']);
         $paginated['rows'] = $resource->resolve($request);
         return $paginated;
     }
@@ -50,9 +65,21 @@ class TaskController extends Controller
     public function show(Task $task, Request $request)
     {
         $this->authorize('view', $task);
-        $task->load(['text', 'order.plan.blocks' => function ($q) {
-            $q->with(['settingBlocks', 'keys']);
-        }]);
+        $task->load([
+            'text',
+            'settings',
+            'checks.task.order.plan.blocks',
+            'order' => function ($q) {
+                $q->with([
+                    'commits' => function ($q) {
+                        $q->latest()->limit(1);
+                    },
+                    'plan.blocks' => function ($q) {
+                        $q->with(['settingBlocks', 'keys']);
+                    }
+                ]);
+            }
+        ]);
         return ShowResource::make($task)->resolve($request);
     }
 
@@ -72,15 +99,15 @@ class TaskController extends Controller
 
     /**
      * @param Task $task
-     * @param ToCheck $toCheck
+     * @param Director $director
      * @return \Illuminate\Http\JsonResponse
-     * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function toCheck(Task $task, ToCheck $toCheck)
+    public function toCheck(Task $task, Director $director)
     {
         $this->authorize('update', $task);
-        $toCheck->toCheck($task);
+        $task->load(['checks', 'order.commits']);
+        $director->apply($task);
         return response()->json();
     }
 

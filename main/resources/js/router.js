@@ -44,6 +44,17 @@ export default {
     profile: {
       update: data => axios.patch("/customer/profile", data),
       password: data => axios.post("/customer/profile/password", data)
+    },
+    tasks: {
+      index: params => axios.get("/customer/tasks", {params}),
+      show: id => axios.get(`/customer/tasks/${id}`),
+      count: () => axios.get("/customer/tasks/count"),
+      accept: id => axios.post(`/customer/tasks/${id}/accept`),
+      rollback: (id, reason) => axios.post(`/customer/tasks/${id}/rollback`, {reason}),
+      chat: {
+        load: id => axios.get(`/customer/tasks/${id}/chat`),
+        send: (id, message) => axios.post(`/customer/tasks/${id}/chat`, {message})
+      }
     }
   },
   author: {
@@ -58,7 +69,12 @@ export default {
       cancel: id => axios.post(`/author/tasks/${id}/cancel`),
       update: (id, data) => axios.put(`/author/tasks/${id}`, data),
       "to-check": id => axios.post(`/author/tasks/${id}/to-check`),
-      count: () => axios.get("/author/tasks/count")
+      count: () => axios.get("/author/tasks/count"),
+      done: params => axios.get("/author/tasks/done", {params}),
+      chat: {
+        load: id => axios.get(`/author/tasks/${id}/chat`),
+        send: (id, message) => axios.post(`/author/tasks/${id}/chat`, {message})
+      }
     },
     balance: {
       index: () => axios.get("/author/balance"),

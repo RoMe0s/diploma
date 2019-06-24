@@ -10,9 +10,12 @@ class Order
 
     const IN_WORK = 'in_work';
 
+    const DONE = 'done';
+
     const ALL = [
         self::DRAFT,
         self::PUBLISHED,
-        self::IN_WORK
+        self::IN_WORK,
+        self::DONE
     ];
 }

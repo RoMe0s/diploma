@@ -2,7 +2,7 @@
 
 namespace App\Services\Handlers\Author\Task;
 
-use App\Models\Task;
+use App\Models\Task\Task;
 use App\Services\Text\Helper;
 
 class Update

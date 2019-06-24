@@ -27,9 +27,9 @@ class BalanceController extends Controller
         $balanceHandler->setBalance($balance);
         return response()->json([
             'bill' => $balance->bill,
-            'amount' => $balanceHandler->getAmount(),
-            'available' => $balanceHandler->getAvailable(),
-            'locked' => $balanceHandler->getLocked()
+            'amount' => (string)$balanceHandler->getAmount(),
+            'available' => (string)$balanceHandler->getAvailable(),
+            'locked' => (string)$balanceHandler->getLocked()
         ]);
     }
 

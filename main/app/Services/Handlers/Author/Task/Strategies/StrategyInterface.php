@@ -2,7 +2,7 @@
 
 namespace App\Services\Handlers\Author\Task\Strategies;
 
-use App\Models\Task;
+use App\Models\Task\Task;
 
 interface StrategyInterface
 {

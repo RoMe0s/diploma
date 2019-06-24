@@ -29,5 +29,12 @@ return [
     'plan' => 'План',
     'change' => 'Змінити',
     'account info' => 'Головна інформація',
-    'change password' => 'Зміна паролю'
+    'change password' => 'Зміна паролю',
+    'opening block' => 'Вступ(без заголовку)',
+    'setting blocks' => [
+        'img' => 'Зображення',
+        'em' => 'Курсив',
+        'strong' => 'Напівжирний',
+        'video' => 'Відео'
+    ]
 ];

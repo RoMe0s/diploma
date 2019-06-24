@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Task;
+use App\Models\Task\Task;
 use App\Models\Project;
 use App\Models\Order\Order;
 use App\Policies\OrderPolicy;

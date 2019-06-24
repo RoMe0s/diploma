@@ -81,11 +81,6 @@ class Update
             $block['position'] = $index + 1;
             $blockIds[] = $this->updateBlock($plan, $block);
         }
-        if ($closingBlock = $data['closingBlock'] ?? null) {
-            $closingBlock['position'] = count($blocks) + 1;
-            $closingBlock['heading'] = Heading::CLOSING;
-            $blockIds[] = $this->updateBlock($plan, $closingBlock);
-        }
         $plan->blocks()->whereNotIn('id', $blockIds)->delete();
     }
 

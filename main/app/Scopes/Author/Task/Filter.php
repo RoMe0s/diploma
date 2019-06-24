@@ -26,15 +26,10 @@ class Filter implements ScopeInterface
         $order = new Order;
         $filter = $config['filter'];
         $nameColumn = $order->qualifyColumn('name');
-        $descriptionColumn = $order->qualifyColumn('description');
-        $orderNameSubQuery = $order->newQuery()
-            ->whereRaw($order->getQualifiedKeyName() . ' = ' . $builder->getModel()->qualifyColumn('order_id'))
-            ->where(function (Builder $builder) use ($nameColumn, $descriptionColumn, $filter) {
-                $builder->where($nameColumn, 'LIKE', "%$filter%")
-                    ->orWhere(function (Builder $builder) use ($nameColumn, $descriptionColumn, $filter) {
-                        $builder->whereNull($nameColumn)->where($descriptionColumn, 'LIKE', "%$filter%");
-                    });
-            })
+        $orderIdColumn = $builder->getModel()->qualifyColumn('order_id');
+
+        $orderNameSubQuery = $order->newQuery()->where($nameColumn, 'LIKE', "%$filter%")
+            ->whereRaw($order->getQualifiedKeyName() . ' = ' . $orderIdColumn)
             ->toBase();
 
         $builder->addWhereExistsQuery($orderNameSubQuery);

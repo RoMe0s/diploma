@@ -53,11 +53,18 @@ $router->group(['middleware' => 'auth'], function (Router $router) {
         $router->resource('orders', 'OrderController', [
             'only' => ['create', 'edit']
         ]);
+        $router->resource('checks', 'TaskController', [
+            'parameters' => ['checks' => 'task'],
+            'only' => ['index', 'show']
+        ]);
     });
     $router->group([
         'namespace' => 'Author',
         'middleware' => 'roles:' . Role::AUTHOR
     ], function (Router $router) {
+        $router->group(['prefix' => 'tasks'], function (Router $router) {
+            $router->get('done', 'TaskController@done');
+        });
         $router->resource('tasks', 'TaskController', [
             'only' => ['index', 'edit']
         ]);

@@ -1,30 +1,18 @@
 defmodule Checker.Tables.Check do
-  @enforce_keys [:html]
+  @enforce_keys [:html, :callback_url]
   use Memento.Table,
-    attributes: [:id, :html],
-    type: :ordered_set,
-    autoincrement: true
+      attributes: [:id, :html, :callback_url],
+      type: :ordered_set,
+      autoincrement: true
 
-  def all do
+  def fetch do
     records =
       Memento.transaction fn ->
         Memento.Query.all(__MODULE__)
       end
     case records do
-      {:ok, records} -> records
-      _ -> []
-    end
-  end
-
-  def store(%__MODULE__{} = record) do
-    Memento.transaction fn ->
-      Memento.Query.write(record)
-    end
-  end
-
-  def delete(%__MODULE__{} = record) do
-    Memento.transaction fn ->
-      Memento.Query.delete_record(record)
+      {:ok, [head | _]} -> head
+      _ -> nil
     end
   end
 end

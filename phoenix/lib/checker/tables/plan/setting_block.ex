@@ -1,18 +1,18 @@
 defmodule Checker.Tables.Plan.SettingBlock do
   @enforce_keys [:block_id, :min, :max, :type]
   use Memento.Table,
-    attributes: [:id, :block_id, :min, :max, :type],
-    type: :ordered_set,
-    autoincrement: true
+      attributes: [:id, :block_id, :min, :max, :type],
+      type: :ordered_set,
+      autoincrement: true
 
-  def all do
+  def fetch(%Checker.Tables.Plan.Block{id: block_id}) do
     records =
       Memento.transaction fn ->
-      Memento.Query.all(__MODULE__)
-    end
+        Memento.Query.select(__MODULE__, {:==, :block_id, block_id})
+      end
     case records do
       {:ok, records} -> records
-      _ -> []
+      _ -> nil
     end
   end
 end

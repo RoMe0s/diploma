@@ -2,6 +2,7 @@
 
 namespace App\Services\Setting;
 
+use App\Models\User;
 use App\Models\Project;
 use App\Models\Order\Order;
 use Illuminate\Support\Collection;
@@ -18,7 +19,7 @@ class Helper
             return $order->settings;
         }
         $relation = $order->relation;
-        if (is_a($relation, Project::class) && $relation->settings->isNotEmpty()) {
+        if (is_a($relation, User::class) || (is_a($relation, Project::class) && $relation->settings->isNotEmpty())) {
             return $relation->settings;
         }
         return $relation->customer->settings;

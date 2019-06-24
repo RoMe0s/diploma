@@ -2,8 +2,11 @@
 
 namespace App\Services\Handlers\Author\Task;
 
-use App\Models\Task;
+use App\Models\Task\Task;
+use App\Services\Handlers\Author\Task\Strategies\Checked;
+use App\Services\Handlers\Author\Task\Strategies\ToAutoChecks;
 use App\Services\Handlers\Author\Task\Strategies\StrategyInterface;
+use App\Services\Handlers\Author\Task\Strategies\ToCustomerCheck;
 
 final class Director
 {
@@ -51,6 +54,10 @@ final class Director
      */
     private function strategies(): array
     {
-        return [];
+        return [
+            Checked::class,
+            ToAutoChecks::class,
+            ToCustomerCheck::class
+        ];
     }
 }

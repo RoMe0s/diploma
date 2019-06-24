@@ -9,7 +9,8 @@
     mixins: [MenuMixin],
     data() {
       return {
-        ordersCount: 0
+        ordersCount: 0,
+        tasksCount: 0
       }
     },
     computed: {
@@ -35,6 +36,15 @@
             }
           },
           {
+            href: '/checks',
+            title: this.__('messages. on check'),
+            icon: 'fa fa-clock',
+            badge: {
+              text: this.tasksCount,
+              class: 'default-badge'
+            }
+          },
+          {
             href: '/projects',
             title: this.__('messages.projects'),
             icon: 'fa fa-boxes'
@@ -50,6 +60,9 @@
     created() {
       this.sendRequest("customer.orders.count")
         .then(response => this.ordersCount = response.data.count)
+
+      this.sendRequest("customer.tasks.count")
+        .then(response => this.tasksCount = response.data.count)
     }
   }
 </script>

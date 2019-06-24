@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Author\Task;
+namespace App\Http\Requests\Task;
 
-use App\Models\Task;
+use App\Models\Task\Task;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest

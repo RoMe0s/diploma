@@ -83,11 +83,6 @@ class Store
             $block['position'] = $index + 1;
             $this->appendBlock($plan, $block);
         }
-        if ($closingBlock = $data['closingBlock'] ?? null) {
-            $closingBlock['position'] = count($blocks) + 1;
-            $closingBlock['heading'] = Heading::CLOSING;
-            $this->appendBlock($plan, $closingBlock);
-        }
     }
 
     /**

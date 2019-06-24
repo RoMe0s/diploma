@@ -35,7 +35,11 @@ defmodule Checker.MixProject do
       {:phoenix, "~> 1.4.3"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:memento, "~> 0.3.1"}
+      {:memento, "~> 0.3.1"},
+      {:html_sanitize_ex, "~> 1.3.0-rc3"},
+      {:floki, "~> 0.21.0"},
+      {:stemmer, "~> 1.0"},
+      {:httpoison, "~> 1.4"}
     ]
   end
 end

@@ -16,7 +16,6 @@ export default {
   data() {
     return {
       useOpeningBlock: this.value.openingBlock !== null,
-      useClosingBlock: this.value.closingBlock !== null,
       planConfig: null,
       lastUid: 1
     }
@@ -178,10 +177,6 @@ export default {
     toggleUseOpeningBlock() {
       this.useOpeningBlock = !this.useOpeningBlock;
       this.$set(this.value, "openingBlock", this.useOpeningBlock ? blockSchema(this.planConfig.headings.opening) : null);
-    },
-    toggleUseClosingBlock() {
-      this.useClosingBlock = !this.useClosingBlock;
-      this.$set(this.value, "closingBlock", this.useClosingBlock ? blockSchema(this.planConfig.headings.closing) : null);
     }
   },
   computed: {

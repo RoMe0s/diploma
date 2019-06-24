@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Web\Author;
 
-use App\Models\Task;
+use App\Models\Task\Task;
 use App\Http\Controllers\Web\Controller;
 
 class TaskController extends Controller
@@ -21,6 +21,14 @@ class TaskController extends Controller
     public function index()
     {
         return $this->render('index');
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function done()
+    {
+        return $this->render('done');
     }
 
     /**

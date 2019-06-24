@@ -18,8 +18,8 @@ class SettingBlockResource extends JsonResource
 
         return [
             'type' => $settingBlock->type,
-            'min' => $settingBlock->min,
-            'max' => $settingBlock->max
+            'min' => (int)$settingBlock->min,
+            'max' => (int)$settingBlock->max
         ];
     }
 }

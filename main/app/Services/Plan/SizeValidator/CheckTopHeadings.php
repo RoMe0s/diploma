@@ -35,10 +35,6 @@ class CheckTopHeadings
             $from += $data['openingBlock']['sizes']['from'];
             $to += $data['openingBlock']['sizes']['to'];
         }
-        if (key_exists('closingBlock', $data)) {
-            $from += $data['closingBlock']['sizes']['from'];
-            $to += $data['closingBlock']['sizes']['to'];
-        }
         foreach ($data['blocks'] ?? [] as $block) {
             if ($block['heading'] === Heading::H2) {
                 $from += $block['sizes']['from'];

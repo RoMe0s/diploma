@@ -43,6 +43,11 @@
               text: this.tasksCount,
               class: "default-badge"
             }
+          },
+          {
+            href: "/tasks/done",
+            title: this.__("pages.done tasks"),
+            icon: "fa fa-clipboard-check"
           }
         ]
       }

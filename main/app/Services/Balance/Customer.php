@@ -25,7 +25,7 @@ class Customer
      */
     public function getAmount(): float
     {
-        return $this->balance->amount;
+        return CustomerPrice::convert($this->balance->amount);
     }
 
     /**

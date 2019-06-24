@@ -13,6 +13,9 @@ import CustomerBalance from "../components/customer/balance/balance.vue"
 
 import CustomerProfile from "../components/customer/profile/profile.vue"
 
+import CustomerTasksIndex from "../components/customer/tasks/index/index.vue";
+import CustomerTasksEdit from "../components/customer/tasks/edit/edit.vue";
+
 Vue.component("customer-projects-create", CustomerProjectsCreate)
 Vue.component("customer-projects-index", CustomerProjectsIndex)
 Vue.component("customer-projects-edit", CustomerProjectsEdit)
@@ -27,3 +30,6 @@ Vue.component("customer-orders-edit", CustomerOrdersEdit)
 Vue.component("customer-balance", CustomerBalance)
 
 Vue.component("customer-profile", CustomerProfile)
+
+Vue.component("customer-tasks-index", CustomerTasksIndex);
+Vue.component("customer-tasks-edit", CustomerTasksEdit);

@@ -8,14 +8,14 @@ class Task
 
     const CHECKING = 'checking';
 
-    const WAITING = 'waiting';
-
     const PAYING = 'paying';
+
+    const DONE = 'done';
 
     const ALL = [
         self::WRITING,
         self::CHECKING,
-        self::WAITING,
-        self::PAYING
+        self::PAYING,
+        self::DONE
     ];
 }

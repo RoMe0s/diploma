@@ -7,7 +7,8 @@
                     <b-link class="btn btn-primary" href="/tasks" :title="__('messages.to list')">
                         <i class="fa fa-arrow-left"></i>
                     </b-link>
-                    <b-button variant="danger" @click.prevent="showCancelConfirm()" :title="__('messages.cancel')">
+                    <b-button variant="danger" @click.prevent="showCancelConfirm()" :title="__('messages.cancel')"
+                              v-if="isEditable">
                         <i class="fa fa-ban"></i>
                     </b-button>
                 </b-button-group>
@@ -15,7 +16,10 @@
         </b-card-header>
         <b-card-body>
             <div align="right">
-                <b-badge variant="danger" :title="__('messages.time left')">
+                <b-badge variant="info" :title="__('messages.task_status.' + value.status)">
+                    {{ __('messages.task_status.' + value.status) }}
+                </b-badge>
+                <b-badge variant="danger" :title="__('messages.time left')" v-if="value.expired_at">
                     {{ value.expired_at }}
                 </b-badge>
                 <b-badge variant="primary" :title="__('messages.sizes')">
@@ -25,7 +29,7 @@
                     {{ value.order.prices.min }} - {{ value.order.prices.max }}
                 </b-badge>
             </div>
-            <h2 v-if="value.order.name">
+            <h2>
                 {{ value.order.name }}
             </h2>
             <p v-if="value.order.description">
@@ -34,15 +38,9 @@
 
             <plan-component :value="value.order.plan"/>
 
-            <b-form-group :label="__('fields.name')" v-if="!value.order.name">
-                <b-form-input name="name" v-model="value.text.name" :placeholder="__('fields.name')"
-                              v-validate="'max:255'" :state="noErrors('name')"/>
-                <b-form-invalid-feedback>
-                    {{ errors.first("name") }}
-                </b-form-invalid-feedback>
-            </b-form-group>
+            <settings-component :settings="value.settings" class="mb-3" v-if="value.settings.length"/>
 
-            <div v-if="isEditable">
+            <div v-show="isEditable">
                 <b-alert :show="wasChanged && contentError === null && !isEdited" variant="success" dismissible>
                     {{ __("messages.everything saved") }}
                 </b-alert>
@@ -56,10 +54,15 @@
                     {{ contentError }}
                 </b-alert>
                 <text-editor :content="value.text.content" @input="textChanged"/>
+                <checks-component :checks="value.checks" v-if="value.checks.length" class="mt-3"/>
             </div>
-            <b-card bg-variant="light" :header="__('messages.text preview')" no-body v-else>
+
+            <b-card bg-variant="light" :header="__('messages.text preview')" no-body v-if="!isEditable">
                 <b-card-body v-html="value.text.content"/>
             </b-card>
+
+            <chat-task :id="id" load-route="author.tasks.chat.load" send-route="author.tasks.chat.send"
+                       class="mt-3"></chat-task>
         </b-card-body>
         <b-card-footer class="text-center" v-if="isEditable">
             <b-button variant="success" @click="save()" v-if="isEdited">

@@ -37,7 +37,6 @@
           plan: {
             sizes: {from: 0, to: null},
             openingBlock: null,
-            closingBlock: null,
             blocks: []
           },
           name: null,

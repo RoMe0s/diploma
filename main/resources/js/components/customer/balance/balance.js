@@ -15,7 +15,7 @@ export default {
       amount: null,
       locked: null,
       bill: null
-    }
+    };
   },
   methods: {
     update() {
@@ -45,11 +45,11 @@ export default {
   created() {
     this.sendRequest("customer.balance.index")
       .then(response => {
-        this.amount = response.data.amount
-        this.available = response.data.available
-        this.locked = response.data.locked
-        this.bill = response.data.bill
-        this.billIsEmpty = _.isNil(this.bill)
-      })
+        this.amount = response.data.amount;
+        this.available = response.data.available;
+        this.locked = response.data.locked;
+        this.bill = response.data.bill;
+        this.billIsEmpty = _.isNil(this.bill);
+      });
   }
 }
