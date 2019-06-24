@@ -19,7 +19,7 @@ class CustomersSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class, 1)->create(['role' => Role::CUSTOMER])
+        factory(User::class, 1)->create(['role' => Role::CUSTOMER, 'email' => 'customer@gmail.com'])
             ->each(function (User $customer) {
                 factory(Project::class, 1)->create(['user_id' => $customer->id])
                     ->each(function (Project $project) {
