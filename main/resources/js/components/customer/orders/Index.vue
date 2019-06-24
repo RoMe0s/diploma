@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __("customer.orders.index") }}
+                {{ __("messages.orders") }}
                 <b-link class="btn btn-success float-right" href="/orders/create" :title="__('messages.create')">
                     <i class="fa fa-plus"></i>
                 </b-link>
@@ -11,7 +11,7 @@
         <b-card-body>
             <b-row>
                 <b-col md="11">
-                    <b-form-group label-cols-sm="3" label="Filter">
+                    <b-form-group label-cols-sm="3" :label="__('messages.filter')">
                         <b-input-group>
                             <b-form-input v-model="filter" :placeholder="__('messages.type to search')"/>
                         </b-input-group>
@@ -169,7 +169,7 @@
           title: this.__("messages.are you sure?"),
           showCancelButton: true,
           type: "success",
-          confirmButtonText: this.__("messages.publish order"),
+          confirmButtonText: this.__("messages.publish order!"),
           cancelButtonText: this.__("messages.cancel")
         }).then(answer => {
           if (answer.value === true) {
@@ -194,7 +194,7 @@
           title: this.__("messages.are you sure?"),
           showCancelButton: true,
           type: "warning",
-          confirmButtonText: this.__("messages.rollback order"),
+          confirmButtonText: this.__("messages.rollback order!"),
           cancelButtonText: this.__("messages.cancel")
         }).then(answer => {
           if (answer.value === true) {

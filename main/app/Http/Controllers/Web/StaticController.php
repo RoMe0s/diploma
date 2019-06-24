@@ -8,6 +8,7 @@ class StaticController extends Controller
 {
     public function langJs()
     {
+        Cache::forget('lang.js');
         $strings = Cache::remember('lang.js', 3600, function () {
             $lang = config('app.locale');
 

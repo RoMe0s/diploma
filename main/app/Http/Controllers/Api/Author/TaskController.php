@@ -12,6 +12,7 @@ use App\Http\Resources\Author\Task\ShowResource;
 use App\Services\Handlers\Author\Task\Cancel;
 use App\Services\Handlers\Author\Task\Director;
 use App\Http\Resources\Author\Task\DoneResource;
+use App\Http\Requests\Author\Task\UpdateRequest;
 
 class TaskController extends Controller
 {

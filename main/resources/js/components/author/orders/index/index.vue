@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __("customer.orders.index") }}
+                {{ __("messages.orders") }}
             </b-card-title>
         </b-card-header>
         <b-card-body>

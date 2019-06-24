@@ -82,9 +82,9 @@
                                                       type="number"
                                                       v-model.number="value.sizes.from"
                                                       v-validate="'required|integer|max:11|min_value:1'"
-                                                      :data-vv-as="__('fields.sizes.from')"
+                                                      :data-vv-as="__('fields.size_from')"
                                                       :data-vv-name="validationName('sizes.from')"
-                                                      :placeholder="__('messages.sizes.from')"
+                                                      :placeholder="__('fields.size_from')"
                                                       :state="noErrors(validationName('sizes.from'))"/>
                                         <b-form-invalid-feedback>
                                             {{ errors.first(validationName("sizes.from")) }}
@@ -97,9 +97,9 @@
                                                       type="number"
                                                       v-model.number="value.sizes.to"
                                                       v-validate="'required|integer|max:11|min_value:1'"
-                                                      :data-vv-as="__('fields.sizes.to')"
+                                                      :data-vv-as="__('fields.size_to')"
                                                       :data-vv-name="validationName('sizes.to')"
-                                                      :placeholder="__('messages.sizes.to')"
+                                                      :placeholder="__('fields.size_to')"
                                                       :state="noErrors(validationName('sizes.to'))"/>
                                         <b-form-invalid-feedback>
                                             {{ errors.first(validationName("sizes.to")) }}
@@ -113,7 +113,7 @@
                         <b-col>
                             <b-form-group>
                                 <b-form-textarea v-model="value.description"
-                                                 :placeholder="__('messages.description')"
+                                                 :placeholder="__('fields.description')"
                                                  v-validate="'max:255'"
                                                  :data-vv-as="__('fields.description')"
                                                  :data-vv-name="validationName('description')"

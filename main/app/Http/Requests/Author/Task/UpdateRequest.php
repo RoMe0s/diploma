@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Task;
+namespace App\Http\Requests\Author\Task;
 
 use App\Models\Task\Task;
 use Illuminate\Foundation\Http\FormRequest;
@@ -29,14 +29,6 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = ['content' => 'required|string|max:1000000'];
-
-        /** @var Task $task */
-        $task = $this->route('task');
-        if (!$task->order->name) {
-            $rules['name'] = 'required|string|max:255';
-        }
-
-        return $rules;
+        return ['content' => 'required|string|max:1000000'];
     }
 }

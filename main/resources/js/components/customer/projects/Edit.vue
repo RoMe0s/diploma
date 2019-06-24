@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __("customer.projects.edit") }} "{{ title }}"
+                {{ __("messages.edit") }} "{{ title }}"
                 <b-button-group class="float-right">
                     <b-link class="btn btn-primary" href="/projects" :title="__('messages.to list')">
                         <i class="fa fa-arrow-left"></i>

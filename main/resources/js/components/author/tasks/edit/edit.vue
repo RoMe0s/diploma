@@ -2,7 +2,7 @@
     <b-card no-body v-if="value">
         <b-card-header>
             <b-card-title>
-                {{ __("author.tasks.edit") }} #{{ id }}
+                {{ __("messages.edit") }} #{{ id }}
                 <b-button-group class="float-right">
                     <b-link class="btn btn-primary" href="/tasks" :title="__('messages.to list')">
                         <i class="fa fa-arrow-left"></i>
@@ -16,8 +16,8 @@
         </b-card-header>
         <b-card-body>
             <div align="right">
-                <b-badge variant="info" :title="__('messages.task_status.' + value.status)">
-                    {{ __('messages.task_status.' + value.status) }}
+                <b-badge variant="info" :title="__('messages.task.status.' + value.status)">
+                    {{ __('messages.task.status.' + value.status) }}
                 </b-badge>
                 <b-badge variant="danger" :title="__('messages.time left')" v-if="value.expired_at">
                     {{ value.expired_at }}
@@ -42,10 +42,10 @@
 
             <div v-show="isEditable">
                 <b-alert :show="wasChanged && contentError === null && !isEdited" variant="success" dismissible>
-                    {{ __("messages.everything saved") }}
+                    {{ __("messages.everything is saved") }}
                 </b-alert>
                 <b-alert v-model="isEdited" variant="info">
-                    {{ __("messages.changes unsaved") }}
+                    {{ __("messages.changes is unsaved") }}
                     <b-button type="submit" variant="primary" size="sm" @click="save()">
                         {{ __("messages.save") }}
                     </b-button>

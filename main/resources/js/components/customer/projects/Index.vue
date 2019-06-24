@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __("customer.projects.index") }}
+                {{ __("messages.projects") }}
                 <b-link class="btn btn-success float-right" href="/projects/create" :title="__('messages.create')">
                     <i class="fa fa-plus"></i>
                 </b-link>

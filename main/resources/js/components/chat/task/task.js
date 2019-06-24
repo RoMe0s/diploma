@@ -22,7 +22,6 @@ export default {
   },
   methods: {
     scrollToBottom() {
-      console.log(this.$refs.messages.scrollHeight);
       this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight;
     },
     send() {
@@ -30,7 +29,7 @@ export default {
         if (isValid) {
           this.sendRequest(this.sendRoute, [this.id, this.message])
             .then(response => {
-              this.notify(this.__("messages.message has been sent"), "success");
+              this.notify(this.__("messages.has been sent!"), "success");
               this.messages.push(response.data);
               this.$nextTick(this.scrollToBottom);
               this.resetValidation();

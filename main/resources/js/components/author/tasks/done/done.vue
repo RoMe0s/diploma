@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __("author.tasks.index") }}
+                {{ __("messages.done tasks") }}
             </b-card-title>
         </b-card-header>
         <b-card-body>

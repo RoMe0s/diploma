@@ -2,7 +2,7 @@
     <b-card no-body v-if="value">
         <b-card-header>
             <b-card-title>
-                {{ __("customer.orders.edit") }} #{{ id }}
+                {{ __("messages.edit") }} #{{ id }}
                 <b-button-group class="float-right">
                     <b-link class="btn btn-primary" href="/orders" :title="__('messages.to list')">
                         <i class="fa fa-arrow-left"></i>

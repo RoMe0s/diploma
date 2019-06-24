@@ -3,7 +3,7 @@
         <b-card-body>
             <b-form-group>
                 <b-form-input name="amount" v-model="amount" v-validate="'required|numeric|min_value:0'"
-                              :state="noErrors('amount')" :placeholder="__('messages.amount')"/>
+                              :state="noErrors('amount')" :placeholder="__('fields.amount')"/>
                 <b-form-invalid-feedback>
                     {{ errors.first('amount') }}
                 </b-form-invalid-feedback>

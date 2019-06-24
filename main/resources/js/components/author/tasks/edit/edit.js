@@ -66,7 +66,7 @@ export default {
           this.sendRequest("author.tasks.to-check", this.id)
             .then(() => {
               this.onCheck = true;
-              Swal.fire(this.__("messages.have been sent!"), "", "success");
+              Swal.fire(this.__("messages.has been sent!"), "", "success");
             });
         }
       });

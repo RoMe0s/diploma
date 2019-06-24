@@ -22,7 +22,7 @@ class RootResource extends JsonResource
 
         return [
             'callback_url' => 'http://webserver/check/' . $task->id,
-            'html' => $this->whenLoaded('text', $task->text->content),
+            'html' => $this->whenLoaded('text', $task->text->content, ''),
             'plan' => PlanResource::make($order->plan)->resolve(),
             'settings' => SettingResource::collection($this->whenLoaded('settings'))->resolve()
         ];

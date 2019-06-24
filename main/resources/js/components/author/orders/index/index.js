@@ -23,22 +23,22 @@ export default {
         {
           key: "size_from",
           sortable: true,
-          label: this.__("columns.sizes.from")
+          label: this.__("columns.size_from")
         },
         {
           key: "size_to",
           sortable: true,
-          label: this.__("columns.sizes.to")
+          label: this.__("columns.size_to")
         },
         {
           key: "min_price",
           sortable: true,
-          label: this.__("columns.prices.min")
+          label: this.__("columns.price_min")
         },
         {
           key: "max_price",
           sortable: true,
-          label: this.__("columns.prices.max")
+          label: this.__("columns.price_max")
         },
         {
           key: "actions",
@@ -70,7 +70,7 @@ export default {
         if (result.value === true) {
           this.sendRequest("author.orders.append", id)
             .then(() => {
-              Swal.fire(this.__("messages.appended!"), "", "success")
+              Swal.fire(this.__("messages.accepted!"), "", "success")
               this.eventHub.$emit("order-was-taken")
               this.$refs.table.refresh()
             })

@@ -37,7 +37,7 @@
           },
           {
             href: '/checks',
-            title: this.__('messages. on check'),
+            title: this.__('messages.on check'),
             icon: 'fa fa-clock',
             badge: {
               text: this.tasksCount,

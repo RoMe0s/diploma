@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __('customer.projects.settings.index') }} "{{ project.name }}"
+                {{ __('messages.settings') }} "{{ project.name }}"
                 <b-button-group class="float-right">
                     <b-link class="btn btn-primary" :href="`/projects/${project.id}/edit`"
                             :title="__('messages.to list')">

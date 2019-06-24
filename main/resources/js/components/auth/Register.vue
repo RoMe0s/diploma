@@ -2,7 +2,7 @@
     <b-card no-body>
         <b-card-header>
             <b-card-title>
-                {{ __('auth.register') }}
+                {{ __('messages.register') }}
             </b-card-title>
         </b-card-header>
         <b-card-body>
@@ -88,7 +88,7 @@
       },
       transformRoles() {
         return _.transform(this.roles, (result, value) => {
-          result[value] = this.__(`auth.roles.${value}`);
+          result[value] = this.__(`messages.roles.${value}`);
         }, {});
       }
     }
