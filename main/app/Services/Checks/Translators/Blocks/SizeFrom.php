@@ -2,6 +2,7 @@
 
 namespace App\Services\Checks\Translators\Blocks;
 
+use App\Constants\Plan\Heading;
 use App\Models\Task\Task;
 use App\Services\Checks\Translators\TranslatorInterface;
 
@@ -46,9 +47,10 @@ class SizeFrom implements TranslatorInterface
      */
     private function getBlockName(Task $task, int $position): string
     {
-        if ($position > 1) {
-            return $task->order->plan->blocks->where('position', $position)->first()->name;
+        $hasOpeningBlock = $task->order->plan->blocks->where('heading', Heading::OPENING)->isNotEmpty();
+        if ($hasOpeningBlock && $position < 2) {
+            return __('messages.opening block');
         }
-        return __('messages.opening block');
+        return $task->order->plan->blocks->where('position', $position)->first()->name;
     }
 }

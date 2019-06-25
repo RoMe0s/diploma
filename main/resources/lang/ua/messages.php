@@ -105,5 +105,10 @@ return [
     'yes, rollback!' => 'Так, повернути!',
     'rollback reason' => 'Причина повернення',
     'has been rolled back!' => 'Повернуто на перевірку!',
-    'unfortunately, the time is over' => 'Нажаль, час вийшов'
+    'unfortunately, the time is over' => 'Нажаль, час вийшов',
+    'changed!' => 'Змінено!',
+    'yes, refill!' => 'Так, поповнити!',
+    'has been refilled successfully!' => 'Успішно поповнено',
+    'yes, withdraw funds!' => 'Так, вивести кошти!',
+    'has been withdrawn successfully!' => 'Кошти були успішно виведені'
 ];
