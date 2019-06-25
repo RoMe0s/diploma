@@ -34,7 +34,7 @@ class Customer
     public function getLocked(): float
     {
         $lockedAmount = $this->balance->lockedChunks()->sum('amount');
-        return CustomerPrice::convert($lockedAmount);
+        return CustomerPrice::withTaxes($lockedAmount);
     }
 
     /**

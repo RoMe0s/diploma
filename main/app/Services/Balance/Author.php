@@ -38,7 +38,7 @@ class Author
         $lockedAmount = LockedChunk::query()->whereHas('order.task', function (Builder $builder) {
             $builder->where('user_id', $this->balance->user_id);
         })->sum('amount');
-        return AuthorPrice::convert($lockedAmount);
+        return AuthorPrice::withTaxes($lockedAmount);
     }
 
     /**

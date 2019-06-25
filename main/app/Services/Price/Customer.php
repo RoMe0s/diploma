@@ -10,7 +10,7 @@ class Customer extends Price
      * @param float $price
      * @return float
      */
-    public static function convert(float $price): float
+    public static function withTaxes(float $price): float
     {
         return parent::convert($price * Tax::CUSTOMER);
     }
